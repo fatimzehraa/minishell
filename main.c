@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:21:25 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/07/13 16:09:05 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/07/13 17:06:35 by fael-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,12 @@ void	handler(int sig, siginfo_t *infos, void *ptr)
 	(void)infos;
 	(void)ptr;
 	if (sig == SIGINT)
+	{
+		printf("\n");
 		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
 
 int main (int argc, char *argv[])
