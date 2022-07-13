@@ -10,13 +10,14 @@ int	launch()
 
 	while (1)
 	{
-		command = readline("$>");
+		command = readline("$> ");
 		if (command == NULL)
 		{
 			printf("exit\n");
 			break;
 		}
-		add_history(command);
+		if (command[0] != '\0')
+			add_history(command);
 		printf("%s\n", command);
 	}
 	return (1);
