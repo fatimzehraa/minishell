@@ -6,15 +6,16 @@
 #    By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/01 13:52:25 by fael-bou          #+#    #+#              #
-#    Updated: 2022/07/12 16:21:07 by fael-bou         ###   ########.fr        #
+#    Updated: 2022/07/12 21:11:04 by fael-bou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
+LDFLAGS = -lreadline
 BUILD_DIR = build
 
-MANDATORY_OBJ = main.o 
+MANDATORY_OBJ = main.o
 
 M_OBJ = $(addprefix $(BUILD_DIR)/, $(MANDATORY_OBJ))
 
@@ -23,7 +24,7 @@ NAME = minishell
 all : $(NAME)
 
 $(NAME) : $(M_OBJ)
-	$(CC) $^ -o $@
+	$(CC) $(LDFLAGS) $^ -o $@
 
 $(BUILD_DIR)/%.o: %.c
 	mkdir -p $(@D)
