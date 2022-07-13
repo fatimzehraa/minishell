@@ -1,0 +1,34 @@
+[
+ {
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
+   "src/main.c",
+   "-o",
+   "build/main.o"
+  ],
+  "file": "src/main.c"
+ },
+ {
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
+   "src/signals.c",
+   "-o",
+   "build/signals.o"
+  ],
+  "file": "src/signals.c"
+ }
+]
