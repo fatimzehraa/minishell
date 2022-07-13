@@ -38,6 +38,11 @@ int main (int argc, char *argv[])
 		sigaction(SIGQUIT, &act, NULL);
 		sigaction(SIGINT, &act, NULL);
 		command = readline("$>");
+		if (command == NULL)
+		{
+			printf("exit\n");
+			break;
+		}
 		add_history(command);
 		printf("%s\n", command);
 	}
