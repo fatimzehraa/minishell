@@ -4,7 +4,10 @@ LDFLAGS = -lreadline
 INCLUDES = -I./inc
 BUILD_DIR = build
 
-MANDATORY_OBJ = main.o signals.o
+MANDATORY_OBJ = main.o signals.o \
+	lists/ft_lstadd_back.o lists/ft_lstclear.o lists/ft_lstiter.o \
+	lists/ft_lstmap.o lists/ft_lstsize.o lists/ft_lstadd_front.o \
+	lists/ft_lstdelone.o lists/ft_lstlast.o lists/ft_lstnew.o
 
 M_OBJ = $(addprefix $(BUILD_DIR)/, $(MANDATORY_OBJ))
 
