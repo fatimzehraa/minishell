@@ -4,7 +4,7 @@ LDFLAGS = -lreadline
 INCLUDES = -I./inc
 BUILD_DIR = build
 
-MANDATORY_OBJ = main.o signals.o \
+MANDATORY_OBJ = main.o signals.o utils/ft_lib.o utils/str.o utils/vector.o \
 	lists/ft_lstadd_back.o lists/ft_lstclear.o lists/ft_lstiter.o \
 	lists/ft_lstmap.o lists/ft_lstsize.o lists/ft_lstadd_front.o \
 	lists/ft_lstdelone.o lists/ft_lstlast.o lists/ft_lstnew.o
