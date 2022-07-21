@@ -3,6 +3,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <signal.h>
+#include "token.h"
 
 int	launch()
 {
@@ -18,7 +19,8 @@ int	launch()
 		}
 		if (command[0] != '\0')
 			add_history(command);
-		printf("%s\n", command);
+		exec_line(command);
+		free(command);
 	}
 	return (1);
 }
