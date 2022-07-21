@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   tokenizer.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fatimzehra </var/spool/mail/fatimzehra>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/18 14:32:41 by fatimzehra        #+#    #+#             */
-/*   Updated: 2022/07/20 23:44:59 by fatimzehra       ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "list.h"
 #include "minishell.h"
 #include "str.h"
@@ -70,7 +58,7 @@ t_list	*ft_get_node(char *cmd)
 	else if (*cmd == '$' && is_var(cmd + 1))
 	{
 		tk(node)->type = TOKEN_VAR;
-		tk(node)->len = var_len(cmd + 1);
+		tk(node)->len = var_len(cmd + 1) + 1;
 		tk(node)->value = ft_strndup(cmd, tk(node)->len);
 	}
 	else

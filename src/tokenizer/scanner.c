@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   scanner.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fatimzehra </var/spool/mail/fatimzehra>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/21 18:57:03 by fatimzehra        #+#    #+#             */
-/*   Updated: 2022/07/21 20:33:24 by fatimzehra       ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "token.h"
 #include "str.h"
 
@@ -32,7 +20,7 @@ int	var_len(char *cmd)
 	len = 0;
 	if (cmd[0] == '?')
 		return (1);
-	while (ft_strchr(VAR_CHAR, cmd[len]))
+	while (cmd[len] && ft_strchr(VAR_CHAR, cmd[len]))
 		len++;
 	return (len);
 }
