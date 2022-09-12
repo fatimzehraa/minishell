@@ -1,8 +1,9 @@
 [
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/fael-bou/Desktop/minishell",
   "arguments": [
    "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -16,9 +17,10 @@
   "file": "src/main.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/fael-bou/Desktop/minishell",
   "arguments": [
    "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -30,5 +32,294 @@
    "build/signals.o"
   ],
   "file": "src/signals.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
+   "src/exec.c",
+   "-o",
+   "build/exec.o"
+  ],
+  "file": "src/exec.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
+   "src/tokenizer/tokenizer.c",
+   "-o",
+   "build/tokenizer/tokenizer.o"
+  ],
+  "file": "src/tokenizer/tokenizer.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
+   "src/tokenizer/utils.c",
+   "-o",
+   "build/tokenizer/utils.o"
+  ],
+  "file": "src/tokenizer/utils.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
+   "src/tokenizer/scanner.c",
+   "-o",
+   "build/tokenizer/scanner.o"
+  ],
+  "file": "src/tokenizer/scanner.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
+   "src/utils/ft_lib.c",
+   "-o",
+   "build/utils/ft_lib.o"
+  ],
+  "file": "src/utils/ft_lib.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
+   "src/utils/str.c",
+   "-o",
+   "build/utils/str.o"
+  ],
+  "file": "src/utils/str.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
+   "src/utils/str_extra.c",
+   "-o",
+   "build/utils/str_extra.o"
+  ],
+  "file": "src/utils/str_extra.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
+   "src/utils/vector.c",
+   "-o",
+   "build/utils/vector.o"
+  ],
+  "file": "src/utils/vector.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
+   "src/lists/ft_lstadd_back.c",
+   "-o",
+   "build/lists/ft_lstadd_back.o"
+  ],
+  "file": "src/lists/ft_lstadd_back.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
+   "src/lists/ft_lstclear.c",
+   "-o",
+   "build/lists/ft_lstclear.o"
+  ],
+  "file": "src/lists/ft_lstclear.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
+   "src/lists/ft_lstiter.c",
+   "-o",
+   "build/lists/ft_lstiter.o"
+  ],
+  "file": "src/lists/ft_lstiter.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
+   "src/lists/ft_lstmap.c",
+   "-o",
+   "build/lists/ft_lstmap.o"
+  ],
+  "file": "src/lists/ft_lstmap.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
+   "src/lists/ft_lstsize.c",
+   "-o",
+   "build/lists/ft_lstsize.o"
+  ],
+  "file": "src/lists/ft_lstsize.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
+   "src/lists/ft_lstadd_front.c",
+   "-o",
+   "build/lists/ft_lstadd_front.o"
+  ],
+  "file": "src/lists/ft_lstadd_front.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
+   "src/lists/ft_lstdelone.c",
+   "-o",
+   "build/lists/ft_lstdelone.o"
+  ],
+  "file": "src/lists/ft_lstdelone.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
+   "src/lists/ft_lstlast.c",
+   "-o",
+   "build/lists/ft_lstlast.o"
+  ],
+  "file": "src/lists/ft_lstlast.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
+   "src/lists/ft_lstnew.c",
+   "-o",
+   "build/lists/ft_lstnew.o"
+  ],
+  "file": "src/lists/ft_lstnew.c"
  }
 ]

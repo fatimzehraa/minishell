@@ -1,6 +1,6 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
-LDFLAGS = -lreadline
+CFLAGS += -Wall -Wextra -Werror -g
+LDFLAGS += -lreadline
 INCLUDES = -I./inc
 BUILD_DIR = build
 
