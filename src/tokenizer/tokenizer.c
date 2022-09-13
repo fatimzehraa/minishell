@@ -82,7 +82,7 @@ t_list	*tokenizer(char	*command)
 // ghan3tiwha fin kaybda line o trje3 l commande w type dyalha f node
 		if (node == NULL)
 		{
-			ft_lstclear(&list, free_token);
+			return (ft_lstclear(&list, free_token), NULL);
 		}
 		ft_lstadd_back(&list, node);
 		command += tk(node)->len;
