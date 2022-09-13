@@ -1,9 +1,8 @@
 [
  {
-  "directory": "/Users/fael-bou/Desktop/minishell",
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -17,10 +16,9 @@
   "file": "src/main.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/minishell",
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -34,10 +32,9 @@
   "file": "src/signals.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/minishell",
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -51,10 +48,9 @@
   "file": "src/exec.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/minishell",
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -68,10 +64,9 @@
   "file": "src/tokenizer/tokenizer.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/minishell",
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -85,10 +80,9 @@
   "file": "src/tokenizer/utils.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/minishell",
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -102,10 +96,9 @@
   "file": "src/tokenizer/scanner.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/minishell",
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -119,10 +112,9 @@
   "file": "src/utils/ft_lib.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/minishell",
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -136,10 +128,9 @@
   "file": "src/utils/str.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/minishell",
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -153,10 +144,9 @@
   "file": "src/utils/str_extra.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/minishell",
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -170,10 +160,41 @@
   "file": "src/utils/vector.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/minishell",
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
+   "src/parser/expand.c",
+   "-o",
+   "build/parser/expand.o"
+  ],
+  "file": "src/parser/expand.c"
+ },
+ {
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
+   "src/parser/parser.c",
+   "-o",
+   "build/parser/parser.o"
+  ],
+  "file": "src/parser/parser.c"
+ },
+ {
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "arguments": [
+   "cc",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -187,10 +208,9 @@
   "file": "src/lists/ft_lstadd_back.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/minishell",
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -204,10 +224,9 @@
   "file": "src/lists/ft_lstclear.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/minishell",
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -221,10 +240,9 @@
   "file": "src/lists/ft_lstiter.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/minishell",
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -238,10 +256,9 @@
   "file": "src/lists/ft_lstmap.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/minishell",
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -255,10 +272,9 @@
   "file": "src/lists/ft_lstsize.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/minishell",
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -272,10 +288,9 @@
   "file": "src/lists/ft_lstadd_front.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/minishell",
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -289,10 +304,9 @@
   "file": "src/lists/ft_lstdelone.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/minishell",
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -306,10 +320,9 @@
   "file": "src/lists/ft_lstlast.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/minishell",
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
