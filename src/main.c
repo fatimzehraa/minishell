@@ -7,20 +7,20 @@
 
 int	launch()
 {
-	char *command;
+	char *line;
 
 	while (1)
 	{
-		command = readline("$> ");
-		if (command == NULL)
+		line = readline("$> ");
+		if (line == NULL)
 		{
 			printf("exit\n");
 			break;
 		}
-		if (command[0] != '\0')
-			add_history(command);
-		exec_line(command);
-		free(command);
+		if (line[0] != '\0')
+			add_history(line);
+		exec_line(line);
+		free(line);
 	}
 	return (1);
 }
