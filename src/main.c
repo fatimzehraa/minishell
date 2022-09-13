@@ -4,8 +4,9 @@
 #include <readline/history.h>
 #include <signal.h>
 #include "token.h"
+#include "vector.h"
 
-int	launch()
+int	launch(t_ctx *ctx)
 {
 	char *command;
 
@@ -19,18 +20,21 @@ int	launch()
 		}
 		if (command[0] != '\0')
 			add_history(command);
-		exec_line(command);
+		exec_line(command, ctx);
 		free(command);
 	}
 	return (1);
 }
 
-int main (int argc, char *argv[])
+int main (int argc, char *argv[], char **envp)
 {
 	(void)argc;
 	(void)argv;
+	t_ctx	ctx;
 
 	setup_signals();
-	launch();
+	if(!clone_env(envp, &ctx.env))
+		return (1);
+	launch(&ctx);
 	return 0;
 }

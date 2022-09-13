@@ -2,6 +2,7 @@
 #define TOKEN_H
 
 # include"list.h"
+# include"minishell.h"
 
 # define VAR_CHAR "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789_"
 enum e_token {
@@ -24,7 +25,7 @@ typedef struct s_token {
 	int				len;
 } t_token;
 
-void	exec_line(char *cmd);
+void	exec_line(char *cmd, t_ctx *ctx);
 t_list	*tokenizer(char	*command);
 t_token	*tk(t_list *node);
 void	free_token(void *ptr);
