@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 14:27:14 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/09/15 20:48:53 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/09/15 21:14:38 by fael-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*get_env(char *var, t_vec *env)
 
 int export(char *new_var, t_vec *env)
 {
-	return (vec_add(env, new_var));
+	return (vec_add(env, ft_strndup(new_var, -1)));
 }
 
 void	unset(char *var, t_vec *env)
