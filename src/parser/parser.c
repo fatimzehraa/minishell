@@ -6,7 +6,7 @@
 /*   By: fatimzehra </var/spool/mail/fatimzehra>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 15:14:19 by fatimzehra        #+#    #+#             */
-/*   Updated: 2022/07/24 15:15:15 by fatimzehra       ###   ########.fr       */
+/*   Updated: 2022/09/15 22:17:27 by fael-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include "parser.h"
 #include "minishell.h"
 
-t_list	*parser(t_list *tokens)
+t_list	*parser(t_list *tokens, t_ctx *ctx)
 {
 
-	expand(tokens);
+	expand(tokens, ctx);
 	return (tokens);
 }

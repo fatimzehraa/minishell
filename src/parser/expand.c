@@ -3,15 +3,16 @@
 #include "token.h"
 #include "parser.h"
 #include <stdlib.h>
+#include "minishell.h"
 
 
 //push
 //TODO 
-char	*get_env(char	*value)
-{
-	(void)value;
-	return ("mamak");
-}
+//char	*get_env(char	*value)
+//{
+//	(void)value;
+//	return ("mamak");
+//}
 
 char	*expand_literal(t_list	*curr)
 {
@@ -36,7 +37,7 @@ int	until(char *str, char *limits)
 	return (i);
 }
 
-char	*expand_template(t_list *curr)
+char	*expand_template(t_list *curr, t_ctx *ctx)
 {
 	char	*str;
 	char	*template;
@@ -50,8 +51,8 @@ char	*expand_template(t_list *curr)
 		if (*str == '$' && is_var(str + 1))
 		{
 			v_len = var_len(str + 1) + 1;
-			len = ft_strlen(get_env(ft_strndup(str, v_len)));
-			template = ft_strjoin(template, get_env(ft_strndup(str, v_len)), len);
+			len = ft_strlen(get_env(ft_strndup(str, v_len), &(ctx->env)));
+			template = ft_strjoin(template, get_env(ft_strndup(str, v_len), &(ctx->env)), len);
 			str += v_len;
 		}
 		else
@@ -64,7 +65,7 @@ char	*expand_template(t_list *curr)
 	return (template);
 }
 
-int	expand(t_list *tokens)
+int	expand(t_list *tokens, t_ctx *ctx)
 {
 	t_list	*curr;
 	
@@ -72,11 +73,11 @@ int	expand(t_list *tokens)
 	while (curr)
 	{
 		if (tk(curr)->type == TOKEN_VAR)
-			tk(curr)->value = get_env(tk(curr)->value);
+			tk(curr)->value = get_env(tk(curr)->value, &(ctx->env));
 		else if (tk(curr)->type == TOKEN_LITERAL)
 			tk(curr)->value = expand_literal(curr);
 		else if (tk(curr)->type == TOKEN_TEMPLATE)
-			tk(curr)->value = expand_template(curr);
+			tk(curr)->value = expand_template(curr, ctx);
 		curr = curr->next;
 	}
 	return (1);

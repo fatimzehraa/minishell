@@ -1,11 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/15 21:59:14 by fael-bou          #+#    #+#             */
+/*   Updated: 2022/09/15 22:01:24 by fael-bou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <signal.h>
 #include "token.h"
+#include "vector.h"
 
-int	launch()
+int	launch(t_ctx *ctx)
 {
 	char *line;
 
@@ -19,18 +32,21 @@ int	launch()
 		}
 		if (line[0] != '\0')
 			add_history(line);
-		exec_line(line);
+		exec_line(line, ctx);
 		free(line);
 	}
 	return (1);
 }
 
-int main (int argc, char *argv[])
+int main (int argc, char *argv[], char **envp)
 {
 	(void)argc;
 	(void)argv;
+	t_ctx	ctx;
 
 	setup_signals();
-	launch();
+	if(!clone_env(envp, &ctx.env))
+		return (1);
+	launch(&ctx);
 	return 0;
 }

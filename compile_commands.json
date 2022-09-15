@@ -57,6 +57,22 @@
    "-g",
    "-I./inc",
    "-c",
+   "src/env.c",
+   "-o",
+   "build/env.o"
+  ],
+  "file": "src/env.c"
+ },
+ {
+  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-I./inc",
+   "-c",
    "src/tokenizer/tokenizer.c",
    "-o",
    "build/tokenizer/tokenizer.o"
