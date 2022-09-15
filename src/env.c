@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/15 14:27:14 by fael-bou          #+#    #+#             */
+/*   Updated: 2022/09/15 20:48:53 by fael-bou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include <stdlib.h>
 #include "list.h"
@@ -5,42 +17,42 @@
 
 int	clone_env(char **envp, t_vec *env)
 {
-	(void) envp;
-	(void) env;
-	return (0);
-}
+	int i;
 
-t_list	*clone(char **env)
-{
-	int		i;
-	t_list	*lst_env;
-
-	lst_env = NULL;
+	init_vec(env, 100);
 	i = 0;
-	while (env[i])
+	while (envp[i])
 	{
-		ft_lstadd_back(&lst_env, ft_lstnew(env[i]));
+		if (vec_add(env, ft_strndup(envp[i], -1)) == 0)
+			return (free_vec(env), 0);
 		i++;
 	}
-	return (lst_env);
+	return (1);
 }
 //TODO 
-char	*get_env(char	*var, t_list *lst_env)
-{
-	t_list	*curr;
-	char	*value;
 
-	value = NULL;
-	curr = lst_env;
-	while (curr)
-	{
-		if (ft_strncmp(var, curr->content, ft_strlen(var)))
-		{
-			value = getenv(curr->content);
-			break ;
-		}
-		curr = curr->next;
-	}
+char	*get_env(char *var, t_vec *env)
+{
+	char	*value;
+	int		holder;
+
+	holder = search_vec(env, var);
+	if (holder == -1)
+		value = ft_strndup("", -1);
+	else
+		value = ft_strndup(env->content[holder] + ft_strlen(var), -1);
 	return (value);
 }
 
+int export(char *new_var, t_vec *env)
+{
+	return (vec_add(env, new_var));
+}
+
+void	unset(char *var, t_vec *env)
+{
+	int	position;
+
+	position = search_vec(env, var);
+	vec_rem(env, position);
+}
