@@ -69,7 +69,7 @@ int	search_vec(t_vec *arr, char *name)
 	i = 0;
 	while (arr->content[i])
 	{
-		if (ft_strncmp(arr->content[i], name, ft_strlen(name)) == 0
+		if (ft_strncmp((char *)arr->content[i], name, ft_strlen(name)) == 0
 			&& (((char *)arr->content[i])[ft_strlen(name)] == '='
 			|| ((char *)arr->content[i])[ft_strlen(name)] == '\0'))
 			return (i);

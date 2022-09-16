@@ -5,15 +5,6 @@
 #include <stdlib.h>
 #include "minishell.h"
 
-
-//push
-//TODO 
-//char	*get_env(char	*value)
-//{
-//	(void)value;
-//	return ("mamak");
-//}
-
 char	*expand_literal(t_list	*curr)
 {
 	char	*literal;

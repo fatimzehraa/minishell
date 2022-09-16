@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 14:27:14 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/09/15 21:29:31 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/09/16 17:21:13 by fael-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,14 @@ int	clone_env(char **envp, t_vec *env)
 }
 //TODO 
 
+#include<stdio.h>
+
 char	*get_env(char *var, t_vec *env)
 {
 	char	*value;
 	int		holder;
 
-	holder = search_vec(env, var);
+	holder = search_vec(env, var + 1);
 	if (holder == -1)
 		value = ft_strndup("", -1);
 	else
