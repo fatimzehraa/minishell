@@ -5,15 +5,6 @@
 #include <stdlib.h>
 #include "minishell.h"
 
-char	*expand_literal(t_list	*curr)
-{
-	char	*literal;
-
-	literal = ft_strndup(tk(curr)->value + 1, tk(curr)->len - 2);
-	free(tk(curr)->value);
-	return (literal);
-}
-
 int	until(char *str, char *limits)
 {
 	int	i;
@@ -65,8 +56,6 @@ int	expand(t_list *tokens, t_ctx *ctx)
 	{
 		if (tk(curr)->type == TOKEN_VAR)
 			tk(curr)->value = get_env(tk(curr)->value, &(ctx->env));
-		else if (tk(curr)->type == TOKEN_LITERAL)
-			tk(curr)->value = expand_literal(curr);
 		else if (tk(curr)->type == TOKEN_TEMPLATE)
 			tk(curr)->value = expand_template(curr, ctx);
 		curr = curr->next;
