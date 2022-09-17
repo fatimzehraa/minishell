@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/15 14:27:14 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/09/16 17:21:13 by fael-bou         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 #include <stdlib.h>
 #include "list.h"
@@ -29,20 +17,17 @@ int	clone_env(char **envp, t_vec *env)
 	}
 	return (1);
 }
-//TODO 
-
-#include<stdio.h>
 
 char	*get_env(char *var, t_vec *env)
 {
 	char	*value;
 	int		holder;
 
-	holder = search_vec(env, var + 1);
+	holder = search_vec(env, var);
 	if (holder == -1)
 		value = ft_strndup("", -1);
 	else
-		value = ft_strndup(env->content[holder] + ft_strlen(var), -1);
+		value = ft_strndup(env->content[holder] + ft_strlen(var) + 1, -1);
 	return (value);
 }
 
