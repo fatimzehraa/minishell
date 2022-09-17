@@ -14,7 +14,8 @@ char	*ft_strndup(char *src, int len);
 int		ft_append(char *dest, char *src, int len);
 int		til_set(char *str, char *set, int n);
 char	*ft_strchr(char *s, int c);
-int		is_space(char a);
-int		ft_isalpha(int c);
+int	is_space(char c);
+int	ft_isalpha(int c);
+int	ft_isnum(int c);
 
 #endif

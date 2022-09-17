@@ -1,8 +1,9 @@
 [
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -16,9 +17,10 @@
   "file": "src/main.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -32,9 +34,10 @@
   "file": "src/signals.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -48,9 +51,10 @@
   "file": "src/exec.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -64,9 +68,10 @@
   "file": "src/env.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -80,9 +85,10 @@
   "file": "src/tokenizer/tokenizer.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -96,9 +102,10 @@
   "file": "src/tokenizer/utils.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -112,9 +119,10 @@
   "file": "src/tokenizer/scanner.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -128,9 +136,10 @@
   "file": "src/utils/ft_lib.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -144,9 +153,10 @@
   "file": "src/utils/str.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -160,9 +170,10 @@
   "file": "src/utils/str_extra.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -176,9 +187,10 @@
   "file": "src/utils/vector.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -192,9 +204,10 @@
   "file": "src/parser/expand.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -208,9 +221,10 @@
   "file": "src/parser/parser.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -224,9 +238,10 @@
   "file": "src/lists/ft_lstadd_back.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -240,9 +255,10 @@
   "file": "src/lists/ft_lstclear.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -256,9 +272,10 @@
   "file": "src/lists/ft_lstiter.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -272,9 +289,10 @@
   "file": "src/lists/ft_lstmap.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -288,9 +306,10 @@
   "file": "src/lists/ft_lstsize.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -304,9 +323,10 @@
   "file": "src/lists/ft_lstadd_front.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -320,9 +340,10 @@
   "file": "src/lists/ft_lstdelone.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -336,9 +357,10 @@
   "file": "src/lists/ft_lstlast.c"
  },
  {
-  "directory": "/home/fatimzehra/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
