@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   str_extra.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fatimzehra </var/spool/mail/fatimzehra>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/18 14:13:49 by fatimzehra        #+#    #+#             */
-/*   Updated: 2022/07/20 15:01:05 by fatimzehra       ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "token.h"
 #include "str.h"
 #include "utils.h"
@@ -32,10 +20,12 @@ int	is_space(char a)
 
 int	ft_isalpha(int c)
 {
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-		return (1);
-	else
-		return (0);
+	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
+}
+
+int ft_isnum(int c)
+{
+	return (c >= '0' && c <= '9');
 }
 
 void	ft_strncpy(char *dest, char *src, unsigned int size)

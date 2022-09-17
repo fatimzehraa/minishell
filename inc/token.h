@@ -4,7 +4,8 @@
 # include"list.h"
 # include"minishell.h"
 
-# define VAR_CHAR "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789_"
+# define CHAR_DQ '"'
+# define CHAR_SQ '\''
 enum e_token {
 	TOKEN_WORD = 1,
 	TOKEN_LITERAL = 1<<1,
@@ -16,7 +17,9 @@ enum e_token {
 	TOKEN_HEREDOC = 1<<7,
 	TOKEN_PIPE = 1<<8,
 	TOKEN_WHITESPACE = 1<<9,
-	TOKEN_EOL = 1<<10,
+	TOKEN_AND= 1<<10,
+	TOKEN_OR= 1<<11,
+	TOKEN_EOL = 1<<12,
 };
 
 typedef struct s_token {
@@ -34,5 +37,6 @@ int	string_len(char *cmd, char c);
 int	is_var(char *cmd);
 int	var_len(char *cmd);
 int word_len(char *cmd);
+int tk_fill(t_list *node, enum e_token type, char *dup_value, int len);
 
 #endif // !TOKEN_H
