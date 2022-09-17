@@ -1,6 +1,13 @@
 #ifndef STR_H
 #define STR_H
 
+typedef struct s_str
+{
+	char *val;
+	int size;
+	int cap;
+}	t_str;
+
 int		ft_strlen(char *s);
 int		has_chars(char c, char *chrs);
 int		is_space(char c);
@@ -18,4 +25,8 @@ int	is_space(char c);
 int	ft_isalpha(int c);
 int	ft_isnum(int c);
 
+int str_mk(t_str *str, char *s);
+int str_push(t_str *s1, t_str *s2);
+int str_same(t_str *s1, t_str *s2, int s2_size);
+int str_clone(t_str *dest, t_str *src);
 #endif

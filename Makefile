@@ -5,7 +5,7 @@ INCLUDES = -I./inc
 BUILD_DIR = build
 
 MANDATORY_OBJ = main.o signals.o exec.o env.o tokenizer/tokenizer.o tokenizer/utils.o \
-	tokenizer/scanner.o utils/ft_lib.o utils/str.o utils/str_extra.o \
+	tokenizer/scanner.o str/core.o utils/ft_lib.o utils/str.o utils/str_extra.o \
 	utils/vector.o \
 	parser/expand.o parser/parser.o \
 	lists/ft_lstadd_back.o lists/ft_lstclear.o lists/ft_lstiter.o \
