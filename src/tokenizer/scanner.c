@@ -8,8 +8,6 @@ int	string_len(char *cmd, char c)
 	len = 0;
 	while (cmd[len] && cmd[len] != c)
 		len++;
-	if (cmd[len] == c)
-		len++;
 	return (len);
 }
 

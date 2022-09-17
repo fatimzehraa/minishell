@@ -3,71 +3,65 @@
 #include "str.h"
 #include "token.h"
 
-/*int	is_new_token(char c)
+int whitesp_len(char *line)
 {
-	int	
-}*/
+	int len;
+	
+	len = 0;
+	while (is_space(line[len]))
+		len++;
+	return len;
+}
 
-t_list	*ft_get_node(char *cmd)
+int get_simple_nodes(t_list *node, char *line)
 {
-	t_list	*node;
+	if (ft_strncmp(line, ">>", 2) == 0)
+		tk_fill(node, TOKEN_RED_APPEND, NULL, 2);
+	else if (is_space(*line))
+	{
+		tk_fill(node, TOKEN_WHITESPACE, NULL, whitesp_len(line));
+	}
+	else if (ft_strncmp(line, "<<", 2) == 0)
+		tk_fill(node, TOKEN_HEREDOC, NULL, 2);
+	else if (ft_strncmp(line, "&&", 2) == 0)
+		tk_fill(node, TOKEN_AND, NULL, 2);
+	else if (ft_strncmp(line, "||", 2) == 0)
+		tk_fill(node, TOKEN_OR, NULL, 2);
+	else if (*line == '>')
+		tk_fill(node, TOKEN_RED_OUT, NULL, 1);
+	else if (*line == '<')
+		tk_fill(node, TOKEN_RED_IN, NULL, 1);
+	else if (*line == '|')
+		tk_fill(node, TOKEN_PIPE, NULL, 1);
+	else
+		return 0;
+	return 1;
+}
 
-	node = new_token(NULL);
-	if (ft_strncmp(cmd, ">>", 2) == 0)
+char *ft_get_node(t_list	*node, char *line)
+{
+	if (get_simple_nodes(node, line))
+		return line + tk(node)->len;
+	else if (*line == CHAR_SQ)
 	{
-		tk(node)->type = TOKEN_RED_APPEND;
-		tk(node)->len = 2;
+		tk_fill(node, TOKEN_LITERAL, line + 1, string_len(line + 1, CHAR_SQ));
+		line += 2;
 	}
-	if (ft_strncmp(cmd, "<<", 2) == 0)
+	else if (*line == CHAR_DQ)
 	{
-		tk(node)->type = TOKEN_HEREDOC;
-		tk(node)->len = 2;
+		tk_fill(node, TOKEN_TEMPLATE, line + 1, string_len(line + 1, CHAR_DQ));
+		line += 2;
 	}
-	else if (*cmd == '>')
+	else if (*line == '$' && is_var(line + 1))
 	{
-		tk(node)->type = TOKEN_RED_OUT;
-		tk(node)->len = 1;
-	}
-	else if (*cmd == '<')
-	{
-		tk(node)->type = TOKEN_RED_IN;
-		tk(node)->len = 1;
-	}
-	else if (*cmd == '|')
-	{
-		tk(node)->type = TOKEN_PIPE;
-		tk(node)->len = 1;
-	}
-	else if (is_space(*cmd))
-	{
-		tk(node)->type = TOKEN_WHITESPACE;
-		tk(node)->len = 1;
-	}
-	else if (*cmd == '\'')
-	{
-		tk(node)->type = TOKEN_LITERAL;	
-		tk(node)->len = string_len(cmd + 1, '\'') + 1;
-		tk(node)->value = ft_strndup(cmd, tk(node)->len);
-	}
-	else if (*cmd == '\"')
-	{
-		tk(node)->type = TOKEN_TEMPLATE;
-		tk(node)->len = string_len(cmd + 1, '\"') + 1;
-		tk(node)->value = ft_strndup(cmd, tk(node)->len);
-	}
-	else if (*cmd == '$' && is_var(cmd + 1))
-	{
-		tk(node)->type = TOKEN_VAR;
-		tk(node)->len = var_len(cmd + 1) + 1;
-		tk(node)->value = ft_strndup(cmd, tk(node)->len);
+		line++;
+		tk_fill(node, TOKEN_VAR, line, var_len(line));
 	}
 	else
-	{
-		tk(node)->type = TOKEN_WORD;
-		tk(node)->len = word_len(cmd);
-		tk(node)->value = ft_strndup(cmd, tk(node)->len);
-	}	
-	return (node);
+		tk_fill(node, TOKEN_WORD, line, word_len(line));
+	if (tk(node)->value == NULL)
+		return NULL;
+	return (line + tk(node)->len);
 }
 
 t_list	*tokenizer(char	*command)
@@ -78,14 +72,17 @@ t_list	*tokenizer(char	*command)
 	list = NULL;
 	while (*command)
 	{
-		node = ft_get_node(command);
-// ghan3tiwha fin kaybda line o trje3 l commande w type dyalha f node
+		node = new_token(NULL);
 		if (node == NULL)
-		{
-			ft_lstclear(&list, free_token);
-		}
+			return (ft_lstclear(&list, free_token), NULL);
+		command = ft_get_node(node, command);
+		if (command == NULL)
+			return (ft_lstclear(&list, free_token), NULL);
 		ft_lstadd_back(&list, node);
-		command += tk(node)->len;
 	}
+	node = new_token(NULL);
+	if (node == NULL)
+		return (ft_lstclear(&list, free_token), NULL);
+	ft_lstadd_back(&list, node);
 	return (list);
 }
