@@ -42,5 +42,7 @@ int word_len(char *cmd)
 		len++;
 	while ( cmd[len] && !ft_strchr("$<>|\'\"", cmd[len]) && (!is_space(cmd[len])))
 		len ++;
+	while (cmd[len] == '$' && !is_var(cmd +len + 1))
+		len++;
 	return (len);
 }
