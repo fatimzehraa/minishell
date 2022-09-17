@@ -20,17 +20,17 @@ int	var_len(char *cmd)
 	len = 0;
 	if (cmd[0] == '?')
 		return (1);
-	while (cmd[len] && ft_strchr(VAR_CHAR, cmd[len]))
+	while (cmd[len] 
+			&& (ft_isalpha(cmd[len]) || ft_isnum(cmd[len]) || cmd[len] == '_'))
 		len++;
 	return (len);
 }
 
 int	is_var(char *cmd)
 {
-
-	if (cmd[0] == '?' || ft_isalpha(*cmd))
-		return (1);
-	return (0);
+	if (ft_isnum(*cmd))
+		return (0);
+	return (cmd[0] == '?' || ft_isalpha(*cmd));
 }
 
 int word_len(char *cmd)
