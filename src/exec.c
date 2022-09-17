@@ -12,7 +12,7 @@ void	exec_line(char *cmd)
 	//void execute(command)
 	while (tokens)
 	{
-		printf("content: %s\n    type: %d\n", tk(tokens)->value, tk(tokens)->type);
+		printf("%s\t |%d|\n", tk(tokens)->value, tk(tokens)->type);
 		tokens = tokens->next;
 	}
 }
