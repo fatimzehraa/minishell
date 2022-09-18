@@ -62,16 +62,16 @@ void	init_vec(t_vec *arr, int defsize)
 	arr->defsize = defsize;
 }
 
-int	search_vec(t_vec *arr, char *name)
+int	search_vec(t_vec *arr, t_str *str)
 {
 	int	i;
 
 	i = 0;
 	while (arr->content[i])
 	{
-		if (ft_strncmp((char *)arr->content[i], name, ft_strlen(name)) == 0
-			&& (((char *)arr->content[i])[ft_strlen(name)] == '='
-			|| ((char *)arr->content[i])[ft_strlen(name)] == '\0'))
+		if (str_psame(str, (char *)arr->content[i], str->size)
+			&& (((char *)arr->content[i])[str->size] == '='
+			|| ((char *)arr->content[i])[str->size] == '\0'))
 			return (i);
 		i++;
 	}
