@@ -17,7 +17,7 @@ void	exec_line(char *cmd, t_ctx *ctx)
 	//void execute(command)
 	while (tokens)
 	{
-		printf("%s\t |%d|\n", tk(tokens)->value, tk(tokens)->type);
+		printf("%s\t |%d|\n", tk(tokens)->str.val, tk(tokens)->has_space);
 		tokens = tokens->next;
 	}
 }
