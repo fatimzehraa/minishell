@@ -1,16 +1,22 @@
 #include "str.h"
 #include <stdlib.h>
 
+void str_init(t_str *str)
+{
+	str->val = NULL;
+	str->size = 0;
+	str->cap = 0;
+}
+
 int str_mk(t_str *str, char *s)
 {
+	if (s == NULL)
+		return (str_init(str), 1);
 	str->size = ft_strlen(s);
 	str->cap = str->size;
 	str->val = ft_strndup(s, str->size);
 	if (str->val == 0)
-	{
-		str->size = -1;
-		str->cap = -1;
-	}
+		return (str_init(str), 0);
 	return str->val != 0;
 }
 
@@ -33,10 +39,10 @@ int str_push(t_str *s1, t_str *s2)
 		}
 		s1->cap = s1->size + s2->size + 20;
 		ft_strncpy(s1->val, tmp, s1->size);
-		s1->size = s1->size + s2->size;
 		free(tmp);
 	}
 	ft_strncpy(s1->val + s1->size, s2->val, s2->size);
+	s1->size = s1->size + s2->size;
 	return 1;
 }
 
@@ -64,7 +70,7 @@ int str_clone(t_str *dest, t_str *src)
 		dest->size = src->size;
 		return (1);
 	}
-	tmp = ft_strndup(src->val, -1);
+	tmp = ft_strndup(src->val, src->size);
 	if (tmp == NULL)
 		return 0;
 	free(dest->val);
@@ -74,3 +80,25 @@ int str_clone(t_str *dest, t_str *src)
 	return (1);
 }
 
+int str_pnclone(t_str *dest, char *src, int n)
+{
+	t_str s;
+
+	s.val = src;
+	if (n == -1)
+		s.size = ft_strlen(src);
+	else
+		s.size = n;
+	s.cap = s.size;
+	return str_clone(dest, &s);
+}
+
+int str_psame(t_str *dest, char *src, int len)
+{
+	t_str s;
+
+	s.val = src;
+	s.size = len;
+	s.cap = s.size;
+	return str_same(dest, &s, len);
+}

@@ -28,19 +28,6 @@ int ft_isnum(int c)
 	return (c >= '0' && c <= '9');
 }
 
-void	ft_strncpy(char *dest, char *src, unsigned int size)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (i < size && src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = 0;
-}
-
 char	*ft_strjoin(char *s1, char *s2, int s2_len)
 {
 	int		s1_len;
@@ -61,21 +48,6 @@ char	*ft_strjoin(char *s1, char *s2, int s2_len)
 	ft_strncpy(str + s1_len, s2, s2_len);
 	free(s1);
 	return (str);
-}
-
-char	*ft_strndup(char *src, int len)
-{
-	char	*ret;
-
-	if (src == NULL)
-		return (NULL);
-	if (len == -1)
-		len = ft_strlen(src);
-	ret = malloc(sizeof(char) * (len + 1));
-	if (!ret)
-		return (NULL);
-	ft_strncpy(ret, src, len);
-	return (ret);
 }
 
 int	ft_append(char *dest, char *src, int len)
