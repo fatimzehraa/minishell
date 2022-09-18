@@ -3,6 +3,7 @@
 
 # include"list.h"
 # include"minishell.h"
+#include "str.h"
 
 # define CHAR_DQ '"'
 # define CHAR_SQ '\''
@@ -24,8 +25,8 @@ enum e_token {
 
 typedef struct s_token {
 	enum e_token	type;
-	char			*value;
-	int				len;
+	t_str			str;
+	int				has_space;
 } t_token;
 
 void	exec_line(char *cmd, t_ctx *ctx);

@@ -3,24 +3,23 @@
 #include "str.h"
 #include "token.h"
 
-int whitesp_len(char *line)
+char *mark_space(t_list *node, char *line)
 {
-	int len;
-	
-	len = 0;
-	while (is_space(line[len]))
-		len++;
-	return len;
+	if (is_space(*line))
+	{
+		while (is_space(*line))
+			line++;
+		tk(node)->has_space = 1;
+	}
+	else
+		tk(node)->has_space = 0;
+	return line;
 }
 
 int get_simple_nodes(t_list *node, char *line)
 {
 	if (ft_strncmp(line, ">>", 2) == 0)
 		tk_fill(node, TOKEN_RED_APPEND, NULL, 2);
-	else if (is_space(*line))
-	{
-		tk_fill(node, TOKEN_WHITESPACE, NULL, whitesp_len(line));
-	}
 	else if (ft_strncmp(line, "<<", 2) == 0)
 		tk_fill(node, TOKEN_HEREDOC, NULL, 2);
 	else if (ft_strncmp(line, "&&", 2) == 0)
@@ -35,13 +34,15 @@ int get_simple_nodes(t_list *node, char *line)
 		tk_fill(node, TOKEN_PIPE, NULL, 1);
 	else
 		return 0;
+	while (is_space(line[tk(node)->has_space]))
+		tk(node)->has_space++;
 	return 1;
 }
 
 char *ft_get_node(t_list	*node, char *line)
 {
 	if (get_simple_nodes(node, line))
-		return line + tk(node)->len;
+		return line + tk(node)->has_space;
 	else if (*line == CHAR_SQ)
 	{
 		tk_fill(node, TOKEN_LITERAL, line + 1, string_len(line + 1, CHAR_SQ));
@@ -59,9 +60,11 @@ char *ft_get_node(t_list	*node, char *line)
 	}
 	else
 		tk_fill(node, TOKEN_WORD, line, word_len(line));
-	if (tk(node)->value == NULL)
+	if (tk(node)->str.val == NULL)
 		return NULL;
-	return (line + tk(node)->len);
+	line += tk(node)->str.size;
+	line = mark_space(node, line);
+	return (line);
 }
 
 t_list	*tokenizer(char	*command)
