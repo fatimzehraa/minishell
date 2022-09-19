@@ -1,12 +1,14 @@
 #ifndef TOKEN_H
 #define TOKEN_H
 
-# include"list.h"
-# include"minishell.h"
-#include "str.h"
+# include "list.h"
+# include "minishell.h"
+# include "str.h"
 
 # define CHAR_DQ '"'
 # define CHAR_SQ '\''
+# define CHAR_SDQ "'\""
+
 enum e_token {
 	TOKEN_WORD = 1,
 	TOKEN_LITERAL = 1<<1,

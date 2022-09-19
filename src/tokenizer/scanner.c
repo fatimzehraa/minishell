@@ -1,5 +1,6 @@
 #include "token.h"
 #include "str.h"
+#include <string.h>
 
 int	string_len(char *cmd, char c)
 {
@@ -38,7 +39,10 @@ int word_len(char *cmd)
 	len = 0;
 	if (cmd[len] == '$')
 		len++;
-	while ( cmd[len] && !ft_strchr("$<>|\'\"", cmd[len]) && (!is_space(cmd[len])))
+	while (cmd[len]
+			&& ft_strncmp(cmd + len, "&&", 2) != 0
+			&& !ft_strchr("$<>|" CHAR_SDQ , cmd[len])
+			&& (!is_space(cmd[len])))
 		len ++;
 	while (cmd[len] == '$' && !is_var(cmd +len + 1))
 		len++;
