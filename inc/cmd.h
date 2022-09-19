@@ -5,7 +5,7 @@
 #include "vector.h"
 typedef struct s_cmd
 {
-	t_vec *words;
+	t_vec words;
 	t_list *red;
 } t_cmd;
 

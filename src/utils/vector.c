@@ -8,7 +8,7 @@ void	free_vec(t_vec *vec)
 {
 	int	i;
 
-	if (vec->size <= 0)
+	if (vec->cap <= 0)
 		return ;
 	i = 0;
 	while (vec->content[i])
@@ -38,12 +38,12 @@ void vec_rem(t_vec *vec, int pos)
 
 int	vec_add(t_vec *arr, void *new_value)
 {
-	if (arr->len + 1 >= arr->size)
+	if (arr->len + 1 >= arr->cap)
 	{
-		arr->content = ft_realloc(arr->content, arr->size, arr->defsize);
+		arr->content = ft_realloc(arr->content, arr->cap, arr->defsize);
 		if (arr->content == NULL)
 			return (0);
-		arr->size += arr->defsize;
+		arr->cap += arr->defsize;
 	}
 	arr->content[arr->len] = new_value;
 	if (new_value != NULL)
@@ -58,7 +58,7 @@ void	init_vec(t_vec *arr, int defsize)
 {
 	arr->content = NULL;
 	arr->len = 0;
-	arr->size = 0;
+	arr->cap = 0;
 	arr->defsize = defsize;
 }
 

@@ -5,8 +5,8 @@
 
 typedef struct s_vec {
 	void	**content;
-	int		len;
 	int		size;
+	int		cap;
 	int		defsize;
 }	t_vec;
 
