@@ -23,32 +23,32 @@ void vec_rem(t_vec *vec, int pos)
 {
 	int i;
 
-	if (pos >= vec->len)
+	if (pos >= vec->size)
 	{
 		printf("abort\n");
 		exit(2); 
 	}
 	i = pos;
-	while (i < vec->len) {
+	while (i < vec->size) {
 		vec[i] = vec[i + 1];
 		i++;
 	}
-	vec->len--;
+	vec->size--;
 }
 
 int	vec_add(t_vec *arr, void *new_value)
 {
-	if (arr->len + 1 >= arr->cap)
+	if (arr->size + 1 >= arr->cap)
 	{
 		arr->content = ft_realloc(arr->content, arr->cap, arr->defsize);
 		if (arr->content == NULL)
 			return (0);
 		arr->cap += arr->defsize;
 	}
-	arr->content[arr->len] = new_value;
+	arr->content[arr->size] = new_value;
 	if (new_value != NULL)
 	{
-		arr->len++;
+		arr->size++;
 		vec_add(arr, NULL);
 	}
 	return (1);
@@ -57,7 +57,7 @@ int	vec_add(t_vec *arr, void *new_value)
 void	init_vec(t_vec *arr, int defsize)
 {
 	arr->content = NULL;
-	arr->len = 0;
+	arr->size = 0;
 	arr->cap = 0;
 	arr->defsize = defsize;
 }
