@@ -3,15 +3,6 @@
 #include "token.h"
 
 
-t_list *delete_cur(t_list *list)
-{
-	t_list *next;
-
-	next = list->next;
-	free_token(list);
-	return next;
-}
-
 int join_seq(t_str *str, t_list *tks, t_list **plast)
 {
 	t_list *cur;
@@ -23,7 +14,7 @@ int join_seq(t_str *str, t_list *tks, t_list **plast)
 	{
 		has_space = tk(cur)->has_space;
 		str_push(str, &tk(cur)->str);
-		cur = delete_cur(cur);
+		cur = delete_cur(cur, free_token);
 	}
 	(*plast)->next = cur;
 	*plast = cur;

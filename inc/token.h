@@ -25,6 +25,8 @@ enum e_token {
 	TOKEN_EOL = 1<<12,
 };
 
+# define TOKEN_RED (TOKEN_RED_IN | TOKEN_RED_OUT | TOKEN_RED_APPEND | TOKEN_HEREDOC) 
+
 typedef struct s_token {
 	enum e_token	type;
 	t_str			str;
