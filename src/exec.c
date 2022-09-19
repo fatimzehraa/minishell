@@ -13,8 +13,7 @@ void	exec_line(char *line, t_ctx *ctx)
 	tokens = tokenizer(line);
 	//if (check_syntax(tokens)) continue
 	parser(tokens, ctx);
-	//t_list command parser(tokens)
-	//void execute(command)
+	//execute(tokens);
 	while (tokens)
 	{
 		printf("%s\t |%d|\n", tk(tokens)->str.val, tk(tokens)->has_space);
