@@ -67,19 +67,19 @@ char *ft_get_node(t_list	*node, char *line)
 	return (line);
 }
 
-t_list	*tokenizer(char	*command)
+t_list	*tokenizer(char	*line)
 {
 	t_list	*list;
 	t_list	*node;
 
 	list = NULL;
-	while (*command)
+	while (*line)
 	{
 		node = new_token(NULL);
 		if (node == NULL)
 			return (ft_lstclear(&list, free_token), NULL);
-		command = ft_get_node(node, command);
-		if (command == NULL)
+		line = ft_get_node(node, line);
+		if (line == NULL)
 			return (ft_lstclear(&list, free_token), NULL);
 		ft_lstadd_back(&list, node);
 	}

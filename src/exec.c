@@ -5,12 +5,12 @@
 #include "parser.h"
 #include "minishell.h"
 
-void	exec_line(char *cmd, t_ctx *ctx)
+void	exec_line(char *line, t_ctx *ctx)
 {
 	t_list	*tokens;
 
 	(void) ctx;
-	tokens = tokenizer(cmd);
+	tokens = tokenizer(line);
 	//if (check_syntax(tokens)) continue
 	parser(tokens, ctx);
 	//t_list command parser(tokens)
