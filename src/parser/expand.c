@@ -30,7 +30,6 @@ int	expand_template(t_list *curr, t_ctx *ctx)
 	str = env.val;
 	str_mk(&tk(curr)->str, "");
 	tk(curr)->type = TOKEN_WORD;
-
 	while (*str) {
 		env.val = str;
 		if (*str == '$' && is_var(str + 1))
@@ -57,7 +56,10 @@ int	expand(t_list *tokens, t_ctx *ctx)
 	while (curr)
 	{
 		if (tk(curr)->type == TOKEN_VAR)
+		{
 			tk(curr)->str = get_env(&tk(curr)->str, &(ctx->env));
+			tk(curr)->type = TOKEN_WORD;
+		}
 		else if (tk(curr)->type == TOKEN_TEMPLATE)
 			expand_template(curr, ctx);
 		curr = curr->next;

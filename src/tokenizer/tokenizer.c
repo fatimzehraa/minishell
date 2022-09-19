@@ -45,7 +45,7 @@ char *ft_get_node(t_list	*node, char *line)
 		return line + tk(node)->has_space;
 	else if (*line == CHAR_SQ)
 	{
-		tk_fill(node, TOKEN_LITERAL, line + 1, string_len(line + 1, CHAR_SQ));
+		tk_fill(node, TOKEN_WORD, line + 1, string_len(line + 1, CHAR_SQ));
 		line += 2;
 	}
 	else if (*line == CHAR_DQ)
