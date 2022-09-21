@@ -9,4 +9,6 @@ typedef struct s_cmd
 	t_list *red;
 } t_cmd;
 
+
+t_cmd *get_cmd(t_list *node);
 #endif
