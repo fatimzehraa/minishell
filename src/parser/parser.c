@@ -67,7 +67,7 @@ t_list	*parser(t_list *tokens, t_ctx *ctx)
 	expand(tokens, ctx);
 	join(tokens);
 	tokens = filter_cmd(tokens);
-	t_list *cur;
+/*	t_list *cur;
 	
 	cur = tokens;
 	while (cur) {
@@ -87,6 +87,6 @@ t_list	*parser(t_list *tokens, t_ctx *ctx)
 		}
 		
 		cur = cur->next;
-	}
+	}*/
 	return (tokens);
 }
