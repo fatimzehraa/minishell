@@ -77,4 +77,3 @@ int	search_vec(t_vec *arr, t_str *str)
 	}
 	return (-1);
 }
-
