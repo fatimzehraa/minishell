@@ -1,5 +1,5 @@
 #include "vector.h"
-#include "util.h"
+//#include "utils.h"
 #include "str.h"
 
 int	search_vec_(t_vec *arr, char *name)
