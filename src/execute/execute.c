@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 18:06:51 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/09/23 14:31:01 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/09/23 18:40:34 by fael-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,20 @@ int	execute_cmd(t_cmd *cmd, char *path, t_ctx *ctx)
 	char	*command;
 //	int		cmd_len;
 	char	*cmd_path;
-
+	pid_t		pid = fork();
 	command = cmd->words.content[0];
-//	cmd_len = ft_strlen(command);
-	if (command[0] == '\\')
-		cmd_path = command;
-	else
+	if (pid == 0)
 	{
-		cmd_path = find_path(path, command);
+	//	cmd_len = ft_strlen(command);
+		if (command[0] == '\\')
+			cmd_path = command;
+		else
+		{
+			cmd_path = find_path(path, command);
+		}
+		execve(cmd_path, (char **)cmd->words.content, (char **)ctx->env.content);
 	}
-	execve(cmd_path, (char **)cmd->words.content, (char **)ctx->env.content);
+	wait(NULL);
 	return (1);
 }
 
@@ -73,15 +77,25 @@ int execute(t_list *cmds, t_ctx *ctx)
 	char	*path;
 	int		i;
 
-	cmd = get_cmd(cmds);
-	i = search_vec_(&ctx->env, "PATH");
-	path = ctx->env.content[i] + 5;
-//	path = "/bin/ls";
-	pid_t		pid = fork();
-	if (pid == 0)
+	while (cmds)
 	{
+		if (cmds->next != NULL)
+		{
+			dup2(4, 0);
+			execute_cmd(cmd, path, ctx);
+		}
+		cmd = get_cmd(cmds);
+		i = search_vec_(&ctx->env, "PATH");
+		path = ctx->env.content[i] + 5;
+//		path = "/bin/ls";
 		execute_cmd(cmd, path, ctx);
+		cmds = cmds->next;
 	}
-	wait(NULL);
 	return 0;
 }
+
+
+
+
+
+
