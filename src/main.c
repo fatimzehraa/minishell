@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/15 21:59:14 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/09/16 17:22:22 by fael-bou         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 #include <stdio.h>
 #include <readline/readline.h>
@@ -17,6 +5,8 @@
 #include <signal.h>
 #include "token.h"
 #include "vector.h"
+
+int exit_status = 0;
 
 int	launch(t_ctx *ctx)
 {
@@ -44,7 +34,7 @@ int main (int argc, char *argv[], char **envp)
 	(void)argv;
 	t_ctx	ctx;
 
-	setup_signals();
+	setup_signals(&ctx);
 	if(!clone_env(envp, &ctx.env))
 		return (1);
 	launch(&ctx);
