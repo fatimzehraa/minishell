@@ -4,15 +4,13 @@
 
 void	handler(int sig, siginfo_t *infos, void *ptr)
 {
+	(void)sig;
 	(void)infos;
 	(void)ptr;
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 void	setup_signals()
@@ -22,6 +20,6 @@ void	setup_signals()
 	act.sa_sigaction = handler;
 	act.sa_flags = SA_SIGINFO;
 	sigemptyset(&act.sa_mask);
-	sigaction(SIGQUIT, &act, NULL);
+	signal(SIGQUIT, SIG_IGN);
 	sigaction(SIGINT, &act, NULL);
 }
