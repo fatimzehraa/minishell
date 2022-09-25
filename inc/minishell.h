@@ -4,11 +4,13 @@
 #include "str.h"
 #include "vector.h"
 #include <sys/signal.h>
+#include <term.h>
 
 typedef struct s_ctx
 {
 	t_vec env;
 	struct sigaction old_act;
+	struct termios restore;
 } t_ctx;
 
 int		clone_env(char **envp, t_vec *env);

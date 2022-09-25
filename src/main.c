@@ -3,6 +3,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <signal.h>
+#include <term.h>
 #include "token.h"
 #include "vector.h"
 
@@ -28,12 +29,26 @@ int	launch(t_ctx *ctx)
 	return (1);
 }
 
+void setup_termios(t_ctx *ctx)
+{
+	struct termios term;
+	struct termios restore;
+
+	tcgetattr(0, &term);
+	tcgetattr(0, &restore);
+	term.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, TCSANOW, &term);
+	ctx->restore = restore;
+}
+
+
 int main (int argc, char *argv[], char **envp)
 {
 	(void)argc;
 	(void)argv;
 	t_ctx	ctx;
 
+	setup_termios(&ctx);
 	setup_signals(&ctx);
 	if(!clone_env(envp, &ctx.env))
 		return (1);
