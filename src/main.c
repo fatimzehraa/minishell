@@ -38,12 +38,19 @@ int	launch(t_ctx *ctx)
 	return (1);
 }
 
+void setup_readline()
+{
+	rl_instream = stdin;
+	rl_outstream = stderr;
+}
+
 int main (int argc, char *argv[], char **envp)
 {
 	(void)argc;
 	(void)argv;
 	t_ctx	ctx;
 
+	setup_readline();
 	setup_signals();
 	if(!clone_env(envp, &ctx.env))
 		return (1);
