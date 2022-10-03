@@ -32,6 +32,8 @@ int get_simple_nodes(t_list *node, char *line)
 		tk_fill(node, TOKEN_RED_IN, NULL, 1);
 	else if (*line == '|')
 		tk_fill(node, TOKEN_PIPE, NULL, 1);
+	else if (*line == '*')
+		tk_fill(node, TOKEN_ASTERISK, NULL, 1);
 	else
 		return 0;
 	while (is_space(line[tk(node)->has_space]))
