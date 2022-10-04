@@ -63,7 +63,6 @@ t_list * filter_cmd(t_list *tks)
 #include <stdio.h>
 t_list	*parser(t_list *tokens, t_ctx *ctx)
 {
-
 	expand(tokens, ctx);
 	join(tokens);
 	tokens = filter_cmd(tokens);
@@ -75,7 +74,7 @@ t_list	*parser(t_list *tokens, t_ctx *ctx)
 		printf("words:\n");
 		int i = 0;
 		while (i < cmd->words.size) {
-			printf("%s ", (char *) cmd->words.content[i]);
+			printf("%s |", (char *) cmd->words.content[i]);
 			i++;
 		}
 		printf("\n");

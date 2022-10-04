@@ -4,20 +4,7 @@
 #include "parser.h"
 #include <stdlib.h>
 #include "minishell.h"
-
-int	until(char *str, char *limits)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (ft_strchr(limits, str[i]))
-			break ;
-		i++;
-	}
-	return (i);
-}
+#include "utils.h"
 
 int	expand_template(t_list *curr, t_ctx *ctx)
 {
@@ -48,6 +35,36 @@ int	expand_template(t_list *curr, t_ctx *ctx)
 	return 1;
 }
 
+int expand_var(t_ctx *ctx, t_list *token)
+{
+	t_list	*next;
+	char	*value;
+	t_list	*node;
+	int		has_space;
+
+	has_space = tk(token)->has_space;
+	node  = token;
+	next = token->next;
+	token->next = NULL;
+	value = get_env(&tk(token)->str, &ctx->env).val;
+	free(tk(token)->str.val);
+	while(*value)
+	{
+		str_init(&tk(node)->str);
+		if (get_next_word(&tk(node)->str, &value) == 0)
+			return (0);
+		tk(node)->has_space = 1;
+		tk(node)->type = TOKEN_WORD;
+		ft_lstadd_back(&token, node);
+		if (*value == '\0')
+			break;
+		node = new_token(NULL);
+	}
+	tk(node)->has_space = has_space;
+	ft_lstadd_back(&token, next);
+	return (1);
+}
+
 int	expand(t_list *tokens, t_ctx *ctx)
 {
 	t_list	*curr;
@@ -56,10 +73,7 @@ int	expand(t_list *tokens, t_ctx *ctx)
 	while (curr)
 	{
 		if (tk(curr)->type == TOKEN_VAR)
-		{
-			tk(curr)->str = get_env(&tk(curr)->str, &(ctx->env));
-			tk(curr)->type = TOKEN_WORD;
-		}
+			expand_var(ctx, curr);
 		else if (tk(curr)->type == TOKEN_TEMPLATE)
 			expand_template(curr, ctx);
 		curr = curr->next;
