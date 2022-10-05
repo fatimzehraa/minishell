@@ -3,6 +3,7 @@
 #include "utils.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 void	free_vec(t_vec *vec)
 {
@@ -62,16 +63,16 @@ void	init_vec(t_vec *arr, int defsize)
 	arr->defsize = defsize;
 }
 
-int	search_vec(t_vec *arr, t_str *str)
+int	search_vec(t_vec *arr, char *str, int size)
 {
 	int	i;
 
 	i = 0;
 	while (arr->content[i])
 	{
-		if (str_psame(str, (char *)arr->content[i], str->size)
-			&& (((char *)arr->content[i])[str->size] == '='
-			|| ((char *)arr->content[i])[str->size] == '\0'))
+		if (ft_strncmp(str, (char *)arr->content[i], size) == 0
+			&& (((char *)arr->content[i])[size] == '='
+			|| ((char *)arr->content[i])[size] == '\0'))
 			return (i);
 		i++;
 	}
