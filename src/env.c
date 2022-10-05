@@ -18,14 +18,14 @@ int	clone_env(char **envp, t_vec *env)
 	return (1);
 }
 
-t_str get_env(t_str *str, t_vec *env)
+t_str get_senv(t_str *str, t_vec *env)
 {
 	t_str val;
 	int		holder;
 	char	*to_find;
 
 	str_init(&val);
-	holder = search_vec(env, str);
+	holder = search_vec(env, str->val, str->size);
 	if (holder == -1)
 		to_find = "";
 	else
@@ -33,6 +33,20 @@ t_str get_env(t_str *str, t_vec *env)
 	str_pnclone(&val, to_find, -1); 
 	return (val);
 }
+
+char	*get_env(char *var, t_vec *env)
+{
+	char	*value;
+	int		holder;
+
+	holder = search_vec(env, var, ft_strlen(var));
+	if (holder == -1)
+		value = ft_strndup("", 0);
+	else
+		value = ft_strndup(env->content[holder] + ft_strlen(var) + 1, -1);
+	return (value);
+}
+
 
 int export(char *new_var, t_vec *env)
 {

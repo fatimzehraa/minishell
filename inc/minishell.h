@@ -14,7 +14,8 @@ typedef struct s_ctx
 } t_ctx;
 
 int		clone_env(char **envp, t_vec *env);
-t_str	get_env(t_str *str, t_vec *env);
+t_str	get_senv(t_str *str, t_vec *env);
+char	*get_env(char *var, t_vec *env);
 void	setup_signals(t_ctx *ctx);
 struct sigaction switch_handler(t_ctx *ctx);
 extern int exit_status;

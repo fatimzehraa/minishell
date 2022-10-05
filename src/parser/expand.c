@@ -24,7 +24,7 @@ int	expand_template(t_list *curr, t_ctx *ctx)
 			env.val++;
 			env.size = var_len(++str);
 			str += env.size;
-			env = get_env(&env, &ctx->env);
+			env = get_senv(&env, &ctx->env);
 		}
 		else {
 			env.size = until(str, "$");
@@ -46,7 +46,7 @@ int expand_var(t_ctx *ctx, t_list *token)
 	node  = token;
 	next = token->next;
 	token->next = NULL;
-	value = get_env(&tk(token)->str, &ctx->env).val;
+	value = get_senv(&tk(token)->str, &ctx->env).val;
 	free(tk(token)->str.val);
 	while(*value)
 	{
