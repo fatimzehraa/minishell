@@ -8,7 +8,7 @@ MANDATORY_OBJ = main.o signals.o exec.o env.o tokenizer/tokenizer.o tokenizer/ut
 	tokenizer/scanner.o str/core.o utils/ft_lib.o utils/str.o utils/str_extra.o \
 	utils/vector.o utils/vector_extra.o\
 	parser/expand.o parser/parser.o parser/join.o\
-	execute/execute.o\
+	execute/execute.o execute/builtins.o \
 	lists/ft_lstadd_back.o lists/ft_lstclear.o lists/ft_lstiter.o \
 	lists/ft_lstmap.o lists/ft_lstsize.o lists/ft_lstadd_front.o \
 	lists/ft_lstdelone.o lists/ft_lstlast.o lists/ft_lstnew.o lists/ft_delete.o
