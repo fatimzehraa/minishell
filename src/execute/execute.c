@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 18:06:51 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/10/05 13:47:58 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/10/06 17:39:28 by fael-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,28 +93,23 @@ int ft_wait(pid_t pid)
 	return (status);
 }
 
-int	execute_bultin(t_list *cmds)
+int	execute_bultin(t_ctx *ctx, t_list *cmds)
 {
 	t_vec	cmd;
 
 	cmd = get_cmd(cmds)->words;
 	if (ft_strncmp(cmd.content[0], "cd", 3) == 0)
-	{
-		execute_cd(cmd);
-		return (1);
-	}
-	/*
-	else if (ft_strncmp(cmd->words.content[0], "pwd", 4) == 0)
-		execute_pwd(cmd);
-	else if (ft_strncmp(cmd->words.content[0], "export", 7) == 0)
-		execute_export(cmd);
-	else if (ft_strncmp(cmd->words.content[0], "unset", 6) == 0)
-		execute_unset(cmd);
+		return (execute_cd(cmd), 1);
+//	else if (ft_strncmp(cmd.content[0], "pwd", 4) == 0)
+//		return (execute_pwd(cmd), 1);
+	else if (ft_strncmp(cmd.content[0], "export", 7) == 0)
+		return (execute_export(ctx, cmd), 1);
+//	else if (ft_strncmp(cmd.content[0], "unset", 6) == 0)
+//		return (execute_unset(cmd), 1);
 	else if (ft_strncmp(cmd.content[0], "env", 4) == 0)
-		execute_env(cmd);
-	else*/ 
-	if (ft_strncmp(cmd.content[0], "exit", 5) == 0)
-		exit(1);
+		return (execute_env(ctx->env), 1);
+	else if (ft_strncmp(cmd.content[0], "exit", 5) == 0)
+		exit(1); // TODO: too many arguments
 	else
 		return (0);
 }
@@ -127,9 +122,11 @@ int execute(t_list *cmds, t_ctx *ctx)
 	pid_t	pid;
 	char	*cmd;
 
-	if (cmds && !cmds->next && execute_bultin(cmds))
+	if (cmds && !cmds->next && execute_bultin(ctx, cmds))
 		return (0);
 	last_fd = -1;
+	fd[0] = -1;
+	fd[1] = -1;
 	while (cmds)
 	{
 		cmd = get_command(ctx, cmds);
