@@ -38,15 +38,22 @@ void	execute_export(t_ctx *ctx, t_vec cmd)
 		while (content[i])
 		{
 			printf("declare -x ");
+			int size = until(cmd.content[i], "=");
 			j = 0;
+			while(j < size)
+			{
+				printf("%c", content[i][j]);
+				j++;
+			}
+			if (content[i][j] == 0)
+				return;
+			printf("\"");
 			while (content[i][j])
 			{
 				printf("%c", content[i][j]);
-//				if (content[i][j] == '=' || content[i][j + 1] == 0)
-//					printf("\"");
 				j++;
 			}
-			printf("\n");
+			printf("\"");
 			i++;
 		}
 	}
