@@ -17,7 +17,6 @@ void	exec_line(char *line, t_ctx *ctx)
 	tokens = tokenizer(line);
 	//if (check_syntax(tokens)) continue
 	cmds = parser(tokens, ctx);
-	execute(cmds, ctx);
 	//while (tokens)
 	//{
 	//	printf("%s\t |%d|\n", tk(tokens)->str.val, tk(tokens)->has_space);
@@ -25,7 +24,6 @@ void	exec_line(char *line, t_ctx *ctx)
 	//}
 	
 	switch_handler(ctx);
-	sleep(5);
-	// after exec
+	execute(cmds, ctx);
 	switch_handler(ctx);
 }
