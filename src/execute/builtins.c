@@ -24,10 +24,27 @@ void	execute_env(t_vec env)
 	}
 }
 
+void	print_var(char *var, int size)
+{
+	printf("declare -x %.*s", size, var);
+	if (var[size] == '\0')
+	{
+		printf("\n");
+		return;
+	}
+	var += size + 1;
+	printf("=\"");
+	while (*var) {
+		size = until(var, "\"");
+		printf("%.*s", size, var);
+		var += size;
+	}
+	printf("\"\n");
+}
+
 void	execute_export(t_ctx *ctx, t_vec cmd)
 {
 	int	i;
-	int	j;
 	char	**content;
 	int		pos;
 
@@ -37,23 +54,7 @@ void	execute_export(t_ctx *ctx, t_vec cmd)
 		i = 0;
 		while (content[i])
 		{
-			printf("declare -x ");
-			int size = until(cmd.content[i], "=");
-			j = 0;
-			while(j < size)
-			{
-				printf("%c", content[i][j]);
-				j++;
-			}
-			if (content[i][j] == 0)
-				return;
-			printf("\"");
-			while (content[i][j])
-			{
-				printf("%c", content[i][j]);
-				j++;
-			}
-			printf("\"");
+			print_var(content[i], until(content[i], "="));
 			i++;
 		}
 	}
