@@ -29,7 +29,7 @@ int	is_var(char *cmd)
 {
 	if (ft_isnum(*cmd))
 		return (0);
-	return (cmd[0] == '?' || ft_isalpha(*cmd));
+	return (cmd[0] == '?' || ft_isalpha(*cmd) || cmd[0] == '_');
 }
 
 int word_len(char *cmd)
