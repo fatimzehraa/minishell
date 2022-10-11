@@ -1,22 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/22 18:06:51 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/10/06 17:39:28 by fael-bou         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "list.h"
 #include "minishell.h"
 #include "cmd.h"
 #include <signal.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/_types/_pid_t.h>
 #include <sys/unistd.h>
 #include <sys/wait.h>
 #include <unistd.h>
