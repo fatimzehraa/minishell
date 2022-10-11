@@ -1,6 +1,13 @@
 CC = cc
 CFLAGS += -Wall -Wextra -Werror -g
-LDFLAGS += -lreadline -ltermcap
+
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S), Darwin)
+	LDFLAGS += -lreadline -ltermcap
+else
+	LDFLAGS = -lreadline -ltinfo
+endif
+
 INCLUDES = -I./inc
 BUILD_DIR = build
 
