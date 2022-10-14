@@ -1,25 +1,10 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fatimzehra </var/spool/mail/fatimzehra>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 20:06:56 by fatimzehra        #+#    #+#             */
-/*   Updated: 2022/10/13 20:33:19 by fatimzehra       ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "cmd.h"
-#include "list.h"
 #include "minishell.h"
 #include <dirent.h>
 #include "exec.h"
 #include "vector.h"
 #include <errno.h>
 #include "parser.h"
-#include "token.h"
-
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -34,59 +19,6 @@ void	execute_env(t_vec env)
 		printf("%s\n", (char *)env.content[i]);
 		i++;
 	}
-}
-
-void	print_var(char *var, int size)
-{
-	printf("declare -x %.*s", size, var);
-	if (var[size] == '\0')
-	{
-		printf("\n");
-		return;
-	}
-	var += size + 1;
-	printf("=\"");
-	while (*var) {
-		size = until(var, "\"");
-		printf("%.*s", size, var);
-		var += size;
-	}
-	printf("\"\n");
-}
-
-char *get_val(char *s)
-{
-	int u;
-
-	u = until(s, "+=");
-	if (s[u] == '+')
-		u++;
-	if (s[u] == '=')
-		u++;
-	return s+u;
-}
-
-void	search_and_replace(t_vec *env, char *var)
-{
-	int	pos;
-	int	i;
-
-	if (!is_var(var) || (var[var_len(var)] != '\0' && var[var_len(var)] != '=' &&
-			!(var[var_len(var)] == '+' && var[var_len(var) + 1] == '=')))
-	{
-		printf("syntax error\n");
-		return ;
-	}
-	i = until(var, "+=");
-	pos = search_vec(env, var, i);
-	if (pos != -1)
-	{
-		if (var[i] == '+' && *get_val(env->content[pos]) == '\0')
-			env->content[pos] = ft_strjoin(env->content[pos], "===", 1);
-		var = ft_strjoin(env->content[pos], get_val(var), ft_strlen(get_val(var)));
-		vec_rem(env, pos);
-	}
-	vec_add(env, var);
 }
 
 void	execute_export(t_ctx *ctx, t_vec cmd)
@@ -146,18 +78,23 @@ void	execute_pwd()
 
 void	execute_cd(t_ctx *ctx, t_vec *cmd)
 {
-	int err;
 	int	pos;
+	int		env_r;
 	char	*home;
+	char	*oldpwd;
 
-	(void)ctx;
+	oldpwd = getcwd(NULL, 0);
 	if (cmd->content[1] == NULL)
 	{
 		pos = search_vec(&ctx->env, "HOME", 4);
 		home = ctx->env.content[pos] + 5;
 		vec_add(cmd, ft_strndup(home, ft_strlen(home)));
 	}
-	err = chdir(cmd->content[1]);
-	if (err != 0)
-		printf("%s\n",strerror(errno));
+	if (chdir(cmd->content[1]) != 0)
+		printf("minishell: cd: %s: %s\n", (char *)cmd->content[1], strerror(errno));
+	pos = search_vec(&ctx->env, "PWD", 3);
+	env_r = env_replace(&ctx->env, getcwd(NULL, 0), pos);
+	pos = search_vec(&ctx->env, "OLDPWD", 6);
+	env_r = env_replace(&ctx->env, oldpwd, pos);
+	(void)env_r;
 }

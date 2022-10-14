@@ -54,11 +54,11 @@ char *get_command(t_ctx *ctx, t_list *cmds)
 	// TODO: if PATH == NULL || not found in PATH
 	return cmd_path;
 }
-
 void ft_exec_child(t_ctx *ctx, t_list *cmds, char *cmd, int cmd_fd[], int fd_in)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
+	redirect(get_cmd(cmds)->red, cmd_fd);
 	dup2(cmd_fd[0], 0);
 	close(cmd_fd[0]);
 	dup2(cmd_fd[1], 1);
