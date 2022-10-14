@@ -86,13 +86,13 @@ int	execute_bultin(t_ctx *ctx, t_list *cmds)
 
 	cmd = get_cmd(cmds)->words;
 	if (ft_strncmp(cmd.content[0], "cd", 3) == 0)
-		return (execute_cd(cmd), 1);
-//	else if (ft_strncmp(cmd.content[0], "pwd", 4) == 0)
-//		return (execute_pwd(cmd), 1);
+		return (execute_cd(ctx, &cmd), 1);
+	else if (ft_strncmp(cmd.content[0], "pwd", 4) == 0)
+		return (execute_pwd(), 1);
 	else if (ft_strncmp(cmd.content[0], "export", 7) == 0)
 		return (execute_export(ctx, cmd), 1);
-//	else if (ft_strncmp(cmd.content[0], "unset", 6) == 0)
-//		return (execute_unset(cmd), 1);
+	else if (ft_strncmp(cmd.content[0], "unset", 6) == 0)
+		return (execute_unset(ctx, cmd), 1);
 	else if (ft_strncmp(cmd.content[0], "env", 4) == 0)
 		return (execute_env(ctx->env), 1);
 	else if (ft_strncmp(cmd.content[0], "exit", 5) == 0)

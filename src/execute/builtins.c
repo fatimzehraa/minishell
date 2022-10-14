@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtins.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fatimzehra </var/spool/mail/fatimzehra>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/11 20:06:56 by fatimzehra        #+#    #+#             */
+/*   Updated: 2022/10/13 20:33:19 by fatimzehra       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cmd.h"
 #include "list.h"
 #include "minishell.h"
@@ -59,7 +71,8 @@ void	search_and_replace(t_vec *env, char *var)
 	int	pos;
 	int	i;
 
-	if (!is_var(var) || (var[var_len(var)] != '\0' && var[var_len(var)] != '=' && !(var[var_len(var)] == '+' && var[var_len(var) + 1] == '=')))
+	if (!is_var(var) || (var[var_len(var)] != '\0' && var[var_len(var)] != '=' &&
+			!(var[var_len(var)] == '+' && var[var_len(var) + 1] == '=')))
 	{
 		printf("syntax error\n");
 		return ;
@@ -101,17 +114,50 @@ void	execute_export(t_ctx *ctx, t_vec cmd)
 			j++;
 		}
 	}
-	//else //err 
+}
+
+void	execute_unset(t_ctx *ctx, t_vec cmd)
+{
+	int	pos;
+	int	i;
+
+	i = 1;
+	while (cmd.content[i])
 	{
 
+		pos = search_vec(&ctx->env, cmd.content[i], ft_strlen(cmd.content[i]));
+		if (pos != -1)
+			vec_rem(&ctx->env, pos);
+		i++;
 	}
 }
 
-void	execute_cd(t_vec cmd)
+void	execute_pwd()
+{
+	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
+		puts("error");
+	else
+		printf("%s\n", cwd);
+	free(cwd);
+}
+
+void	execute_cd(t_ctx *ctx, t_vec *cmd)
 {
 	int err;
+	int	pos;
+	char	*home;
 
-	err = chdir(cmd.content[1]);
+	(void)ctx;
+	if (cmd->content[1] == NULL)
+	{
+		pos = search_vec(&ctx->env, "HOME", 4);
+		home = ctx->env.content[pos] + 5;
+		vec_add(cmd, ft_strndup(home, ft_strlen(home)));
+	}
+	err = chdir(cmd->content[1]);
 	if (err != 0)
 		printf("%s\n",strerror(errno));
 }
