@@ -31,7 +31,7 @@ void vec_rem(t_vec *vec, int pos)
 	}
 	i = pos;
 	while (i < vec->size) {
-		vec[i] = vec[i + 1];
+		vec->content[i] = vec->content[i + 1];
 		i++;
 	}
 	vec->size--;
@@ -53,6 +53,27 @@ int	vec_add(t_vec *arr, void *new_value)
 		vec_add(arr, NULL);
 	}
 	return (1);
+}
+
+int env_replace(t_vec *env, void *new_value, int pos)
+{
+	int size;
+	char *new;
+
+	size = until(env->content[pos], "=");
+	new = ft_strjoin(NULL, env->content[pos], size);
+	if (new == NULL)
+		return 0;
+	new = ft_strjoin(new, "=", 1);
+	if (new == NULL)
+		return 0;
+	new = ft_strjoin(new, new_value, -1);
+	if (new == NULL)
+		return 0;
+	
+	free(env->content[pos]);
+	env->content[pos] = new;
+	return 1;
 }
 
 void	init_vec(t_vec *arr, int defsize)
