@@ -13,4 +13,5 @@ void	print_var(char *var, int size);
 char *get_val(char *s);
 void	search_and_replace(t_vec *env, char *var);
 int env_replace(t_vec *env, void *new_value, int pos);
+void	redirect(t_list *reds, int cmd_fd[]);
 #endif // !EXEC_H
