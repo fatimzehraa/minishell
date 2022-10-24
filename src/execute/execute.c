@@ -1,9 +1,11 @@
 #include "list.h"
 #include "minishell.h"
 #include "cmd.h"
+#include <errno.h>
 #include <signal.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/errno.h>
 #include <sys/unistd.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -65,13 +67,22 @@ void ft_exec_child(t_ctx *ctx, t_list *cmds, char *cmd, int cmd_fd[], int fd_in)
 	close(cmd_fd[1]);
 	close(fd_in);
 	execve(cmd, (char **)get_cmd(cmds)->words.content, (char **)ctx->env.content);
+	if (errno == EACCES)
+		exit(126);
+	exit(127);
 }
 
-int ft_wait(pid_t pid)
+int ft_wait(t_ctx *ctx, pid_t pid)
 {
 	int	status;
 
 	waitpid(pid, &status, 0);
+	ctx->exit_status = WEXITSTATUS(status);
+	if (WIFSIGNALED(status))
+	{
+		if ()
+		ctx->exit_status = WTERMSIG(status) + 128;
+	}
 	while (4)
 	{
 		if (waitpid(-1, &status, 0) == -1)
@@ -132,7 +143,8 @@ int execute(t_list *cmds, t_ctx *ctx)
 		close(fd[1]);
 		cmds = cmds->next;
 	}
-	ft_wait(pid);
+	ft_wait(ctx, pid);
+	printf("exit status :%d\n", ctx->exit_status);
 	return 0;
 }
 

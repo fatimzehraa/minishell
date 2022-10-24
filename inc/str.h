@@ -32,4 +32,5 @@ int str_same(t_str *s1, t_str *s2, int s2_size);
 int str_clone(t_str *dest, t_str *src);
 int str_pnclone(t_str *dest, char *src, int n);
 int str_psame(t_str *dest, char *src, int len);
+void str_free(t_str *s);
 #endif

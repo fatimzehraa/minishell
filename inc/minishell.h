@@ -8,9 +8,10 @@
 
 typedef struct s_ctx
 {
-	t_vec env;
-	struct sigaction old_act;
-	struct termios restore;
+	t_vec	env;
+	struct	sigaction old_act;
+	struct	termios restore;
+	unsigned char	exit_status;
 } t_ctx;
 
 int		clone_env(char **envp, t_vec *env);

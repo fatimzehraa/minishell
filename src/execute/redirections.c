@@ -7,7 +7,6 @@
 #include <unistd.h>
 #include <errno.h>
 #include <stdio.h>
-#include <readline/readline.h>
 
 void	red_out(t_list *reds, int cmd_fd[], int fd)
 {
@@ -21,6 +20,7 @@ void	red_out(t_list *reds, int cmd_fd[], int fd)
 	cmd_fd[1] = fd;
 }
 
+// test : ls > filewithnoperm | wc
 void	red_in(t_list *reds, int cmd_fd[], int fd)
 {
 	close(cmd_fd[0]);
@@ -33,29 +33,29 @@ void	red_in(t_list *reds, int cmd_fd[], int fd)
 	cmd_fd[0] = fd;
 }
 
-void	append();
-
-void	heredoc(t_list *reds, int cmd_fd[])
+void	red_here(t_list *reds, int cmd_fd[], int fd)
 {
-	char	*delimiter;
-	int		fd;
-	char	*line;
-
-	delimiter = reds->next->content;
-	fd = open("tmp", O_CREAT | O_WRONLY, 0666);
-	while (1)
+	close(cmd_fd[0]);
+	fd = open(tk(reds->next)->str.val, O_RDONLY);
+	if (fd == -1)
 	{
-		line = readline(">");
-		if (ft_strncmp(line, delimiter, -1) == 0)
-		{
-			puts("ass");
-			break;
-		}
-		write(fd, line, ft_strlen(line));
-		free(line);
-		//rl_redisplay();
+		perror("minishell");
+		return ;
 	}
-	red_out(reds, cmd_fd, fd);
+	unlink(tk(reds->next)->str.val);
+	cmd_fd[0] = fd;
+}
+
+void	red_append(t_list *reds, int cmd_fd[], int fd)
+{
+	close(cmd_fd[1]);
+	fd = open(tk(reds->next)->str.val, O_APPEND| O_WRONLY| O_CREAT, 0666);
+	if (fd == -1)
+	{
+		perror("minishell");
+		return ;
+	}
+	cmd_fd[1] = fd;
 }
 
 void	redirect(t_list *reds, int cmd_fd[])
@@ -69,7 +69,9 @@ void	redirect(t_list *reds, int cmd_fd[])
 		else if (tk(reds)->type == TOKEN_RED_IN)
 			red_in(reds, cmd_fd, fd);
 		else if (tk(reds)->type == TOKEN_HEREDOC)
-			heredoc(reds, cmd_fd);
+			red_here(reds, cmd_fd, fd);
+		else if (tk(reds)->type == TOKEN_RED_APPEND)
+			red_append(reds, cmd_fd, fd);
 		reds = reds->next;
 	}
 }

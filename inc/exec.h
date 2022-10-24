@@ -4,6 +4,7 @@
 # include "cmd.h"
 
 int execute(t_list *cmds, t_ctx *ctx);
+void ft_exec_child(t_ctx *ctx, t_list *cmds, char *cmd, int cmd_fd[], int fd_in);
 void	execute_env(t_vec env);
 void	execute_export(t_ctx *ctx, t_vec cmd);
 void	execute_unset(t_ctx *ctx, t_vec cmd);

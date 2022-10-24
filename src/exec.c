@@ -16,6 +16,7 @@ void	exec_line(char *line, t_ctx *ctx)
 	(void) ctx;
 	tokens = tokenizer(line);
 	//if (check_syntax(tokens)) continue
+	read_heredocs(tokens);
 	cmds = parser(tokens, ctx);
 	//while (tokens)
 	//{

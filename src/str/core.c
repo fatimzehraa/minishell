@@ -102,3 +102,9 @@ int str_psame(t_str *dest, char *src, int len)
 	s.cap = s.size;
 	return str_same(dest, &s, len);
 }
+
+void str_free(t_str *s)
+{
+	free(s->val);
+	str_init(s);	
+}
