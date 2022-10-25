@@ -23,7 +23,7 @@ char	*find_path(char *path, char *cmd)
 	int		cmd_len;
 
 	cmd_len = ft_strlen(cmd);
-	if (cmd[0] == '\\')
+	if (cmd[0] == '/' || cmd[0] == '.')
 		return (cmd);
 	while(*path)
 	{
@@ -97,6 +97,7 @@ int	execute_bultin(t_ctx *ctx, t_list *cmds)
 {
 	t_vec	cmd;
 
+	ctx->exit_status = 0;
 	cmd = get_cmd(cmds)->words;
 	if (ft_strncmp(cmd.content[0], "cd", 3) == 0)
 		return (execute_cd(ctx, &cmd), 1);
