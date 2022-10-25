@@ -80,7 +80,8 @@ int ft_wait(t_ctx *ctx, pid_t pid)
 	ctx->exit_status = WEXITSTATUS(status);
 	if (WIFSIGNALED(status))
 	{
-		if ()
+		if (WTERMSIG(status) == SIGQUIT)
+			printf("^\\Quit: 3\n");
 		ctx->exit_status = WTERMSIG(status) + 128;
 	}
 	while (4)
@@ -121,7 +122,10 @@ int execute(t_list *cmds, t_ctx *ctx)
 	char	*cmd;
 
 	if (cmds && !cmds->next && execute_bultin(ctx, cmds))
+	{
+		printf("exit status: %d\n", ctx->exit_status);
 		return (0);
+	}
 	last_fd = -1;
 	fd[0] = -1;
 	fd[1] = -1;
