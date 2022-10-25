@@ -5,11 +5,12 @@
 
 int execute(t_list *cmds, t_ctx *ctx);
 void ft_exec_child(t_ctx *ctx, t_list *cmds, char *cmd, int cmd_fd[], int fd_in);
-void	execute_env(t_vec env);
+void	execute_env(t_ctx *ctx, t_vec cmd);
 void	execute_export(t_ctx *ctx, t_vec cmd);
 void	execute_unset(t_ctx *ctx, t_vec cmd);
 void	execute_pwd();
 void	execute_cd(t_ctx *ctx, t_vec *cmd);
+void	execute_exit(t_ctx *ctx, t_vec cmd);
 void	print_var(char *var, int size);
 char *get_val(char *s);
 void	search_and_replace(t_vec *env, char *var);

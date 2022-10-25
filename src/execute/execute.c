@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/errno.h>
+#include <sys/signal.h>
 #include <sys/unistd.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -106,9 +107,9 @@ int	execute_bultin(t_ctx *ctx, t_list *cmds)
 	else if (ft_strncmp(cmd.content[0], "unset", 6) == 0)
 		return (execute_unset(ctx, cmd), 1);
 	else if (ft_strncmp(cmd.content[0], "env", 4) == 0)
-		return (execute_env(ctx->env), 1);
+		return (execute_env(ctx, cmd), 1);
 	else if (ft_strncmp(cmd.content[0], "exit", 5) == 0)
-		exit(1); // TODO: too many arguments
+		return (execute_exit(ctx, cmd), 1);
 	else
 		return (0);
 }

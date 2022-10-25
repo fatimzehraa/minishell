@@ -9,16 +9,22 @@
 #include <string.h>
 #include <unistd.h>
 
-void	execute_env(t_vec env)
+void	execute_env(t_ctx *ctx, t_vec cmd)
 {
 	int i;
 
 	i = 0;
-	while (env.content[i])
+	if (cmd.content[1])
 	{
-		printf("%s\n", (char *)env.content[i]);
+		ctx->exit_status = 1;
+		return ;
+	}
+	while (ctx->env.content[i])
+	{
+		printf("%s\n", (char *)ctx->env.content[i]);
 		i++;
 	}
+	ctx->exit_status = 0;
 }
 
 void	execute_export(t_ctx *ctx, t_vec cmd)
