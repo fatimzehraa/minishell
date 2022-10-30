@@ -3,6 +3,7 @@
 # include "minishell.h"
 # include "cmd.h"
 
+int	check_syntax(t_list *cmds);
 int execute(t_list *cmds, t_ctx *ctx);
 void ft_exec_child(t_ctx *ctx, t_list *cmds, char *cmd, int cmd_fd[], int fd_in);
 void	execute_env(t_ctx *ctx, t_vec cmd);
