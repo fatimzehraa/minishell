@@ -153,4 +153,3 @@ int execute(t_list *cmds, t_ctx *ctx)
 	printf("exit status :%d\n", ctx->exit_status);
 	return 0;
 }
-

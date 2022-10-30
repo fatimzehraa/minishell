@@ -9,11 +9,11 @@ int	is_nbr(char *str)
 	int	i;
 
 	i = 0;
-	if(*str == '-')
+	if (*str == '-')
 		str++;
 	while (str[i])
 	{
-		if(str[i] < '0' || str[i] > '9')
+		if (str[i] < '0' || str[i] > '9')
 			return (0);
 		i++;
 	}
@@ -45,7 +45,6 @@ int	ft_atoi(const char *str)
 	return (n * k);
 }
 
-// with and without args
 void	execute_exit(t_ctx *ctx, t_vec cmd)
 {
 	if (cmd.size == 1)
@@ -60,7 +59,7 @@ void	execute_exit(t_ctx *ctx, t_vec cmd)
 	else if (cmd.size > 2)
 	{
 		ft_putstr(2, "minishell: exit: too many arguments\n");
-		return;
+		return ;
 	}
 	exit(ft_atoi(cmd.content[1]) & 0xff);
 }
