@@ -35,6 +35,12 @@ int	expand_template(t_list *curr, t_ctx *ctx)
 	return 1;
 }
 
+/*
+ * ft_lstadd_back has an extra protection
+ * if we try list and new point to the same list
+ * it will just ignore them and do nothing
+ * not a good idea thought (but norm)
+*/
 int expand_var(t_ctx *ctx, t_list *token)
 {
 	t_list	*next;
@@ -48,11 +54,11 @@ int expand_var(t_ctx *ctx, t_list *token)
 	token->next = NULL;
 	value = get_senv(&tk(token)->str, &ctx->env).val;
 	free(tk(token)->str.val);
-	while(*value)
+	while(1)
 	{
 		str_init(&tk(node)->str);
 		if (get_next_word(&tk(node)->str, &value) == 0)
-			return (0);
+			return (ft_lstadd_back(&token, next), 0);
 		tk(node)->has_space = 1;
 		tk(node)->type = TOKEN_WORD;
 		ft_lstadd_back(&token, node);
