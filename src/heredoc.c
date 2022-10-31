@@ -60,7 +60,7 @@ void	heredoc(t_list *tks)
 	while (1)
 	{
 		line = readline(">");
-		if (line == NULL && str_psame(delimiter, line, ft_strlen(line)))
+		if (line == NULL || str_psame(delimiter, line, ft_strlen(line)))
 			break;
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);

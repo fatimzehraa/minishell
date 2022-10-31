@@ -22,6 +22,7 @@ void	exec_line(char *line, t_ctx *ctx)
 		return ;
 	}
 	read_heredocs(tokens);
+	// handel logic .. && ||
 	cmds = parser(tokens, ctx);
 	//while (tokens)
 	//{
