@@ -41,12 +41,14 @@ char	*ft_itoa(unsigned int n)
 int	clone_env(char **envp, t_vec *env)
 {
 	int i;
+	char *str;
 
 	init_vec(env, 100);
 	i = 0;
 	while (envp[i])
 	{
-		if (vec_add(env, ft_strndup(envp[i], -1)) == 0)
+		str = ft_strndup(envp[i], -1);
+		if (str == NULL || vec_add(env, str) == 0)
 			return (free_vec(env), 0);
 		i++;
 	}

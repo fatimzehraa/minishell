@@ -19,7 +19,7 @@ int	launch(t_ctx *ctx)
 		if (line == NULL)
 		{
 			printf("exit\n");
-			break;
+			return 0;
 		}
 		if (line[0] != '\0')
 			add_history(line);
@@ -52,11 +52,14 @@ int main (int argc, char *argv[], char **envp)
 	(void)argc;
 	(void)argv;
 	t_ctx	ctx;
+	int code;
 
 	setup_readline();
 	setup_termios(&ctx);
 	if(!clone_env(envp, &ctx.env))
 		return (1);
-	launch(&ctx);
-	return 0;
+	code = launch(&ctx);
+	free_vec(&ctx.env);
+	rl_clear_history();
+	return code;
 }
