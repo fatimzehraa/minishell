@@ -14,6 +14,8 @@ void	exec_line(char *line, t_ctx *ctx)
 
 	(void) ctx;
 	tokens = tokenizer(line);
+	if (tokens == NULL)
+		return ;
 	//if (check_syntax(tokens)) continue
 	parser(tokens, ctx);
 	//execute(tokens);

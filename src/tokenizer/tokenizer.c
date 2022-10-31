@@ -43,6 +43,8 @@ int get_simple_nodes(t_list *node, char *line)
 
 char *ft_get_node(t_list	*node, char *line)
 {
+	if (node == NULL)
+		return NULL;
 	if (get_simple_nodes(node, line))
 		return line + tk(node)->has_space;
 	else if (*line == CHAR_SQ)
@@ -78,8 +80,6 @@ t_list	*tokenizer(char	*line)
 	while (*line)
 	{
 		node = new_token(NULL);
-		if (node == NULL)
-			return (ft_lstclear(&list, free_token), NULL);
 		line = ft_get_node(node, line);
 		if (line == NULL)
 			return (ft_lstclear(&list, free_token), NULL);

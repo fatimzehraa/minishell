@@ -71,9 +71,10 @@ int str_clone(t_str *dest, t_str *src)
 		return (1);
 	}
 	tmp = ft_strndup(src->val, src->size);
+	free(dest->val);
+	str_init(dest);
 	if (tmp == NULL)
 		return 0;
-	free(dest->val);
 	dest->val = tmp;
 	dest->size = src->size;
 	dest->cap = src->size;
