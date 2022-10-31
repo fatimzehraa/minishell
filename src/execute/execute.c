@@ -50,15 +50,25 @@ char *get_command(t_ctx *ctx, t_list *cmds)
 	char	*cmd_path;
 
 	cmd = get_cmd(cmds);
+	if (cmd->words.size == 0)
+		return (NULL);
 	index = search_vec_(&ctx->env, "PATH");
 	path = ctx->env.content[index] + 5;
 	command = cmd->words.content[0];
 	cmd_path = find_path(path, command);
 	// TODO: if PATH == NULL || not found in PATH
+	if (cmd_path == NULL)
+	{
+		ft_putstr(2, "minishell: ");
+		ft_putstr(2, cmd->words.content[0]);
+		ft_putstr(2, " command not found\n");
+	}
 	return cmd_path;
 }
 void ft_exec_child(t_ctx *ctx, t_list *cmds, char *cmd, int cmd_fd[], int fd_in)
 {
+	if (cmd == NULL)
+		exit(127);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	redirect(get_cmd(cmds)->red, cmd_fd);
@@ -77,7 +87,10 @@ int ft_wait(t_ctx *ctx, pid_t pid)
 {
 	int	status;
 
+	
 	waitpid(pid, &status, 0);
+	if (pid == - 1)
+		status = 0;
 	ctx->exit_status = WEXITSTATUS(status);
 	if (WIFSIGNALED(status))
 	{
@@ -97,8 +110,9 @@ int	execute_bultin(t_ctx *ctx, t_list *cmds)
 {
 	t_vec	cmd;
 
-	ctx->exit_status = 0;
 	cmd = get_cmd(cmds)->words;
+	if (cmd.size == 0)
+		return (0);
 	if (ft_strncmp(cmd.content[0], "cd", 3) == 0)
 		return (execute_cd(ctx, &cmd), 1);
 	else if (ft_strncmp(cmd.content[0], "pwd", 4) == 0)
@@ -123,6 +137,8 @@ int execute(t_list *cmds, t_ctx *ctx)
 	pid_t	pid;
 	char	*cmd;
 
+	ctx->exit_status = 0;
+	pid = -1;
 	if (cmds && !cmds->next && execute_bultin(ctx, cmds))
 	{
 		printf("exit status: %d\n", ctx->exit_status);
