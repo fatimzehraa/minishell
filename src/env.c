@@ -71,7 +71,8 @@ t_str get_senv(t_str *str, t_vec *env)
 		else
 			to_find =  env->content[holder] + str->size + 1;
 	}
-	str_pnclone(&val, to_find, -1); 
+	if (to_find == NULL || str_pnclone(&val, to_find, -1) == 0)
+		str_init(&val); 
 	return (val);
 }
 

@@ -8,14 +8,13 @@
 
 int	expand_template(t_list *curr, t_ctx *ctx)
 {
-	(void) ctx;
-	(void) curr;
 	char	*str;
 	t_str	env;
 
 	env = tk(curr)->str;
+	if (str_mk(&tk(curr)->str, ""))
+		return (free(env.val), 0);
 	str = env.val;
-	str_mk(&tk(curr)->str, "");
 	tk(curr)->type = TOKEN_WORD;
 	while (*str) {
 		env.val = str;
@@ -23,16 +22,15 @@ int	expand_template(t_list *curr, t_ctx *ctx)
 		{
 			env.val++;
 			env.size = var_len(++str);
-			str += env.size;
 			env = get_senv(&env, &ctx->env);
 		}
-		else {
+		else
 			env.size = until(str, "$");
-			str += env.size;
-		}
-		str_push(&tk(curr)->str, &env);
+		str += env.size;
+		if (str_push(&tk(curr)->str, &env) == 0)
+			return (free(env.val), 0);
 	}
-	return 1;
+	return (free(env.val), 1);
 }
 
 /*
@@ -49,11 +47,13 @@ int expand_var(t_ctx *ctx, t_list *token)
 	int		has_space;
 
 	has_space = tk(token)->has_space;
-	node  = token;
 	next = token->next;
 	token->next = NULL;
 	value = get_senv(&tk(token)->str, &ctx->env).val;
+	if (value == NULL)
+		return 0;
 	free(tk(token)->str.val);
+	node  = token;
 	while(1)
 	{
 		str_init(&tk(node)->str);
@@ -65,57 +65,63 @@ int expand_var(t_ctx *ctx, t_list *token)
 		if (*value == '\0')
 			break;
 		node = new_token(NULL);
+		if (node == NULL)
+			return (ft_lstadd_back(&token, next), 0);
 	}
 	tk(node)->has_space = has_space;
 	ft_lstadd_back(&token, next);
 	return (1);
 }
 
-t_list	*match(t_list *tks);
+t_list *_expand_asterisk(t_list *curr, t_list *begin)
+{
+	t_list	*res;
+	t_list	*next;
 
+	next = curr;
+	while (tk(next)->type & (TOKEN_ASTERISK | TOKEN_WORD) && tk(next)->has_space == 0)
+		next = next->next;
+	next = next->next;
+	res = match(begin->next);
+	if (res)
+	{
+		begin->next = res;
+		ft_lstadd_back(&res, next);
+	}
+	else
+	{
+		while (curr != next)
+		{
+			if (tk(curr)->type == TOKEN_ASTERISK)
+			{
+				tk(curr)->type = TOKEN_WORD;
+				str_pnclone(&tk(curr)->str, "*", 1);
+			}
+			curr = curr->next;
+		}
+	}
+	return curr;
+}
+
+/*
+ * 1. search for *
+ * 2. get end of expression
+ * 3. match
+ * 4. link
+ */
 void expand_asterisk(t_list *tks)
 {
 	t_list	*curr;
-	t_list	*begin;
-	t_list	*next;
+	t_list	*head;
 	
 	curr = tks;
-	begin = tks;
+	head = tks;
 	while (curr)
 	{
 		if (tk(curr)->type == TOKEN_ASTERISK)
-		{
-			next = curr;
-			while (tk(next)->type & (TOKEN_ASTERISK | TOKEN_WORD))
-			{
-				if (!tk(next)->has_space)
-				{
-					next = next->next;
-					break;
-				}
-				next = next->next;
-			}
-			t_list *res = match(begin->next);
-			if (res)
-			{
-				begin->next = res;
-				ft_lstadd_back(&res, next);
-			}
-			else
-			{
-				while (curr != next)
-				{
-					if (tk(curr)->type == TOKEN_ASTERISK)
-					{
-						tk(curr)->type = TOKEN_WORD;
-						str_pnclone(&tk(curr)->str, "*", 1);
-					}
-					curr = curr->next;
-				}
-			}
-		}
+			curr = _expand_asterisk(curr, head);
 		if (tk(curr)->has_space)
-			begin = curr;
+			head = curr;
 		curr = curr->next;
 	}
 }
@@ -128,9 +134,13 @@ int	expand(t_list *tokens, t_ctx *ctx)
 	while (curr)
 	{
 		if (tk(curr)->type == TOKEN_VAR)
-			expand_var(ctx, curr);
+		{
+			if (expand_var(ctx, curr) == 0)
+				return (ft_lstclear(&tokens, free_token), 0);
+		}
 		else if (tk(curr)->type == TOKEN_TEMPLATE)
-			expand_template(curr, ctx);
+			if (expand_template(curr, ctx) == 0)
+				return (ft_lstclear(&tokens, free_token), 0);
 		curr = curr->next;
 	}
 	expand_asterisk(tokens);

@@ -56,6 +56,7 @@ int main (int argc, char *argv[], char **envp)
 
 	setup_readline();
 	setup_termios(&ctx);
+	setup_signals(&ctx);
 	if(!clone_env(envp, &ctx.env))
 		return (1);
 	code = launch(&ctx);

@@ -26,7 +26,7 @@ void	exec_line(char *line, t_ctx *ctx)
 	//}
 	
 	switch_handler(ctx);
-	sleep(5);
+	//sleep(5);
 	// after exec
 	switch_handler(ctx);
 }

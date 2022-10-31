@@ -3,9 +3,7 @@
 #include "str.h"
 #include "token.h"
 #include <dirent.h>
-
-
-int	is_match(char *str, t_list *tks);
+#include "parser.h"
 
 int	get_next_char(char *str, char c)
 {
@@ -95,10 +93,10 @@ t_list	*match(t_list *tks)
 		if (entry->d_name[0] != '.' && is_match(entry->d_name, tks))
 		{
 			cur = new_token(ft_strndup(entry->d_name, -1));
-			tk(cur)->type = TOKEN_WORD;
-			tk(cur)->has_space = 1;
 			if (cur == NULL)
 				break ;
+			tk(cur)->type = TOKEN_WORD;
+			tk(cur)->has_space = 1;
 			ft_lstadd_back(&head, cur);
 		}
 	}
