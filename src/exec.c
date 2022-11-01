@@ -13,7 +13,7 @@ void	exec_line(char *line, t_ctx *ctx)
 {
 	t_list	*tokens;
 	t_list	*cmds;
-	(void) ctx;
+
 	tokens = tokenizer(line);
 	//if (check_syntax(tokens)) continue
 	if (!check_syntax(tokens))
@@ -29,7 +29,6 @@ void	exec_line(char *line, t_ctx *ctx)
 	//	printf("%s\t |%d|\n", tk(tokens)->str.val, tk(tokens)->has_space);
 	//	tokens = tokens->next;
 	//}
-	
 	switch_handler(ctx);
 	execute(cmds, ctx);
 	switch_handler(ctx);

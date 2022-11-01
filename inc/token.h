@@ -26,23 +26,23 @@ enum e_token {
 	TOKEN_EOL = 1<<13,
 };
 
-# define TOKEN_RED (TOKEN_RED_IN | TOKEN_RED_OUT | TOKEN_RED_APPEND | TOKEN_HEREDOC) 
+# define TOKEN_RED (TOKEN_RED_IN | TOKEN_RED_OUT | TOKEN_RED_APPEND | TOKEN_HEREDOC)
 
 typedef struct s_token {
 	enum e_token	type;
 	t_str			str;
 	int				has_space;
-} t_token;
+}	t_token;
 
 void	exec_line(char *cmd, t_ctx *ctx);
 t_list	*tokenizer(char	*command);
 t_token	*tk(t_list *node);
 void	free_token(void *ptr);
 t_list	*new_token(char	*word);
-int	string_len(char *cmd, char c);
-int	is_var(char *cmd);
-int	var_len(char *cmd);
-int word_len(char *cmd);
-int tk_fill(t_list *node, enum e_token type, char *dup_value, int len);
+int		string_len(char *cmd, char c);
+int		is_var(char *cmd);
+int		var_len(char *cmd);
+int		word_len(char *cmd);
+int		tk_fill(t_list *node, enum e_token type, char *dup_value, int len);
 
 #endif // !TOKEN_H
