@@ -6,7 +6,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-
 int	my_atoi(char *buf, int *n)
 {
 	int	i;
@@ -96,7 +95,7 @@ int	get_cursor_position(int *x, int *y)
 	return (free(buf), 1);
 }
 
-void	move_cursor()
+void	move_cursor(void)
 {
 	int		x;
 	int		y;
@@ -105,7 +104,6 @@ void	move_cursor()
 	cap = tgetstr("cm", 0);
 	if (cap == NULL || get_cursor_position(&x, &y) == 0)
 		return ;
-	cap = tgoto(cap, x+2, y);
+	cap = tgoto(cap, x + 2, y);
 	tputs(cap, 1, putchar);
 }
-

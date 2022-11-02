@@ -3,7 +3,7 @@
 #include "str.h"
 #include "token.h"
 
-char *mark_space(t_list *node, char *line)
+char	*mark_space(t_list *node, char *line)
 {
 	if (is_space(*line))
 	{
@@ -13,10 +13,10 @@ char *mark_space(t_list *node, char *line)
 	}
 	else
 		tk(node)->has_space = 0;
-	return line;
+	return (line);
 }
 
-int get_simple_nodes(t_list *node, char *line)
+int	get_simple_nodes(t_list *node, char *line)
 {
 	if (ft_strncmp(line, ">>", 2) == 0)
 		tk_fill(node, TOKEN_RED_APPEND, NULL, 2);
@@ -35,16 +35,16 @@ int get_simple_nodes(t_list *node, char *line)
 	else if (*line == '*')
 		tk_fill(node, TOKEN_ASTERISK, NULL, 1);
 	else
-		return 0;
+		return (0);
 	while (is_space(line[tk(node)->has_space]))
 		tk(node)->has_space++;
-	return 1;
+	return (1);
 }
 
-char *ft_get_node(t_list	*node, char *line)
+char	*ft_get_node(t_list	*node, char *line)
 {
 	if (get_simple_nodes(node, line))
-		return line + tk(node)->has_space;
+		return (line + tk(node)->has_space);
 	else if (*line == CHAR_SQ)
 	{
 		tk_fill(node, TOKEN_WORD, line + 1, string_len(line + 1, CHAR_SQ));
@@ -63,7 +63,7 @@ char *ft_get_node(t_list	*node, char *line)
 	else
 		tk_fill(node, TOKEN_WORD, line, word_len(line));
 	if (tk(node)->str.val == NULL)
-		return NULL;
+		return (NULL);
 	line += tk(node)->str.size;
 	line = mark_space(node, line);
 	return (line);

@@ -12,7 +12,7 @@ INCLUDES = -I./inc
 BUILD_DIR = build
 
 MANDATORY_OBJ = main.o signals.o exec.o env.o term.o heredoc.o tokenizer/tokenizer.o tokenizer/utils.o \
-	tokenizer/scanner.o str/core.o utils/ft_lib.o utils/str.o utils/str_extra.o \
+	tokenizer/scanner.o str/core_utils.o str/core.o utils/ft_lib.o utils/str.o utils/str_extra.o \
 	utils/vector.o utils/vector_extra.o utils/expand.o\
 	parser/expand.o parser/parser.o parser/join.o parser/asterisk.o parser/check_syntax.o \
 	execute/execute.o execute/builtins.o execute/builtins_utils.o execute/redirections.o execute/execute_exit.o \

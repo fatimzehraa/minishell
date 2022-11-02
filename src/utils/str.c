@@ -66,4 +66,3 @@ char	*ft_strndup(char *src, int len)
 	ft_strncpy(ret, src, len);
 	return (ret);
 }
-

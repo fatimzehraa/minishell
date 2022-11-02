@@ -7,11 +7,11 @@
 #include "token.h"
 #include "vector.h"
 
-int exit_status = 0;
+int	g_exit_status = 0;
 
 int	launch(t_ctx *ctx)
 {
-	char *line;
+	char	*line;
 
 	while (1)
 	{
@@ -19,7 +19,7 @@ int	launch(t_ctx *ctx)
 		if (line == NULL)
 		{
 			printf("exit\n");
-			break;
+			break ;
 		}
 		if (line[0] != '\0')
 			add_history(line);
@@ -29,16 +29,16 @@ int	launch(t_ctx *ctx)
 	return (1);
 }
 
-void setup_readline()
+void	setup_readline(void)
 {
 	rl_instream = stdin;
 	rl_outstream = stderr;
 }
 
-void setup_termios(t_ctx *ctx)
+void	setup_termios(t_ctx *ctx)
 {
-	struct termios term;
-	struct termios restore;
+	struct termios	term;
+	struct termios	restore;
 
 	tcgetattr(0, &term);
 	tcgetattr(0, &restore);
@@ -47,17 +47,17 @@ void setup_termios(t_ctx *ctx)
 	ctx->restore = restore;
 }
 
-int main (int argc, char *argv[], char **envp)
+int	main(int argc, char *argv[], char **envp)
 {
-	(void)argc;
-	(void)argv;
 	t_ctx	ctx;
 
+	(void)argc;
+	(void)argv;
 	setup_readline();
 	setup_termios(&ctx);
 	setup_signals(&ctx);
-	if(!clone_env(envp, &ctx.env))
+	if (!clone_env(envp, &ctx.env))
 		return (1);
 	launch(&ctx);
-	return 0;
+	return (0);
 }
