@@ -6,7 +6,7 @@
 /*   By: fatimzehra </var/spool/mail/fatimzehra>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 16:14:46 by fatimzehra        #+#    #+#             */
-/*   Updated: 2022/11/02 16:31:08 by fatimzehra       ###   ########.fr       */
+/*   Updated: 2022/11/03 16:52:01 by fael-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ int	str_clone(t_str *dest, t_str *src)
 		return (1);
 	}
 	tmp = ft_strndup(src->val, src->size);
-	if (tmp == NULL)
-		return (0);
 	free(dest->val);
+	str_init(dest);
+	if (tmp == NULL)
+		return 0;
 	dest->val = tmp;
 	dest->size = src->size;
 	dest->cap = src->size;
