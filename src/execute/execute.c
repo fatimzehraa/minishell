@@ -65,38 +65,20 @@ char *get_command(t_ctx *ctx, t_list *cmds)
 	}
 	return cmd_path;
 }
-void ft_exec_child(t_ctx *ctx, t_list *cmds, char *cmd, int cmd_fd[], int fd_in)
-{
-	if (cmd == NULL)
-		exit(127);
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-	redirect(get_cmd(cmds)->red, cmd_fd);
-	dup2(cmd_fd[0], 0);
-	close(cmd_fd[0]);
-	dup2(cmd_fd[1], 1);
-	close(cmd_fd[1]);
-	close(fd_in);
-	execve(cmd, (char **)get_cmd(cmds)->words.content, (char **)ctx->env.content);
-	if (errno == EACCES)
-		exit(126);
-	exit(127);
-}
-
 int ft_wait(t_ctx *ctx, pid_t pid)
 {
 	int	status;
 
-	
+	(void)ctx;
 	waitpid(pid, &status, 0);
 	if (pid == - 1)
 		status = 0;
-	ctx->exit_status = WEXITSTATUS(status);
+	exit_status = WEXITSTATUS(status);
 	if (WIFSIGNALED(status))
 	{
 		if (WTERMSIG(status) == SIGQUIT)
 			printf("^\\Quit: 3\n");
-		ctx->exit_status = WTERMSIG(status) + 128;
+		exit_status = WTERMSIG(status) + 128;
 	}
 	while (4)
 	{
@@ -129,6 +111,26 @@ int	execute_bultin(t_ctx *ctx, t_list *cmds)
 		return (0);
 }
 
+void ft_exec_child(t_ctx *ctx, t_list *cmds, char *cmd, int cmd_fd[], int fd_in)
+{
+	if (cmd == NULL)
+		exit(127);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	printf("%s %d %d\n",cmd, cmd_fd[0], cmd_fd[1]);
+	redirect(get_cmd(cmds)->red, cmd_fd);
+	dup2(cmd_fd[0], 0);
+	close(cmd_fd[0]);
+	dup2(cmd_fd[1], 1);
+	close(cmd_fd[1]);
+	close(fd_in);
+	execve(cmd, (char **)get_cmd(cmds)->words.content, (char **)ctx->env.content);
+	perror("minishell: ");
+	if (errno == EACCES)
+		exit(126);
+	exit(127);
+}
+
 int execute(t_list *cmds, t_ctx *ctx)
 {
 	int		fd[2];
@@ -137,13 +139,10 @@ int execute(t_list *cmds, t_ctx *ctx)
 	pid_t	pid;
 	char	*cmd;
 
-	ctx->exit_status = 0;
+	exit_status = 0;
 	pid = -1;
 	if (cmds && !cmds->next && execute_bultin(ctx, cmds))
-	{
-		printf("exit status: %d\n", ctx->exit_status);
 		return (0);
-	}
 	last_fd = -1;
 	fd[0] = -1;
 	fd[1] = -1;
@@ -162,10 +161,11 @@ int execute(t_list *cmds, t_ctx *ctx)
 		pid  = fork();
 		if (pid == 0)
 			ft_exec_child(ctx, cmds, cmd, cmd_fd, fd[0]);
-		close(fd[1]);
+		close(cmd_fd[0]);
+		close(cmd_fd[1]);
 		cmds = cmds->next;
 	}
 	ft_wait(ctx, pid);
-	printf("exit status :%d\n", ctx->exit_status);
+//	printf("exit status :%d\n", exit_status);
 	return 0;
 }
