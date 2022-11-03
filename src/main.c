@@ -7,7 +7,7 @@
 #include "token.h"
 #include "vector.h"
 
-int	g_exit_status = 0;
+int	exit_status = 0;
 
 int	launch(t_ctx *ctx)
 {

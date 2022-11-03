@@ -16,7 +16,7 @@ void	execute_env(t_ctx *ctx, t_vec cmd)
 	i = 0;
 	if (cmd.content[1])
 	{
-		ctx->exit_status = 1;
+		exit_status = 1;
 		return ;
 	}
 	while (ctx->env.content[i])
@@ -24,7 +24,7 @@ void	execute_env(t_ctx *ctx, t_vec cmd)
 		printf("%s\n", (char *)ctx->env.content[i]);
 		i++;
 	}
-	ctx->exit_status = 0;
+	exit_status = 0;
 }
 
 void	execute_export(t_ctx *ctx, t_vec cmd)

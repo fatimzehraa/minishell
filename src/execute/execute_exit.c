@@ -47,8 +47,9 @@ int	ft_atoi(const char *str)
 
 void	execute_exit(t_ctx *ctx, t_vec cmd)
 {
+	(void)ctx;
 	if (cmd.size == 1)
-		exit(ctx->exit_status);
+		exit(exit_status);
 	if (cmd.size > 1 && !is_nbr(cmd.content[1]))
 	{
 		ft_putstr(2, "minishell: exit: ");
