@@ -31,7 +31,7 @@ void vec_rem(t_vec *vec, int pos)
 	}
 	i = pos;
 	while (i < vec->size) {
-		vec[i] = vec[i + 1];
+		vec->content[i] = vec->content[i + 1];
 		i++;
 	}
 	vec->size--;
@@ -78,4 +78,3 @@ int	search_vec(t_vec *arr, char *str, int size)
 	}
 	return (-1);
 }
-

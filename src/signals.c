@@ -19,26 +19,25 @@ void	handler(int sig, siginfo_t *infos, void *ptr)
 
 void	setup_signals(t_ctx *ctx)
 {
-	struct sigaction act;
-	struct sigaction ign_act;
+	struct sigaction	act;
+	struct sigaction	ign_act;
 
 	signal(SIGQUIT, SIG_IGN);
 	act.sa_flags = SA_RESTART;
 	act.sa_sigaction = handler;
 	sigemptyset(&act.sa_mask);
 	sigaction(SIGINT, &act, NULL);
-	
 	ign_act.sa_flags = SA_RESTART;
 	ign_act.sa_handler = SIG_IGN;
 	sigemptyset(&ign_act.sa_mask);
 	ctx->old_act = ign_act;
 }
 
-struct sigaction switch_handler(t_ctx *ctx)
+struct sigaction	switch_handler(t_ctx *ctx)
 {
-	struct sigaction oact;
+	struct sigaction	oact;
 
 	sigaction(SIGINT, &ctx->old_act, &oact);
 	ctx->old_act = oact;
-	return oact;
+	return (oact);
 }

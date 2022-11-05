@@ -5,6 +5,7 @@
 #include "str.h"
 #include "token.h"
 #include "vector.h"
+#include <stdio.h>
 
 t_list *mk_cmd()
 {
@@ -57,16 +58,15 @@ t_list * filter_cmd(t_list *tks)
 		cur = delete_cur(cur, free_token);
 	}
 
-	return head;
+	return (head);
 }
 
-#include <stdio.h>
 t_list	*parser(t_list *tokens, t_ctx *ctx)
 {
 	expand(tokens, ctx);
 	join(tokens);
 	tokens = filter_cmd(tokens);
-	t_list *cur;
+/*	t_list *cur;
 	
 	cur = tokens;
 	while (cur) {
@@ -86,6 +86,6 @@ t_list	*parser(t_list *tokens, t_ctx *ctx)
 		}
 		
 		cur = cur->next;
-	}
+	}*/
 	return (tokens);
 }
