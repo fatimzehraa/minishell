@@ -41,11 +41,10 @@ int tk_fill(t_list *node, enum e_token type, char *dup_value, int len)
 
 void	free_token(void *ptr)
 {
-	t_list	*node;
+	t_token	*tk;
 	
-	node = (t_list *)ptr;
-	free(tk(node)->str.val);
-	str_init(&tk(node)->str);
-	free(node->content);
-	free(node);
+	tk = (t_token *)ptr;
+	free(tk->str.val);
+	str_init(&tk->str);
+	free(ptr);
 }

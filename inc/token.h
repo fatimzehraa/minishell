@@ -27,6 +27,7 @@ enum e_token {
 };
 
 # define TOKEN_RED (TOKEN_RED_IN | TOKEN_RED_OUT | TOKEN_RED_APPEND | TOKEN_HEREDOC)
+# define TOKEN_JOIN (TOKEN_WORD | TOKEN_LITERAL | TOKEN_TEMPLATE | TOKEN_VAR)
 
 typedef struct s_token {
 	enum e_token	type;

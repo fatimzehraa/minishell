@@ -23,7 +23,7 @@ void	exec_line(char *line, t_ctx *ctx)
 		printf("syntax error\n");
 		return ;
 	}
-	read_heredocs(tokens);
+	read_heredocs(ctx, tokens);
 	// handel logic .. && ||
 	cmds = parser(tokens, ctx);
 	//while (tokens)

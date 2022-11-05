@@ -35,3 +35,22 @@ t_list	*join(t_list *tks)
 	}
 	return (cur);
 }
+
+
+t_list	*join69(t_list *tks)
+{
+	t_list	*cur;
+	t_list	*head;
+	t_str	*str;
+
+	head = tks;
+	cur = tks->next;
+	str = &tk(tks)->str;
+	while (cur)
+	{
+		str_push(str, &tk(cur)->str);
+		cur = cur->next;
+	}
+	ft_lstclear(&tks->next, free_token);
+	return (head);
+}
