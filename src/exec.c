@@ -14,8 +14,10 @@ void	exec_line(char *line, t_ctx *ctx)
 	t_list	*tokens;
 	t_list	*cmds;
 
+	while (is_space(*line))
+		line++;
 	tokens = tokenizer(line);
-	if (tokens == NULL)
+	if (tokens == NULL || tk(tokens)->type == TOKEN_EOL)
 		return ;
 	//if (check_syntax(tokens)) continue
 	if (!check_syntax(tokens))
