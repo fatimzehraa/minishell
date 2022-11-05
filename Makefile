@@ -1,5 +1,4 @@
 CC = cc
-CFLAGS += -Wall -Wextra -Werror -g
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S), Darwin)
@@ -8,6 +7,8 @@ else
 	LDFLAGS = -lreadline -ltinfo
 endif
 
+CFLAGS += -Wall -Wextra -Werror -g -fsanitize=address
+LDFLAGS += -fsanitize=address
 INCLUDES = -I./inc
 BUILD_DIR = build
 
