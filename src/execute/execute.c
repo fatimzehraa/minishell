@@ -13,8 +13,29 @@
 #include "parser.h"
 #include "str.h"
 #include "exec.h"
+#include <sys/stat.h>
 
 #include <stdio.h>
+
+int	is_dir(char *filename, char *orginal)
+{
+	struct stat	st;
+
+	(void)orginal;
+	errno = 0;
+	stat(filename, &st);
+	if (S_ISDIR(st.st_mode))
+	{
+		ft_putstr(2, "minishell: ");
+		ft_putstr(2, filename);
+		ft_putstr(2, ": ");
+		ft_putstr(2, strerror(EISDIR));
+		ft_putstr(2, "\n");
+		return (1);
+	}
+	return (0);
+}
+
 
 char	*find_path(char *path, char *cmd)
 {
@@ -50,8 +71,22 @@ char *get_command(t_ctx *ctx, t_list *cmds)
 	char	*cmd_path;
 
 	cmd = get_cmd(cmds);
+	/*
+	int i = 0;
+	while(cmd->words.content[i])
+	{
+		printf("content n %d", i);
+		printf("cmd->word.content = %s\n", (char *)cmd->words.content[i]);
+		i++;
+	}*/
 	if (cmd->words.size == 0)
 		return (NULL);
+	/*
+	if (ft_strncmp(cmd->words.content[0], "", -1) == 0)
+	{
+		printf("bug\n");
+		return NULL;
+	}*/
 	index = search_vec_(&ctx->env, "PATH");
 	path = ctx->env.content[index] + 5;
 	command = cmd->words.content[0];
@@ -105,6 +140,8 @@ int	execute_bultin(t_ctx *ctx, t_list *cmds)
 		return (execute_unset(ctx, cmd), 1);
 	else if (ft_strncmp(cmd.content[0], "env", 4) == 0)
 		return (execute_env(ctx, cmd), 1);
+	else if (ft_strncmp(cmd.content[0], "echo", 5) == 0)
+		return (execute_echo(&cmd), 1);
 	else if (ft_strncmp(cmd.content[0], "exit", 5) == 0)
 		return (execute_exit(ctx, cmd), 1);
 	else
@@ -117,7 +154,6 @@ void ft_exec_child(t_ctx *ctx, t_list *cmds, char *cmd, int cmd_fd[], int fd_in)
 		exit(127);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	printf("%s %d %d\n",cmd, cmd_fd[0], cmd_fd[1]);
 	redirect(get_cmd(cmds)->red, cmd_fd);
 	dup2(cmd_fd[0], 0);
 	close(cmd_fd[0]);
@@ -149,6 +185,8 @@ int execute(t_list *cmds, t_ctx *ctx)
 	while (cmds)
 	{
 		cmd = get_command(ctx, cmds);
+		if (is_dir(cmd, "hello"))
+			return 0;
 		cmd_fd[0] = last_fd;
 		if (cmds->next != NULL)
 		{
