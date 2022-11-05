@@ -53,11 +53,10 @@ char	*find_path(char *path, char *cmd)
 		ft_strncpy(cmd_path, path, size);
 		ft_strncpy(cmd_path + size, "/", 1);
 		ft_strncpy(cmd_path + size + 1, cmd, cmd_len);
-		cmd_path[size + cmd_len + 2] = 0;
 		if (!access(cmd_path, F_OK))
 			return (cmd_path);
 		free(cmd_path);
-		path += size + 1;
+		path += size + (path[size] == ':');
 	}
 	return NULL;
 }
