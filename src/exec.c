@@ -15,6 +15,8 @@ void	exec_line(char *line, t_ctx *ctx)
 	t_list	*cmds;
 
 	tokens = tokenizer(line);
+	if (tokens == NULL)
+		return ;
 	//if (check_syntax(tokens)) continue
 	if (!check_syntax(tokens))
 	{

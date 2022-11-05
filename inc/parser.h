@@ -9,5 +9,7 @@ t_str	get_senv(t_str *str, t_vec *env);
 t_list	*join(t_list *tks);
 int		until(char *str, char *limits);
 void	read_heredocs(t_list *tokens);
+t_list	*match(t_list *tks);
+int		is_match(char *str, t_list *tks);
 
 #endif
