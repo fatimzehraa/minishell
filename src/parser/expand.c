@@ -12,7 +12,7 @@ int	expand_template(t_list *curr, t_ctx *ctx)
 	t_str	env;
 
 	env = tk(curr)->str;
-	if (str_mk(&tk(curr)->str, ""))
+	if (!str_mk(&tk(curr)->str, ""))
 		return (free(env.val), 0);
 	str = env.val;
 	tk(curr)->type = TOKEN_WORD;
@@ -93,10 +93,7 @@ t_list *_expand_asterisk(t_list *curr, t_list *begin)
 		while (curr != next)
 		{
 			if (tk(curr)->type == TOKEN_ASTERISK)
-			{
 				tk(curr)->type = TOKEN_WORD;
-				str_pnclone(&tk(curr)->str, "*", 1);
-			}
 			curr = curr->next;
 		}
 	}
@@ -133,7 +130,9 @@ int	expand(t_list *tokens, t_ctx *ctx)
 	curr = tokens;
 	while (curr)
 	{
-		if (tk(curr)->type == TOKEN_VAR)
+		if (tk(curr)->type == TOKEN_LITERAL)
+			tk(curr)->type = TOKEN_WORD;
+		else if (tk(curr)->type == TOKEN_VAR)
 		{
 			if (expand_var(ctx, curr) == 0)
 				return (ft_lstclear(&tokens, free_token), 0);

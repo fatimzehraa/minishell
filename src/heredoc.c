@@ -113,7 +113,7 @@ t_list *detach_tks(t_list *tks)
 		next = tks->next;
 		tks->next = NULL;
 		ft_lstadd_back(&detach, tks);
-		if ((tk(tks)->type & TOKEN_JOIN) == 0)
+		if ((tk(tks)->type & (TOKEN_JOIN | TOKEN_ASTERISK)) == 0)
 			break;
 		if (tk(tks)->has_space)
 		{
@@ -146,7 +146,7 @@ int join_here(t_list *tks)
 	cur = detach;
 	while (cur)
 	{
-		if ((tk(cur)->type & (TOKEN_LITERAL | TOKEN_TEMPLATE)))
+		if ((tk(cur)->type & (TOKEN_LITERAL | TOKEN_TEMPLATE | TOKEN_ASTERISK)))
 			is_expandable = 0;	
 		cur = cur->next;
 	}
