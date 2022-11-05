@@ -22,7 +22,8 @@ void	exec_line(char *line, t_ctx *ctx)
 	//if (check_syntax(tokens)) continue
 	if (!check_syntax(tokens))
 	{
-		printf("syntax error\n");
+		ft_putstr(2, "minishell: syntax error\n");
+		exit_status = 258;
 		return ;
 	}
 	read_heredocs(tokens);

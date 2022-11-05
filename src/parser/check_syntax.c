@@ -1,6 +1,7 @@
 #include "cmd.h"
 #include "list.h"
 #include "minishell.h"
+#include "parser.h"
 #include "token.h"
 
 #include <stdio.h>
@@ -19,23 +20,33 @@ int check_if_followed(t_list *tokens) {
 }
 
 int check_redirections(t_list *tokens) {
-  return ((tk(tokens)->type & TOKEN_RED) &&
-		  (is_special_token(tk(tokens->next)) || tk(tokens->next)->type == TOKEN_EOL));
+	if (tk(tokens)->type & TOKEN_RED) 
+	{
+		if (tk(tokens->next)->type & TOKEN_JOIN)
+			return (1);
+		else
+			return (0);
+	}
+	return (1);
+//  return ((tk(tokens)->type & TOKEN_RED) && (tk(tokens->next)->type != TOKEN_WORD));
 }
 
 int check_syntax(t_list *tokens)
 {
 	if (is_special_token(tk(tokens)))
 	  return (0);
-	tokens = tokens->next;
 	if (tk(tokens)->type == TOKEN_EOL)
 	  return (1);
 	while (tk(tokens)->type != TOKEN_EOL) {
 	  if (check_if_followed(tokens))
 	    return (0);
-	  else if (check_redirections(tokens))
+	  else if (!check_redirections(tokens))
 	    return (0);
+	  else if (tk(tokens)->type == TOKEN_LITERAL && (tk(tokens)->str.val[until(tk(tokens)->str.val, "\'")] == '\''))
+		  return (0);
+	  else if (tk(tokens)->type == TOKEN_TEMPLATE)
+		  return (!(tk(tokens)->str.val[until(tk(tokens)->str.val, "\"")] == '\"'));
 	  tokens = tokens->next;
 	}
 	return (1);
-}
+}// if literal w template until ("\"\'")

@@ -2,14 +2,16 @@
 #include "str.h"
 #include <string.h>
 
-int	string_len(char *cmd, char c)
+int    string_len(char *cmd, char c)
 {
-	int	len;
+    int    len;
 
-	len = 0;
-	while (cmd[len] && cmd[len] != c)
-		len++;
-	return (len);
+    len = 0;
+    while (cmd[len] && cmd[len] != c)
+        len++;
+    if (cmd[len] == '\0')
+        cmd[len] = c;
+    return (len);
 }
 
 int	var_len(char *cmd)
