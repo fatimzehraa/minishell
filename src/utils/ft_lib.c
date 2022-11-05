@@ -7,7 +7,7 @@ void	*ft_realloc(void *mem, int size, int append)
 	int		i;
 
 	from = (char *)mem;
-	to = malloc(sizeof(char *) * (size + append));
+	to = malloc(sizeof(void *) * (size + append));
 	if (to == NULL)
 		return (NULL);
 	i = 0;

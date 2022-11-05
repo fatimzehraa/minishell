@@ -12,7 +12,7 @@ int	expand_template(t_list *curr, t_ctx *ctx)
 	t_str	env;
 
 	env = tk(curr)->str;
-	if (str_mk(&tk(curr)->str, ""))
+	if (!str_mk(&tk(curr)->str, ""))
 		return (free(env.val), 0);
 	str = env.val;
 	tk(curr)->type = TOKEN_WORD;

@@ -16,7 +16,7 @@ t_list	*new_token(char	*word)
 {
 	t_list	*node;
 	t_token	*token;
-	
+
 	token = malloc(sizeof(t_token));
 	if (token == NULL)
 		return (NULL);
@@ -42,7 +42,7 @@ int tk_fill(t_list *node, enum e_token type, char *dup_value, int len)
 void	free_token(void *ptr)
 {
 	t_list	*node;
-	
+
 	node = (t_list *)ptr;
 	free(tk(node)->str.val);
 	str_init(&tk(node)->str);

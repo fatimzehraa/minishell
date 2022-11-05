@@ -2,6 +2,7 @@
 #include "minishell.h"
 #include <dirent.h>
 #include "exec.h"
+#include "str.h"
 #include "vector.h"
 #include <errno.h>
 #include "parser.h"

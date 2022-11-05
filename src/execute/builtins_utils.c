@@ -62,6 +62,8 @@ int env_replace(t_vec *env, void *new_value, int pos)
 	int size;
 	char *new;
 
+//	printf("value is %s, pos is %d", (char *)new_value, pos);
+//	return 0;
 	size = until(env->content[pos], "=");
 	new = ft_strjoin(NULL, env->content[pos], size);
 	if (new == NULL)

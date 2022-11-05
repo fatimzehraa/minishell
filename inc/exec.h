@@ -11,6 +11,7 @@ void	execute_export(t_ctx *ctx, t_vec cmd);
 void	execute_unset(t_ctx *ctx, t_vec cmd);
 void	execute_pwd(void);
 void	execute_cd(t_ctx *ctx, t_vec *cmd);
+void	execute_echo(t_vec *cmd);
 void	execute_exit(t_ctx *ctx, t_vec cmd);
 void	print_var(char *var, int size);
 char	*get_val(char *s);
