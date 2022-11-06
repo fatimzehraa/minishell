@@ -82,24 +82,73 @@ void	execute_pwd()
 		printf("%s\n", cwd);
 	free(cwd);
 }
-
+/*
 void	execute_cd(t_ctx *ctx, t_vec *cmd)
 {
 	int	pos;
 	int		env_r;
 	char	*home;
-	char		*cwd;
-	static char	*oldpwd;
+	char	*oldpwd;
 
-		//getcwd(NULL, 0);
+	oldpwd = getcwd(NULL, 0);
 	if (cmd->content[1] == NULL)
 	{
 		pos = search_vec(&ctx->env, "HOME", 4);
 		home = ctx->env.content[pos] + 5;
 		vec_add(cmd, ft_strndup(home, ft_strlen(home)));
 	}
-	if (chdir(cmd->content[1]) == -1)
+	if (chdir(cmd->content[1]) != 0)
 		printf("minishell: cd: %s: %s\n", (char *)cmd->content[1], strerror(errno));
+	pos = search_vec(&ctx->env, "PWD", 3);
+	env_r = env_replace(&ctx->env, getcwd(NULL, 0), pos);
+	pos = search_vec(&ctx->env, "OLDPWD", 6);
+	env_r = env_replace(&ctx->env, oldpwd, pos);
+	(void)env_r;
+}
+*/
+
+// void _cd(args)
+// {
+// 	if (get_cwd == NULL)
+// 		return;
+// 	oldpwd = get_cwd();
+// }
+// 
+// void cd()
+// {
+// 	if (arg1 == "-")
+// 		if(!oldpwd)
+// 			retunr (print, 0);
+// 		_cd(get("oldpwd"));
+// 	else if (argc == 1)
+// 		_cd(get("home"));
+// 	_cd(arh1);
+// }
+
+void	execute_cd(t_ctx *ctx, t_vec *cmd)
+{
+	int	pos;
+	//int		env_r;
+	char	*home;
+	static char		*cwd;
+	char	*oldpwd;
+
+	oldpwd = getcwd(NULL, 0);
+//	if (oldpwd == NULL)
+//		printf("minishell: cd: %s: %s\n", (char *)cmd->content[1], strerror(errno));
+		//oldpwd = cwd;
+//	printf("oldpwd :%s\n", oldpwd);
+	if (cmd->content[1] == NULL)
+	{
+		pos = search_vec(&ctx->env, "HOME", 4);
+		home = ctx->env.content[pos] + 5;
+		vec_add(cmd, ft_strndup(home, ft_strlen(home)));
+	}
+	if (oldpwd == NULL || chdir(cmd->content[1]) == -1)
+	{
+		printf("minishell: cd: %s: %s\n", (char *)cmd->content[1], strerror(errno));
+		return ;
+	}
 	pos = search_vec(&ctx->env, "PWD", 3);
 	cwd = getcwd(NULL, 0);
 	if (cwd == NULL)
@@ -107,9 +156,11 @@ void	execute_cd(t_ctx *ctx, t_vec *cmd)
 		puts("error");
 		return ;
 	}
-	env_r = env_replace(&ctx->env, cwd, pos);
+	//env_r = 
+	env_replace(&ctx->env, cwd, pos);
 	pos = search_vec(&ctx->env, "OLDPWD", 6);
-	env_r = env_replace(&ctx->env, oldpwd, pos);
-	(void)env_r;
+	//env_r = 
+	env_replace(&ctx->env, oldpwd, pos);
+	//(void)env_r;
 	oldpwd = cwd;
 }
