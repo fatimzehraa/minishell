@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/07 21:13:03 by fael-bou          #+#    #+#             */
+/*   Updated: 2022/11/07 21:20:06 by fael-bou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <signal.h>
 #include <stdio.h>
 #include <sys/signal.h>
@@ -9,10 +21,52 @@
 #include "minishell.h"
 #include "exec.h"
 
+
+t_list	*ignore(t_list *tokens)
+{
+	while (!(tk(tokens)->type & TOKEN_LIST))
+		tokens = tokens->next;
+	return (tokens);
+}
+
+
+t_list *detach(t_list *tokens)
+{
+	t_list *last;
+
+	last = NULL;
+	while (!(tk(tokens)->type & TOKEN_LIST))
+	{
+		last = tokens;
+		tokens = tokens->next;
+	}
+	last->next = NULL;
+	return tokens;
+}
+
+void	and_or(t_list *tokens, t_ctx *ctx)
+{
+	t_list	*cmds;
+	t_list	*last;
+
+	switch_handler(ctx);
+	while (tokens)
+	{
+		last = detach(tokens);
+		cmds = parser(tokens, ctx);
+		execute(cmds, ctx);
+		if (exit_status != 0 && tk(last)->type == TOKEN_AND)
+			last = ignore(last->next);
+		else if (exit_status == 0 && tk(last)->type == TOKEN_OR)
+			last = ignore(last->next);
+		tokens = last->next;
+	}
+	switch_handler(ctx);
+}
+
 void	exec_line(char *line, t_ctx *ctx)
 {
 	t_list	*tokens;
-	t_list	*cmds;
 
 	while (is_space(*line))
 		line++;
@@ -28,13 +82,5 @@ void	exec_line(char *line, t_ctx *ctx)
 	}
 	read_heredocs(tokens);
 	// handel logic .. && ||
-	cmds = parser(tokens, ctx);
-	//while (tokens)
-	//{
-	//	printf("%s\t |%d|\n", tk(tokens)->str.val, tk(tokens)->has_space);
-	//	tokens = tokens->next;
-	//}
-	switch_handler(ctx);
-	execute(cmds, ctx);
-	switch_handler(ctx);
+	and_or(tokens, ctx);
 }

@@ -4,6 +4,8 @@ t_list *delete_cur(t_list *list, void (*f)(void *))
 {
 	t_list *next;
 
+	if (list == NULL)
+		return NULL;
 	next = list->next;
 	f(list);
 	return next;

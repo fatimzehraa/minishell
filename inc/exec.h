@@ -9,7 +9,7 @@ void	ft_exec_child(t_ctx *ctx, t_list *cmds, char *cmd, int cmd_fd[], int fd_in)
 void	execute_env(t_ctx *ctx, t_vec cmd);
 void	execute_export(t_ctx *ctx, t_vec cmd);
 void	execute_unset(t_ctx *ctx, t_vec cmd);
-void	execute_pwd(void);
+void	execute_pwd(t_ctx *ctx);
 void	execute_cd(t_ctx *ctx, t_vec *cmd);
 void	execute_echo(t_vec *cmd);
 void	execute_exit(t_ctx *ctx, t_vec cmd);

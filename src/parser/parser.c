@@ -40,7 +40,7 @@ t_list * filter_cmd(t_list *tks)
 	while (cur)
 	{
 		cmd = mk_cmd();
-		while ((tk(cur)->type & (TOKEN_EOL | TOKEN_PIPE)) == 0)
+		while (cur && (tk(cur)->type & TOKEN_PIPE) == 0)
 		{
 			if (tk(cur)->type & TOKEN_RED)
 			{
