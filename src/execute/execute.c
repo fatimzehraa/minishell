@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/08 12:09:51 by fael-bou          #+#    #+#             */
+/*   Updated: 2022/11/08 12:35:37 by fael-bou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "list.h"
 #include "minishell.h"
 #include "cmd.h"
@@ -17,11 +29,10 @@
 
 #include <stdio.h>
 
-int	is_dir(char *filename, char *orginal)
+int	is_dir(char *filename)
 {
 	struct stat	st;
 
-	(void)orginal;
 	errno = 0;
 	stat(filename, &st);
 	if (S_ISDIR(st.st_mode))
@@ -122,10 +133,22 @@ int ft_wait(t_ctx *ctx, pid_t pid)
 	return (status);
 }
 
+void ft_dup(t_list *cmds, int cmd_fd[], int fd_in)
+{
+	redirect(get_cmd(cmds)->red, cmd_fd);
+	dup2(cmd_fd[0], 0);
+	close(cmd_fd[0]);
+	dup2(cmd_fd[1], 1);
+	close(cmd_fd[1]);
+	close(fd_in);
+}
+
 int	execute_bultin(t_ctx *ctx, t_list *cmds)
 {
 	t_vec	cmd;
+	int		cmd_fd[2];
 
+	ft_dup(cmds, cmd_fd, -1);
 	cmd = get_cmd(cmds)->words;
 	if (cmd.size == 0)
 		return (0);
@@ -147,18 +170,14 @@ int	execute_bultin(t_ctx *ctx, t_list *cmds)
 		return (0);
 }
 
+
 void ft_exec_child(t_ctx *ctx, t_list *cmds, char *cmd, int cmd_fd[], int fd_in)
 {
 	if (cmd == NULL)
 		exit(127);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	redirect(get_cmd(cmds)->red, cmd_fd);
-	dup2(cmd_fd[0], 0);
-	close(cmd_fd[0]);
-	dup2(cmd_fd[1], 1);
-	close(cmd_fd[1]);
-	close(fd_in);
+	ft_dup(cmds, cmd_fd, fd_in);
 	execve(cmd, (char **)get_cmd(cmds)->words.content, (char **)ctx->env.content);
 	perror("minishell: ");
 	if (errno == EACCES)
@@ -184,7 +203,7 @@ int execute(t_list *cmds, t_ctx *ctx)
 	while (cmds)
 	{
 		cmd = get_command(ctx, cmds);
-		if (is_dir(cmd, "hello"))
+		if (is_dir(cmd)) 
 			return 0;
 		cmd_fd[0] = last_fd;
 		if (cmds->next != NULL)
