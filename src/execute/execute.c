@@ -110,6 +110,7 @@ char *get_command(t_ctx *ctx, t_list *cmds)
 	}
 	return cmd_path;
 }
+
 int ft_wait(t_ctx *ctx, pid_t pid)
 {
 	int	status;
@@ -143,33 +144,47 @@ void ft_dup(t_list *cmds, int cmd_fd[], int fd_in)
 	close(fd_in);
 }
 
-int	execute_bultin(t_ctx *ctx, t_list *cmds)
+int check_builins(char *s)
 {
-	t_vec	cmd;
-	int		cmd_fd[2];
-
-	ft_dup(cmds, cmd_fd, -1);
-	cmd = get_cmd(cmds)->words;
-	if (cmd.size == 0)
-		return (0);
-	if (ft_strncmp(cmd.content[0], "cd", 3) == 0)
-		return (execute_cd(ctx, &cmd), 1);
-	else if (ft_strncmp(cmd.content[0], "pwd", 4) == 0)
-		return (execute_pwd(ctx), 1);
-	else if (ft_strncmp(cmd.content[0], "export", 7) == 0)
-		return (execute_export(ctx, cmd), 1);
-	else if (ft_strncmp(cmd.content[0], "unset", 6) == 0)
-		return (execute_unset(ctx, cmd), 1);
-	else if (ft_strncmp(cmd.content[0], "env", 4) == 0)
-		return (execute_env(ctx, cmd), 1);
-	else if (ft_strncmp(cmd.content[0], "echo", 5) == 0)
-		return (execute_echo(&cmd), 1);
-	else if (ft_strncmp(cmd.content[0], "exit", 5) == 0)
-		return (execute_exit(ctx, cmd), 1);
-	else
-		return (0);
+	return (ft_strncmp(s, "cd", 3) == 0
+	 || ft_strncmp(s, "pwd", 4) == 0
+	 || ft_strncmp(s, "export", 7) == 0
+	 || ft_strncmp(s, "unset", 6) == 0
+	 || ft_strncmp(s, "env", 4) == 0
+	 || ft_strncmp(s, "echo", 5) == 0
+	 || ft_strncmp(s, "exit", 5) == 0);
 }
 
+void execute_bultin(t_ctx *ctx, t_list *cmds, int cmd_fd[2])
+{
+	t_vec	cmd;
+	int fd[2];
+
+	cmd_fd[0] = -1;
+	cmd_fd[1] = -1;
+	fd[0] = dup(0);
+	fd[1] = dup(1);
+	cmd = get_cmd(cmds)->words;
+	ft_dup(cmds, cmd_fd, -1);
+	if (ft_strncmp(cmd.content[0], "cd", 3) == 0)
+		execute_cd(ctx, &cmd);
+	else if (ft_strncmp(cmd.content[0], "pwd", 4) == 0)
+		execute_pwd(ctx);
+	else if (ft_strncmp(cmd.content[0], "export", 7) == 0)
+		execute_export(ctx, cmd);
+	else if (ft_strncmp(cmd.content[0], "unset", 6) == 0)
+		execute_unset(ctx, cmd);
+	else if (ft_strncmp(cmd.content[0], "env", 4) == 0)
+		execute_env(ctx, cmd);
+	else if (ft_strncmp(cmd.content[0], "echo", 5) == 0)
+		execute_echo(&cmd);
+	else if (ft_strncmp(cmd.content[0], "exit", 5) == 0)
+		execute_exit(ctx, cmd);
+	dup2(fd[0], 0);
+	close(fd[0]);
+	dup2(fd[1], 1);
+	close(fd[1]);
+}
 
 void ft_exec_child(t_ctx *ctx, t_list *cmds, char *cmd, int cmd_fd[], int fd_in)
 {
@@ -195,8 +210,8 @@ int execute(t_list *cmds, t_ctx *ctx)
 
 	exit_status = 0;
 	pid = -1;
-	if (cmds && !cmds->next && execute_bultin(ctx, cmds))
-		return (0);
+	if (cmds && !cmds->next && get_cmd(cmds)->words.size != 0 && check_builins(get_cmd(cmds)->words.content[0]))
+		return (execute_bultin(ctx, cmds, cmd_fd), 0);
 	last_fd = -1;
 	fd[0] = -1;
 	fd[1] = -1;
