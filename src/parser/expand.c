@@ -10,11 +10,13 @@ int	expand_template(t_list *curr, t_ctx *ctx)
 {
 	char	*str;
 	t_str	env;
+	char	*tmp;
 
 	env = tk(curr)->str;
 	if (!str_mk(&tk(curr)->str, ""))
 		return (free(env.val), 0);
 	str = env.val;
+	tmp = str;
 	tk(curr)->type = TOKEN_WORD;
 	while (*str) {
 		env.val = str;
@@ -22,15 +24,18 @@ int	expand_template(t_list *curr, t_ctx *ctx)
 		{
 			env.val++;
 			env.size = var_len(++str);
+			str += env.size;
 			env = get_senv(&env, &ctx->env);
 		}
 		else
+		{
 			env.size = until(str, "$");
-		str += env.size;
+			str += env.size;
+		}
 		if (str_push(&tk(curr)->str, &env) == 0)
 			return (free(env.val), 0);
 	}
-	return (free(env.val), 1);
+	return (free(tmp), 1);
 }
 
 /*
