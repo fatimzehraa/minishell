@@ -24,6 +24,7 @@ enum e_token {
 	TOKEN_OR= 1<<11,
 	TOKEN_ASTERISK= 1<<12,
 	TOKEN_EOL = 1<<13,
+	TOKEN_INVALID = 1<<14,
 };
 
 # define TOKEN_RED (TOKEN_RED_IN | TOKEN_RED_OUT | TOKEN_RED_APPEND | TOKEN_HEREDOC)
@@ -34,6 +35,7 @@ typedef struct s_token {
 	enum e_token	type;
 	t_str			str;
 	int				has_space;
+	int				len;
 }	t_token;
 
 void	exec_line(char *cmd, t_ctx *ctx);

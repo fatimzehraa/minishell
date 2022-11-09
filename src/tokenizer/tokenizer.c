@@ -44,16 +44,16 @@ char	*ft_get_node(t_list	*node, char *line)
 	if (node == NULL)
 		return NULL;
 	if (get_simple_nodes(node, line))
-		return mark_space(node, line + tk(node)->has_space);
+		return mark_space(node, line + tk(node)->len);
 	else if (*line == CHAR_SQ)
 	{
 		tk_fill(node, TOKEN_LITERAL, line + 1, string_len(line + 1, CHAR_SQ));
-		line += 2;
+		tk(node)->len += 2;
 	}
 	else if (*line == CHAR_DQ)
 	{
 		tk_fill(node, TOKEN_TEMPLATE, line + 1, string_len(line + 1, CHAR_DQ));
-		line += 2;
+		tk(node)->len += 2;
 	}
 	else if (*line == '$' && is_var(line + 1))
 	{
@@ -64,7 +64,7 @@ char	*ft_get_node(t_list	*node, char *line)
 		tk_fill(node, TOKEN_WORD, line, word_len(line));
 	if (tk(node)->str.val == NULL)
 		return (NULL);
-	line += tk(node)->str.size;
+	line += tk(node)->len;
 	line = mark_space(node, line);
 	return (line);
 }

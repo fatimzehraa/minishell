@@ -10,7 +10,7 @@ int    string_len(char *cmd, char c)
     while (cmd[len] && cmd[len] != c)
         len++;
     if (cmd[len] == '\0')
-        cmd[len] = c;
+		return (-1);
     return (len);
 }
 

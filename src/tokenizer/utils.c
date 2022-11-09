@@ -23,6 +23,7 @@ t_list	*new_token(char	*word)
 	str_mk(&token->str, word);
 	token->type = TOKEN_EOL;
 	token->has_space = 0;
+	token->len = 0;
 	node = ft_lstnew(token);
 	if (node == NULL)
 		free(token);
@@ -31,8 +32,11 @@ t_list	*new_token(char	*word)
 
 int tk_fill(t_list *node, enum e_token type, char *dup_value, int len)
 {
-	tk(node)->type = type;	
-	tk(node)->has_space = len;
+	if (len  != -1)
+		tk(node)->type = type;	
+	else
+		tk(node)->type = TOKEN_INVALID;	
+	tk(node)->len = len;
 	if (dup_value != NULL)
 		if (!str_pnclone(&tk(node)->str, dup_value, len))
 			return 0;
