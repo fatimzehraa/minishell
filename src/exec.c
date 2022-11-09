@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 21:13:03 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/07 21:20:06 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/09 18:21:11 by fael-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	exec_line(char *line, t_ctx *ctx)
 	tokens = tokenizer(line);
 	if (tokens == NULL || tk(tokens)->type == TOKEN_EOL)
 		return ;
-	//if (check_syntax(tokens)) continue
 	if (!check_syntax(tokens))
 	{
 		ft_putstr(2, "minishell: syntax error\n");
