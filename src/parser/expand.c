@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/10 18:57:33 by fael-bou          #+#    #+#             */
+/*   Updated: 2022/11/10 18:57:38 by fael-bou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "list.h"
 #include "str.h"
 #include "token.h"
@@ -5,38 +17,7 @@
 #include <stdlib.h>
 #include "minishell.h"
 #include "utils.h"
-
-int	expand_template(t_list *curr, t_ctx *ctx)
-{
-	char	*str;
-	t_str	env;
-	char	*tmp;
-
-	env = tk(curr)->str;
-	if (!str_mk(&tk(curr)->str, ""))
-		return (free(env.val), 0);
-	str = env.val;
-	tmp = str;
-	tk(curr)->type = TOKEN_WORD;
-	while (*str) {
-		env.val = str;
-		if (*str == '$' && is_var(str + 1))
-		{
-			env.val++;
-			env.size = var_len(++str);
-			str += env.size;
-			env = get_senv(&env, &ctx->env);
-		}
-		else
-		{
-			env.size = until(str, "$");
-			str += env.size;
-		}
-		if (str_push(&tk(curr)->str, &env) == 0)
-			return (free(env.val), 0);
-	}
-	return (free(tmp), 1);
-}
+#include "parser.h"
 
 /*
  * ft_lstadd_back has an extra protection
@@ -44,47 +25,43 @@ int	expand_template(t_list *curr, t_ctx *ctx)
  * it will just ignore them and do nothing
  * not a good idea thought (but norm)
 */
-int expand_var(t_ctx *ctx, t_list *token)
+int	expand_var(t_ctx *ctx, t_list *token)
 {
 	t_list	*next;
 	char	*value;
 	t_list	*node;
 	int		has_space;
 
+	value = get_senv(&tk(token)->str, &ctx->env).val;
+	if (value == NULL)
+		return (0);
 	has_space = tk(token)->has_space;
 	next = token->next;
 	token->next = NULL;
-	value = get_senv(&tk(token)->str, &ctx->env).val;
-	if (value == NULL)
-		return 0;
 	free(tk(token)->str.val);
-	node  = token;
-	while(1)
+	node = token;
+	while (*value && node != NULL)
 	{
 		str_init(&tk(node)->str);
 		if (get_next_word(&tk(node)->str, &value) == 0)
 			return (ft_lstadd_back(&token, next), 0);
-		tk(node)->has_space = 1;
-		tk(node)->type = TOKEN_WORD;
-		ft_lstadd_back(&token, node);
-		if (*value == '\0')
-			break;
-		node = new_token(NULL);
-		if (node == NULL)
-			return (ft_lstadd_back(&token, next), 0);
+		add(node, &token);
+		if (*value)
+			node = new_token(NULL);
 	}
-	tk(node)->has_space = has_space;
-	ft_lstadd_back(&token, next);
-	return (1);
+	if (node == NULL)
+		tk(node)->has_space = has_space;
+	return (ft_lstadd_back(&token, next), node != NULL);
 }
 
-t_list *_expand_asterisk(t_list *curr, t_list *begin)
+t_list	*_expand_asterisk(t_list *curr, t_list *begin)
 {
 	t_list	*res;
 	t_list	*next;
 
 	next = curr;
-	while (tk(next)->type & (TOKEN_ASTERISK | TOKEN_WORD) && tk(next)->has_space == 0)
+	while (tk(next)->type & (TOKEN_ASTERISK | TOKEN_WORD)
+		&& tk(next)->has_space == 0)
 		next = next->next;
 	next = next->next;
 	res = match(begin->next);
@@ -102,7 +79,7 @@ t_list *_expand_asterisk(t_list *curr, t_list *begin)
 			curr = curr->next;
 		}
 	}
-	return curr;
+	return (curr);
 }
 
 /*
@@ -111,11 +88,11 @@ t_list *_expand_asterisk(t_list *curr, t_list *begin)
  * 3. match
  * 4. link
  */
-int expand_asterisk(t_list *tks)
+int	expand_asterisk(t_list *tks)
 {
 	t_list	*curr;
 	t_list	*head;
-	
+
 	curr = tks;
 	head = tks;
 	while (curr)
@@ -126,13 +103,13 @@ int expand_asterisk(t_list *tks)
 			head = curr;
 		curr = curr->next;
 	}
-	return 1;
+	return (1);
 }
 
 int	expand(t_list *tokens, t_ctx *ctx)
 {
 	t_list	*curr;
-	
+
 	curr = tokens;
 	while (curr)
 	{

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/10 18:56:44 by fael-bou          #+#    #+#             */
+/*   Updated: 2022/11/10 18:56:45 by fael-bou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "list.h"
 #include "minishell.h"
 #include "str.h"
@@ -33,16 +45,16 @@ int	get_simple_nodes(t_list *node, char *line)
 	else if (*line == '|')
 		tk_fill(node, TOKEN_PIPE, NULL, 1);
 	else
-		return 0;
-	return 1;
+		return (0);
+	return (1);
 }
 
 char	*ft_get_node(t_list	*node, char *line)
 {
 	if (node == NULL)
-		return NULL;
+		return (NULL);
 	if (get_simple_nodes(node, line))
-		return mark_space(node, line + tk(node)->len);
+		return (mark_space(node, line + tk(node)->len));
 	else if (*line == CHAR_SQ)
 	{
 		tk_fill(node, TOKEN_LITERAL, line + 1, string_len(line + 1, CHAR_SQ));

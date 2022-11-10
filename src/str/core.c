@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   core.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fatimzehra </var/spool/mail/fatimzehra>    +#+  +:+       +#+        */
+/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/02 16:14:46 by fatimzehra        #+#    #+#             */
-/*   Updated: 2022/11/05 16:10:43 by iait-bel         ###   ########.fr       */
+/*   Created: 2022/11/10 18:57:03 by fael-bou          #+#    #+#             */
+/*   Updated: 2022/11/10 18:57:04 by fael-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 int	str_same(t_str *s1, t_str *s2, int s2_size)
 {
 	int	i;
+
 	i = 0;
 	while (i < s2_size)
 	{
@@ -40,7 +41,7 @@ int	str_clone(t_str *dest, t_str *src)
 	free(dest->val);
 	str_init(dest);
 	if (tmp == NULL)
-		return 0;
+		return (0);
 	dest->val = tmp;
 	dest->size = src->size;
 	dest->cap = src->size;

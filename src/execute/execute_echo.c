@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_echo.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/10 14:31:33 by fael-bou          #+#    #+#             */
+/*   Updated: 2022/11/10 14:31:38 by fael-bou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 #include <str.h>
 #include "exec.h"
@@ -25,13 +37,13 @@ void	execute_echo(t_vec *cmd)
 		while (command && command[i] == 'n')
 			i++;
 		if (command[i] != 'n' && command[i])
-			{
-				print_words(1, (char **)cmd->content);
-				write(1, "\n", 1);
-			}
+		{
+			print_words(1, (char **)cmd->content);
+			write(1, "\n", 1);
+		}
 		else
 			print_words(2, (char **)cmd->content);
 	}
 	else
-	write(1, "\n", 1);
+		write(1, "\n", 1);
 }

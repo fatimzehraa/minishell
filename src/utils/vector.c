@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vector.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/10 18:56:08 by fael-bou          #+#    #+#             */
+/*   Updated: 2022/11/10 18:56:09 by fael-bou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "str.h"
 #include "vector.h"
 #include "utils.h"
@@ -20,17 +32,18 @@ void	free_vec(t_vec *vec)
 	free(vec->content);
 }
 
-void vec_rem(t_vec *vec, int pos)
+void	vec_rem(t_vec *vec, int pos)
 {
-	int i;
+	int	i;
 
 	if (pos >= vec->size)
 	{
 		printf("abort\n");
-		exit(2); 
+		exit(2);
 	}
 	i = pos;
-	while (i < vec->size) {
+	while (i < vec->size)
+	{
 		vec->content[i] = vec->content[i + 1];
 		i++;
 	}
@@ -68,7 +81,7 @@ int	search_vec(t_vec *arr, char *str, int size)
 	int	i;
 
 	if (arr == NULL || arr->size == 0)
-		return -1;
+		return (-1);
 	i = 0;
 	while (arr->content[i])
 	{

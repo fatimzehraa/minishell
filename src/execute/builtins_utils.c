@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtins_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/10 18:58:11 by fael-bou          #+#    #+#             */
+/*   Updated: 2022/11/10 18:58:12 by fael-bou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "exec.h"
 #include <stdio.h>
@@ -10,11 +22,12 @@ void	print_var(char *var, int size)
 	if (var[size] == '\0')
 	{
 		printf("\n");
-		return;
+		return ;
 	}
 	var += size + 1;
 	printf("=\"");
-	while (*var) {
+	while (*var)
+	{
 		size = until(var, "\"");
 		printf("%.*s", size, var);
 		var += size;
@@ -22,16 +35,16 @@ void	print_var(char *var, int size)
 	printf("\"\n");
 }
 
-char *get_val(char *s)
+char	*get_val(char *s)
 {
-	int u;
+	int	u;
 
 	u = until(s, "+=");
 	if (s[u] == '+')
 		u++;
 	if (s[u] == '=')
 		u++;
-	return s+u;
+	return (s + u);
 }
 
 void	search_and_replace(t_vec *env, char *var)
@@ -39,8 +52,8 @@ void	search_and_replace(t_vec *env, char *var)
 	int	pos;
 	int	i;
 
-	if (!is_var(var) || (var[var_len(var)] != '\0' && var[var_len(var)] != '=' &&
-			!(var[var_len(var)] == '+' && var[var_len(var) + 1] == '=')))
+	if (!is_var(var) || (var[var_len(var)] != '\0' && var[var_len(var)] != '='
+			&&!(var[var_len(var)] == '+' && var[var_len(var) + 1] == '=')))
 	{
 		printf("syntax error\n");
 		return ;
@@ -51,31 +64,29 @@ void	search_and_replace(t_vec *env, char *var)
 	{
 		if (var[i] == '+' && *get_val(env->content[pos]) == '\0')
 			env->content[pos] = ft_strjoin(env->content[pos], "===", 1);
-		var = ft_strjoin(env->content[pos], get_val(var), ft_strlen(get_val(var)));
+		var = ft_strjoin(env->content[pos],
+				get_val(var), ft_strlen(get_val(var)));
 		vec_rem(env, pos);
 	}
 	vec_add(env, var);
 }
 
-int env_replace(t_vec *env, void *new_value, int pos)
+int	env_replace(t_vec *env, void *new_value, int pos)
 {
-	int size;
-	char *new;
+	int		size;
+	char	*new;
 
-//	printf("value is %s, pos is %d", (char *)new_value, pos);
-//	return 0;
 	size = until(env->content[pos], "=");
 	new = ft_strjoin(NULL, env->content[pos], size);
 	if (new == NULL)
-		return 0;
+		return (0);
 	new = ft_strjoin(new, "=", 1);
 	if (new == NULL)
-		return 0;
+		return (0);
 	new = ft_strjoin(new, new_value, -1);
 	if (new == NULL)
-		return 0;
-	
+		return (0);
 	free(env->content[pos]);
 	env->content[pos] = new;
-	return 1;
+	return (1);
 }

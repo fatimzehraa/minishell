@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   join.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/10 18:57:29 by fael-bou          #+#    #+#             */
+/*   Updated: 2022/11/10 18:57:31 by fael-bou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "list.h"
 #include "str.h"
 #include "token.h"
@@ -21,7 +33,7 @@ int	join_seq(t_str *str, t_list *tks, t_list **plast)
 	return (1);
 }
 
-int join(t_list *tks)
+int	join(t_list *tks)
 {
 	t_list	*cur;
 
@@ -32,14 +44,13 @@ int join(t_list *tks)
 			&& tk(cur)->has_space == 0)
 		{
 			if (join_seq(&tk(cur)->str, cur->next, &cur) == 0)
-				return 0;
+				return (0);
 		}
 		else
 			cur = cur->next;
 	}
-	return 1;
+	return (1);
 }
-
 
 t_list	*join69(t_list *tks)
 {

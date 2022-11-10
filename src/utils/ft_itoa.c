@@ -1,33 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lib.c                                           :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 18:56:22 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 18:56:23 by fael-bou         ###   ########.fr       */
+/*   Created: 2022/11/10 18:56:28 by fael-bou          #+#    #+#             */
+/*   Updated: 2022/11/10 18:56:29 by fael-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-void	*ft_realloc(void *mem, int size, int append)
+int	count_size(int n)
 {
-	char	*from;
-	char	*to;
+	int	count;
+
+	count = 0;
+	if (n <= 0)
+		count++;
+	while (n != 0)
+	{
+		n = n / 10;
+		count++;
+	}
+	return (count);
+}
+
+char	*ft_itoa(unsigned int n)
+{
+	char	*ascii_s;
 	int		i;
 
-	from = (char *)mem;
-	to = malloc(sizeof(void *) * (size + append));
-	if (to == NULL)
+	i = count_size(n);
+	ascii_s = malloc(i * sizeof(char) + 1);
+	if (ascii_s == NULL)
 		return (NULL);
-	i = 0;
-	while (i < (size * 8))
+	ascii_s[i--] = 0;
+	while (i >= 0)
 	{
-		to[i] = from[i];
-		i++;
+		ascii_s[i] = n % 10 + '0';
+		n = n / 10;
+		i--;
 	}
-	free(mem);
-	return (to);
+	return (ascii_s);
 }

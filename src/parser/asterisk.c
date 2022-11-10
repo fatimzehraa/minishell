@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   asterisk.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/10 18:57:44 by fael-bou          #+#    #+#             */
+/*   Updated: 2022/11/10 18:57:45 by fael-bou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "list.h"
 #include "minishell.h"
 #include "str.h"
@@ -39,18 +51,6 @@ int	match_asterisk(char *str, t_list *tks)
 	return (0);
 }
 
-int str_ppsame(t_str *s1, char *s2, int s2_size)
-{
-	int i;
-	i = 0;
-	while (i < s2_size) {
-		if (s1->val[i] != s2[i])	
-			return i; 
-		i++;
-	}
-	return i;
-}
-
 int	is_match(char *str, t_list *tks)
 {
 	int	n;
@@ -73,6 +73,12 @@ int	is_match(char *str, t_list *tks)
 	return (*str == 0);
 }
 
+void	add(t_list *cur, t_list **head)
+{
+	tk(cur)->type = TOKEN_WORD;
+	tk(cur)->has_space = 1;
+	ft_lstadd_back(head, cur);
+}
 
 t_list	*match(t_list *tks)
 {
@@ -95,13 +101,10 @@ t_list	*match(t_list *tks)
 			cur = new_token(ft_strndup(entry->d_name, -1));
 			if (cur == NULL)
 				break ;
-			tk(cur)->type = TOKEN_WORD;
-			tk(cur)->has_space = 1;
-			ft_lstadd_back(&head, cur);
+			add(cur, &head);
 		}
 	}
 	if (cur == NULL)
 		ft_lstclear(&head, free_token);
 	return (closedir(dp), head);
 }
-

@@ -1,54 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/10 18:55:58 by fael-bou          #+#    #+#             */
+/*   Updated: 2022/11/10 18:56:00 by fael-bou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include <stdlib.h>
 #include "list.h"
 #include "str.h"
 #include "vector.h"
 
-static int	count_size(int n)
-{
-	int	count;
-
-	count = 0;
-	if (n <= 0)
-		count++;
-	while (n != 0)
-	{
-		n = n / 10;
-		count++;
-	}
-	return (count);
-}
-
-char	*ft_itoa(unsigned int n)
-{
-	char	*ascii_s;
-	int		i;
-
-	i = count_size(n);
-	ascii_s = malloc(i * sizeof(char) + 1);
-	if (ascii_s == NULL)
-		return (NULL);
-	ascii_s[i--] = 0;
-	while (i >= 0)
-	{
-		ascii_s[i] = n % 10 + '0';
-		n = n / 10;
-		i--;
-	}
-	return (ascii_s);
-}
-
 int	clone_env(char **envp, t_vec *env)
 {
-	int i;
-	char *str;
+	int		i;
+	char	*str;
 
 	init_vec(env, 100);
 	if (envp == NULL || envp[0] == NULL)
 	{
 		if (vec_add(env, NULL) == 0)
-			return 0;
-		return 1;
+			return (0);
+		return (1);
 	}
 	i = 0;
 	while (envp[i])
@@ -69,7 +47,7 @@ t_str	get_senv(t_str *str, t_vec *env)
 
 	str_init(&val);
 	if (str_psame(str, "?", 1))
-		to_find = ft_itoa(exit_status);
+		to_find = ft_itoa(g_exit_status);
 	else
 	{
 		holder = search_vec(env, str->val, str->size);
@@ -83,7 +61,7 @@ t_str	get_senv(t_str *str, t_vec *env)
 		}
 	}
 	if (to_find == NULL || str_pnclone(&val, to_find, -1) == 0)
-		str_init(&val); 
+		str_init(&val);
 	return (val);
 }
 

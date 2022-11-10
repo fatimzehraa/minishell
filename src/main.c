@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/10 18:54:35 by fael-bou          #+#    #+#             */
+/*   Updated: 2022/11/10 18:54:36 by fael-bou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include <stdio.h>
 #include <readline/readline.h>
@@ -7,7 +19,7 @@
 #include "token.h"
 #include "vector.h"
 
-int	exit_status = 0;
+int	g_exit_status = 0;
 
 int	launch(t_ctx *ctx)
 {
@@ -19,7 +31,7 @@ int	launch(t_ctx *ctx)
 		if (line == NULL)
 		{
 			printf("exit\n");
-			return 0;
+			return (0);
 		}
 		if (line[0] != '\0')
 			add_history(line);
@@ -50,7 +62,7 @@ void	setup_termios(t_ctx *ctx)
 int	main(int argc, char *argv[], char **envp)
 {
 	t_ctx	ctx;
-	int code;
+	int		code;
 
 	(void)argc;
 	(void)argv;
@@ -62,5 +74,5 @@ int	main(int argc, char *argv[], char **envp)
 	code = launch(&ctx);
 	free_vec(&ctx.env);
 	rl_clear_history();
-	return code;
+	return (code);
 }

@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/10 19:12:32 by fael-bou          #+#    #+#             */
+/*   Updated: 2022/11/10 20:19:57 by fael-bou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef TOKEN_H
-#define TOKEN_H
+# define TOKEN_H
 
 # include "list.h"
 # include "minishell.h"
@@ -14,22 +26,32 @@ enum e_token {
 	TOKEN_LITERAL = 1<<1,
 	TOKEN_TEMPLATE = 1<<2,
 	TOKEN_VAR = 1<<3,
-	TOKEN_RED_IN = 1<<4,
-	TOKEN_RED_OUT = 1<<5,
-	TOKEN_RED_APPEND = 1<<6,
-	TOKEN_HEREDOC = 1<<7,
-	TOKEN_PIPE = 1<<8,
-	TOKEN_WHITESPACE = 1<<9,
-	TOKEN_AND= 1<<10,
-	TOKEN_OR= 1<<11,
-	TOKEN_ASTERISK= 1<<12,
+	TOKEN_ASTERISK= 1<<4,
+	TOKEN_RED_IN = 1<<5,
+	TOKEN_RED_OUT = 1<<6,
+	TOKEN_RED_APPEND = 1<<7,
+	TOKEN_HEREDOC = 1<<8,
+	TOKEN_PIPE = 1<<9,
+	TOKEN_WHITESPACE = 1<<10,
+	TOKEN_AND= 1<<11,
+	TOKEN_OR= 1<<12,
 	TOKEN_EOL = 1<<13,
 	TOKEN_INVALID = 1<<14,
 };
 
-# define TOKEN_RED (TOKEN_RED_IN | TOKEN_RED_OUT | TOKEN_RED_APPEND | TOKEN_HEREDOC)
-# define TOKEN_JOIN (TOKEN_WORD | TOKEN_LITERAL | TOKEN_TEMPLATE | TOKEN_VAR | TOKEN_ASTERISK)
-#define TOKEN_LIST (TOKEN_AND | TOKEN_OR | TOKEN_EOL)
+# define TOKEN_JOIN (0b11111)
+# define TOKEN_RED (0b111100000)
+# define TOKEN_LIST (0b11100000000000)
+
+/*
+ *
+ * # define TOKEN_RED (TOKEN_RED_IN |
+ * TOKEN_RED_OUT | TOKEN_RED_APPEND | TOKEN_HEREDOC)
+ * # define TOKEN_JOIN (TOKEN_WORD |
+ * TOKEN_LITERAL | TOKEN_TEMPLATE | TOKEN_VAR | TOKEN_ASTERISK)
+ * #define TOKEN_LIST (TOKEN_AND | TOKEN_OR | TOKEN_EOL)
+ *
+*/
 
 typedef struct s_token {
 	enum e_token	type;

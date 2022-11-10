@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/10 18:54:44 by fael-bou          #+#    #+#             */
+/*   Updated: 2022/11/10 18:54:45 by fael-bou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include <signal.h>
 #include <stdio.h>
@@ -14,7 +26,7 @@ void	handler(int sig, siginfo_t *infos, void *ptr)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	exit_status = 1;
+	g_exit_status = 1;
 }
 
 void	setup_signals(t_ctx *ctx)

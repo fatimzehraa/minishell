@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/10 18:57:17 by fael-bou          #+#    #+#             */
+/*   Updated: 2022/11/10 20:30:49 by fael-bou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "list.h"
 #include "parser.h"
 #include "minishell.h"
@@ -7,11 +19,11 @@
 #include "vector.h"
 #include <stdio.h>
 
-t_list *mk_cmd()
+t_list	*mk_cmd(void)
 {
 	t_list	*node;
 	t_cmd	*cmd;
-	
+
 	cmd = malloc(sizeof(t_cmd));
 	if (cmd == NULL)
 		return (NULL);
@@ -20,20 +32,28 @@ t_list *mk_cmd()
 	node = ft_lstnew(cmd);
 	if (node == NULL)
 		free(cmd);
-	return(node);
+	return (node);
 }
 
-t_cmd *get_cmd(t_list *node)
+t_cmd	*get_cmd(t_list *node)
 {
 	return ((t_cmd *) node->content);
 }
 
-
-t_list * filter_cmd(t_list *tks)
+void	_filter(t_list **next, t_list **cur, t_list *cmd)
 {
-	t_list *head;
-	t_list *cur;
-	t_list *cmd;
+	*next = (*cur)->next->next;
+	(*cur)->next->next = NULL;
+	ft_lstadd_back(&(get_cmd(cmd)->red), *cur);
+	*cur = *next;
+}
+
+t_list	*filter_cmd(t_list *tks)
+{
+	t_list	*head;
+	t_list	*cur;
+	t_list	*cmd;
+	t_list	*next;
 
 	head = NULL;
 	cur = tks;
@@ -44,11 +64,8 @@ t_list * filter_cmd(t_list *tks)
 		{
 			if (tk(cur)->type & TOKEN_RED)
 			{
-				t_list *next = cur->next->next;
-				cur->next->next = NULL;
-				ft_lstadd_back(&(get_cmd(cmd)->red), cur);
-				cur = next;
-				continue;
+				_filter(&next, &cur, cmd);
+				continue ;
 			}
 			vec_add(&get_cmd(cmd)->words, tk(cur)->str.val);
 			str_init(&tk(cur)->str);
@@ -63,8 +80,8 @@ t_list * filter_cmd(t_list *tks)
 t_list	*parser(t_list *tokens, t_ctx *ctx)
 {
 	if (!expand(tokens, ctx))
-		return NULL;
-	if (join(tokens))
-		return NULL;
+		return (NULL);
+	if (!join(tokens))
+		return (NULL);
 	return (filter_cmd(tokens));
 }

@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 21:13:03 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 12:28:26 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/10 18:55:45 by fael-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 #include "exec.h"
 #include "vector.h"
 
-
 t_list	*ignore(t_list *tokens)
 {
 	while (!(tk(tokens)->type & TOKEN_LIST))
@@ -30,10 +29,9 @@ t_list	*ignore(t_list *tokens)
 	return (tokens);
 }
 
-
-t_list *detach(t_list *tokens)
+t_list	*detach(t_list *tokens)
 {
-	t_list *last;
+	t_list	*last;
 
 	last = NULL;
 	while (!(tk(tokens)->type & TOKEN_LIST))
@@ -42,12 +40,12 @@ t_list *detach(t_list *tokens)
 		tokens = tokens->next;
 	}
 	last->next = NULL;
-	return tokens;
+	return (tokens);
 }
 
-void free_cmd(void *ptr)
+void	free_cmd(void *ptr)
 {
-	t_cmd *cmd;
+	t_cmd	*cmd;
 
 	cmd = ptr;
 	free_vec(&cmd->words);
@@ -68,14 +66,14 @@ int	and_or(t_list *tokens, t_ctx *ctx)
 			return (switch_handler(ctx), ft_lstclear(&last, free_token), 0);
 		execute(cmds, ctx);
 		ft_lstclear(&cmds, free_cmd);
-		if (exit_status != 0 && tk(last)->type == TOKEN_AND)
+		if (g_exit_status != 0 && tk(last)->type == TOKEN_AND)
 			last = ignore(last->next);
-		else if (exit_status == 0 && tk(last)->type == TOKEN_OR)
+		else if (g_exit_status == 0 && tk(last)->type == TOKEN_OR)
 			last = ignore(last->next);
 		tokens = last->next;
 	}
 	switch_handler(ctx);
-	return 1;
+	return (1);
 }
 
 void	exec_line(char *line, t_ctx *ctx)
@@ -90,7 +88,7 @@ void	exec_line(char *line, t_ctx *ctx)
 	if (!check_syntax(tokens))
 	{
 		ft_putstr(2, "minishell: syntax error\n");
-		exit_status = 258;
+		g_exit_status = 258;
 		return ;
 	}
 	read_heredocs(ctx, tokens);

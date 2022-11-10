@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_exit.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/10 14:31:58 by fael-bou          #+#    #+#             */
+/*   Updated: 2022/11/10 14:32:01 by fael-bou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "exec.h"
 #include "minishell.h"
 #include "str.h"
@@ -49,7 +61,7 @@ void	execute_exit(t_ctx *ctx, t_vec cmd)
 {
 	(void)ctx;
 	if (cmd.size == 1)
-		exit(exit_status);
+		exit(g_exit_status);
 	if (cmd.size > 1 && !is_nbr(cmd.content[1]))
 	{
 		ft_putstr(2, "minishell: exit: ");

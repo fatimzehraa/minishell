@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirections.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/10 14:34:13 by fael-bou          #+#    #+#             */
+/*   Updated: 2022/11/10 18:58:00 by fael-bou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "list.h"
 #include "minishell.h"
 #include "str.h"
@@ -11,7 +23,7 @@
 void	red_out(t_list *reds, int cmd_fd[], int fd)
 {
 	close(cmd_fd[1]);
-	fd = open(tk(reds->next)->str.val, O_TRUNC| O_WRONLY| O_CREAT, 0666);
+	fd = open(tk(reds->next)->str.val, O_TRUNC | O_WRONLY | O_CREAT, 0666);
 	if (fd == -1)
 	{
 		perror("minishell");
@@ -49,7 +61,7 @@ void	red_here(t_list *reds, int cmd_fd[], int fd)
 void	red_append(t_list *reds, int cmd_fd[], int fd)
 {
 	close(cmd_fd[1]);
-	fd = open(tk(reds->next)->str.val, O_APPEND| O_WRONLY| O_CREAT, 0666);
+	fd = open(tk(reds->next)->str.val, O_APPEND | O_WRONLY | O_CREAT, 0666);
 	if (fd == -1)
 	{
 		perror("minishell");
@@ -60,8 +72,9 @@ void	red_append(t_list *reds, int cmd_fd[], int fd)
 
 void	redirect(t_list *reds, int cmd_fd[])
 {
-	int	fd = 0;
+	int	fd;
 
+	fd = 0;
 	while (reds)
 	{
 		if (tk(reds)->type == TOKEN_RED_OUT)
