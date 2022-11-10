@@ -9,7 +9,6 @@
 int is_special_token(t_token *token) {
   if (token->type == TOKEN_PIPE || token->type == TOKEN_AND ||
       token->type == TOKEN_OR)
-    //		|| token->type == TOKEN_EOL)
     return (1);
   return (0);
 }
@@ -28,7 +27,6 @@ int check_redirections(t_list *tokens) {
 			return (0);
 	}
 	return (1);
-//  return ((tk(tokens)->type & TOKEN_RED) && (tk(tokens->next)->type != TOKEN_WORD));
 }
 
 int check_syntax(t_list *tokens)
@@ -38,15 +36,11 @@ int check_syntax(t_list *tokens)
 	if (tk(tokens)->type == TOKEN_EOL)
 	  return (1);
 	while (tk(tokens)->type != TOKEN_EOL) {
-	  if (check_if_followed(tokens))
-	    return (0);
-	  else if (!check_redirections(tokens))
-	    return (0);
-	  else if (tk(tokens)->type == TOKEN_LITERAL && (tk(tokens)->str.val[until(tk(tokens)->str.val, "\'")] == '\''))
+	  if (check_if_followed(tokens)
+	  || !check_redirections(tokens)
+	  || tk(tokens)->type == TOKEN_INVALID)
 		  return (0);
-	  else if (tk(tokens)->type == TOKEN_TEMPLATE)
-		  return (!(tk(tokens)->str.val[until(tk(tokens)->str.val, "\"")] == '\"'));
 	  tokens = tokens->next;
 	}
 	return (1);
-}// if literal w template until ("\"\'")
+}

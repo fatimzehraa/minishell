@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:09:51 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/09 16:01:22 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/10 10:56:50 by fael-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,14 @@ char	*find_path(char *path, char *cmd)
 	cmd_len = ft_strlen(cmd);
 	if (cmd[0] == '/' || cmd[0] == '.')
 		return (cmd);
+	if (cmd[0] == '\0')
+		return NULL;
 	while(*path)
 	{
 		size = until(path, ":");
 		cmd_path = malloc(size + cmd_len + 2);
+		if (cmd_path == NULL)
+			return (NULL);
 		ft_strncpy(cmd_path, path, size);
 		ft_strncpy(cmd_path + size, "/", 1);
 		ft_strncpy(cmd_path + size + 1, cmd, cmd_len);
@@ -81,27 +85,12 @@ char *get_command(t_ctx *ctx, t_list *cmds)
 	char	*cmd_path;
 
 	cmd = get_cmd(cmds);
-	/*
-	int i = 0;
-	while(cmd->words.content[i])
-	{
-		printf("content n %d", i);
-		printf("cmd->word.content = %s\n", (char *)cmd->words.content[i]);
-		i++;
-	}*/
 	if (cmd->words.size == 0)
 		return (NULL);
-	/*
-	if (ft_strncmp(cmd->words.content[0], "", -1) == 0)
-	{
-		printf("bug\n");
-		return NULL;
-	}*/
 	index = search_vec_(&ctx->env, "PATH");
 	path = ctx->env.content[index] + 5;
 	command = cmd->words.content[0];
 	cmd_path = find_path(path, command);
-	// TODO: if PATH == NULL || not found in PATH
 	if (cmd_path == NULL)
 	{
 		ft_putstr(2, "minishell: ");
@@ -237,6 +226,5 @@ int execute(t_list *cmds, t_ctx *ctx)
 		cmds = cmds->next;
 	}
 	ft_wait(ctx, pid);
-//	printf("exit status :%d\n", exit_status);
-	return 0;
+	return (0);
 }

@@ -143,6 +143,8 @@ int	expand(t_list *tokens, t_ctx *ctx)
 			if (expand_var(ctx, curr) == 0)
 				return (ft_lstclear(&tokens, free_token), 0);
 		}
+		else if (tk(curr)->type == TOKEN_LITERAL)
+			tk(curr)->type = TOKEN_WORD;
 		else if (tk(curr)->type == TOKEN_TEMPLATE)
 			if (expand_template(curr, ctx) == 0)
 				return (ft_lstclear(&tokens, free_token), 0);
