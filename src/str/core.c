@@ -6,7 +6,7 @@
 /*   By: fatimzehra </var/spool/mail/fatimzehra>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 16:14:46 by fatimzehra        #+#    #+#             */
-/*   Updated: 2022/11/03 16:52:01 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/05 16:10:43 by iait-bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 int	str_same(t_str *s1, t_str *s2, int s2_size)
 {
 	int	i;
-	if (s1->size < s2_size || s2->size < s2_size)
-		return (0);
 	i = 0;
 	while (i < s2_size)
 	{

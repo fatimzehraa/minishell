@@ -32,8 +32,6 @@ int	get_simple_nodes(t_list *node, char *line)
 		tk_fill(node, TOKEN_RED_IN, NULL, 1);
 	else if (*line == '|')
 		tk_fill(node, TOKEN_PIPE, NULL, 1);
-	else if (*line == '*')
-		tk_fill(node, TOKEN_ASTERISK, NULL, 1);
 	else
 		return 0;
 	return 1;
@@ -60,6 +58,8 @@ char	*ft_get_node(t_list	*node, char *line)
 		line++;
 		tk_fill(node, TOKEN_VAR, line, var_len(line));
 	}
+	else if (*line == '*')
+		tk_fill(node, TOKEN_ASTERISK, line, 1);
 	else
 		tk_fill(node, TOKEN_WORD, line, word_len(line));
 	if (tk(node)->str.val == NULL)

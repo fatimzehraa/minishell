@@ -83,6 +83,42 @@
    "-fsanitize=address",
    "-I./inc",
    "-c",
+   "src/term.c",
+   "-o",
+   "build/term.o"
+  ],
+  "file": "src/term.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-fsanitize=address",
+   "-I./inc",
+   "-c",
+   "src/heredoc.c",
+   "-o",
+   "build/heredoc.o"
+  ],
+  "file": "src/heredoc.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-fsanitize=address",
+   "-I./inc",
+   "-c",
    "src/tokenizer/tokenizer.c",
    "-o",
    "build/tokenizer/tokenizer.o"
@@ -124,6 +160,24 @@
    "build/tokenizer/scanner.o"
   ],
   "file": "src/tokenizer/scanner.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-fsanitize=address",
+   "-I./inc",
+   "-c",
+   "src/str/core_utils.c",
+   "-o",
+   "build/str/core_utils.o"
+  ],
+  "file": "src/str/core_utils.c"
  },
  {
   "directory": "/Users/fael-bou/Desktop/projects/minishell",
@@ -245,6 +299,24 @@
    "-fsanitize=address",
    "-I./inc",
    "-c",
+   "src/utils/expand.c",
+   "-o",
+   "build/utils/expand.o"
+  ],
+  "file": "src/utils/expand.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-fsanitize=address",
+   "-I./inc",
+   "-c",
    "src/parser/expand.c",
    "-o",
    "build/parser/expand.o"
@@ -299,11 +371,137 @@
    "-fsanitize=address",
    "-I./inc",
    "-c",
+   "src/parser/asterisk.c",
+   "-o",
+   "build/parser/asterisk.o"
+  ],
+  "file": "src/parser/asterisk.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-fsanitize=address",
+   "-I./inc",
+   "-c",
+   "src/parser/check_syntax.c",
+   "-o",
+   "build/parser/check_syntax.o"
+  ],
+  "file": "src/parser/check_syntax.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-fsanitize=address",
+   "-I./inc",
+   "-c",
    "src/execute/execute.c",
    "-o",
    "build/execute/execute.o"
   ],
   "file": "src/execute/execute.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-fsanitize=address",
+   "-I./inc",
+   "-c",
+   "src/execute/builtins.c",
+   "-o",
+   "build/execute/builtins.o"
+  ],
+  "file": "src/execute/builtins.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-fsanitize=address",
+   "-I./inc",
+   "-c",
+   "src/execute/builtins_utils.c",
+   "-o",
+   "build/execute/builtins_utils.o"
+  ],
+  "file": "src/execute/builtins_utils.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-fsanitize=address",
+   "-I./inc",
+   "-c",
+   "src/execute/redirections.c",
+   "-o",
+   "build/execute/redirections.o"
+  ],
+  "file": "src/execute/redirections.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-fsanitize=address",
+   "-I./inc",
+   "-c",
+   "src/execute/execute_echo.c",
+   "-o",
+   "build/execute/execute_echo.o"
+  ],
+  "file": "src/execute/execute_echo.c"
+ },
+ {
+  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-fsanitize=address",
+   "-I./inc",
+   "-c",
+   "src/execute/execute_exit.c",
+   "-o",
+   "build/execute/execute_exit.o"
+  ],
+  "file": "src/execute/execute_exit.c"
  },
  {
   "directory": "/Users/fael-bou/Desktop/projects/minishell",
@@ -484,203 +682,5 @@
    "build/lists/ft_delete.o"
   ],
   "file": "src/lists/ft_delete.c"
- },
- {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
-  "arguments": [
-   "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-g",
-   "-fsanitize=address",
-   "-I./inc",
-   "-c",
-   "src/term.c",
-   "-o",
-   "build/term.o"
-  ],
-  "file": "src/term.c"
- },
- {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
-  "arguments": [
-   "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-g",
-   "-fsanitize=address",
-   "-I./inc",
-   "-c",
-   "src/heredoc.c",
-   "-o",
-   "build/heredoc.o"
-  ],
-  "file": "src/heredoc.c"
- },
- {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
-  "arguments": [
-   "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-g",
-   "-fsanitize=address",
-   "-I./inc",
-   "-c",
-   "src/str/core_utils.c",
-   "-o",
-   "build/str/core_utils.o"
-  ],
-  "file": "src/str/core_utils.c"
- },
- {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
-  "arguments": [
-   "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-g",
-   "-fsanitize=address",
-   "-I./inc",
-   "-c",
-   "src/utils/expand.c",
-   "-o",
-   "build/utils/expand.o"
-  ],
-  "file": "src/utils/expand.c"
- },
- {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
-  "arguments": [
-   "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-g",
-   "-fsanitize=address",
-   "-I./inc",
-   "-c",
-   "src/parser/asterisk.c",
-   "-o",
-   "build/parser/asterisk.o"
-  ],
-  "file": "src/parser/asterisk.c"
- },
- {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
-  "arguments": [
-   "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-g",
-   "-fsanitize=address",
-   "-I./inc",
-   "-c",
-   "src/parser/check_syntax.c",
-   "-o",
-   "build/parser/check_syntax.o"
-  ],
-  "file": "src/parser/check_syntax.c"
- },
- {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
-  "arguments": [
-   "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-g",
-   "-fsanitize=address",
-   "-I./inc",
-   "-c",
-   "src/execute/builtins.c",
-   "-o",
-   "build/execute/builtins.o"
-  ],
-  "file": "src/execute/builtins.c"
- },
- {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
-  "arguments": [
-   "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-g",
-   "-fsanitize=address",
-   "-I./inc",
-   "-c",
-   "src/execute/builtins_utils.c",
-   "-o",
-   "build/execute/builtins_utils.o"
-  ],
-  "file": "src/execute/builtins_utils.c"
- },
- {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
-  "arguments": [
-   "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-g",
-   "-fsanitize=address",
-   "-I./inc",
-   "-c",
-   "src/execute/redirections.c",
-   "-o",
-   "build/execute/redirections.o"
-  ],
-  "file": "src/execute/redirections.c"
- },
- {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
-  "arguments": [
-   "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-g",
-   "-fsanitize=address",
-   "-I./inc",
-   "-c",
-   "src/execute/execute_echo.c",
-   "-o",
-   "build/execute/execute_echo.o"
-  ],
-  "file": "src/execute/execute_echo.c"
- },
- {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
-  "arguments": [
-   "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-g",
-   "-fsanitize=address",
-   "-I./inc",
-   "-c",
-   "src/execute/execute_exit.c",
-   "-o",
-   "build/execute/execute_exit.o"
-  ],
-  "file": "src/execute/execute_exit.c"
  }
 ]

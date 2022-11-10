@@ -79,7 +79,7 @@ void	exec_line(char *line, t_ctx *ctx)
 		exit_status = 258;
 		return ;
 	}
-	read_heredocs(tokens);
+	read_heredocs(ctx, tokens);
 	// handel logic .. && ||
 	and_or(tokens, ctx);
 }

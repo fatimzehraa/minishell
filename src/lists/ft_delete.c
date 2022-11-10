@@ -7,7 +7,7 @@ t_list *delete_cur(t_list *list, void (*f)(void *))
 	if (list == NULL)
 		return NULL;
 	next = list->next;
-	f(list);
+	ft_lstdelone(list, f);
 	return next;
 }
 

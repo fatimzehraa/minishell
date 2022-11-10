@@ -66,26 +66,5 @@ t_list	*parser(t_list *tokens, t_ctx *ctx)
 	expand(tokens, ctx);
 	join(tokens);
 	tokens = filter_cmd(tokens);
-/*	t_list *cur;
-	
-	cur = tokens;
-	while (cur) {
-		t_cmd *cmd = get_cmd(cur);
-		printf("words:\n");
-		int i = 0;
-		while (i < cmd->words.size) {
-			printf("%s |", (char *) cmd->words.content[i]);
-			i++;
-		}
-		printf("\n");
-		t_list *reds = cmd->red;
-		while (reds)
-		{
-			printf("%s\t |%d|\n", tk(reds)->str.val, tk(reds)->has_space);
-			reds = reds->next;
-		}
-		
-		cur = cur->next;
-	}*/
 	return (tokens);
 }
