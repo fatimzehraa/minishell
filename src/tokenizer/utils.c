@@ -44,11 +44,14 @@ t_list	*new_token(char	*word)
 
 int	tk_fill(t_list *node, enum e_token type, char *dup_value, int len)
 {
-	if (len != -1)
-		tk(node)->type = type;
-	else
-		tk(node)->type = TOKEN_INVALID;
+	tk(node)->type = type;
 	tk(node)->len = len;
+	if (len == -1)
+	{
+		tk(node)->len = ft_strlen(dup_value) + 1;
+		tk(node)->type = TOKEN_INVALID;
+		type = TOKEN_INVALID;
+	}
 	if (type & (TOKEN_LITERAL | TOKEN_TEMPLATE))
 		tk(node)->len += 2;
 	if (dup_value != NULL)
