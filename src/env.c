@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "list.h"
 #include "str.h"
+#include "vector.h"
 
 static int	count_size(int n)
 {
@@ -43,6 +44,12 @@ int	clone_env(char **envp, t_vec *env)
 	char *str;
 
 	init_vec(env, 100);
+	if (envp == NULL || envp[0] == NULL)
+	{
+		if (vec_add(env, NULL) == 0)
+			return 0;
+		return 1;
+	}
 	i = 0;
 	while (envp[i])
 	{
@@ -69,7 +76,11 @@ t_str	get_senv(t_str *str, t_vec *env)
 		if (holder == -1)
 			to_find = "";
 		else
-			to_find = env->content[holder] + str->size + 1;
+		{
+			to_find = env->content[holder] + str->size;
+			if (*to_find == '=')
+				to_find++;
+		}
 	}
 	if (to_find == NULL || str_pnclone(&val, to_find, -1) == 0)
 		str_init(&val); 

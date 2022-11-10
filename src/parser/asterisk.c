@@ -23,7 +23,7 @@ int	match_asterisk(char *str, t_list *tks)
 {
 	int	n;
 
-	while (tk(tks)->type == TOKEN_ASTERISK)
+	while (tks && tk(tks)->type == TOKEN_ASTERISK)
 		tks = tks->next;
 	if (tks == NULL || tk(tks)->type != TOKEN_WORD)
 		return (1);

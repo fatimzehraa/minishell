@@ -57,14 +57,14 @@ t_list * filter_cmd(t_list *tks)
 		ft_lstadd_back(&head, cmd);
 		cur = delete_cur(cur, free_token);
 	}
-
 	return (head);
 }
 
 t_list	*parser(t_list *tokens, t_ctx *ctx)
 {
-	expand(tokens, ctx);
-	join(tokens);
-	tokens = filter_cmd(tokens);
-	return (tokens);
+	if (!expand(tokens, ctx))
+		return NULL;
+	if (join(tokens))
+		return NULL;
+	return (filter_cmd(tokens));
 }

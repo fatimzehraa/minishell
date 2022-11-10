@@ -12,7 +12,8 @@ int	join_seq(t_str *str, t_list *tks, t_list **plast)
 	while (cur && tk(cur)->type == TOKEN_WORD && !has_space)
 	{
 		has_space = tk(cur)->has_space;
-		str_push(str, &tk(cur)->str);
+		if (str_push(str, &tk(cur)->str) == 0)
+			return (0);
 		cur = delete_cur(cur, free_token);
 	}
 	(*plast)->next = cur;
@@ -20,7 +21,7 @@ int	join_seq(t_str *str, t_list *tks, t_list **plast)
 	return (1);
 }
 
-t_list	*join(t_list *tks)
+int join(t_list *tks)
 {
 	t_list	*cur;
 
@@ -29,11 +30,14 @@ t_list	*join(t_list *tks)
 	{
 		if (tk(cur)->type == TOKEN_WORD
 			&& tk(cur)->has_space == 0)
-			join_seq(&tk(cur)->str, cur->next, &cur);
+		{
+			if (join_seq(&tk(cur)->str, cur->next, &cur) == 0)
+				return 0;
+		}
 		else
 			cur = cur->next;
 	}
-	return (cur);
+	return 1;
 }
 
 

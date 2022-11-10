@@ -67,6 +67,8 @@ int	search_vec(t_vec *arr, char *str, int size)
 {
 	int	i;
 
+	if (arr == NULL || arr->size == 0)
+		return -1;
 	i = 0;
 	while (arr->content[i])
 	{

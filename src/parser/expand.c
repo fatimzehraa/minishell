@@ -111,7 +111,7 @@ t_list *_expand_asterisk(t_list *curr, t_list *begin)
  * 3. match
  * 4. link
  */
-void expand_asterisk(t_list *tks)
+int expand_asterisk(t_list *tks)
 {
 	t_list	*curr;
 	t_list	*head;
@@ -126,6 +126,7 @@ void expand_asterisk(t_list *tks)
 			head = curr;
 		curr = curr->next;
 	}
+	return 1;
 }
 
 int	expand(t_list *tokens, t_ctx *ctx)
@@ -149,6 +150,5 @@ int	expand(t_list *tokens, t_ctx *ctx)
 				return (ft_lstclear(&tokens, free_token), 0);
 		curr = curr->next;
 	}
-	expand_asterisk(tokens);
-	return (1);
+	return (expand_asterisk(tokens));
 }

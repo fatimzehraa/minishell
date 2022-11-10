@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:09:51 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 10:56:50 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/10 11:22:09 by fael-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ char *get_command(t_ctx *ctx, t_list *cmds)
 	if (cmd->words.size == 0)
 		return (NULL);
 	index = search_vec_(&ctx->env, "PATH");
+	if (index == -1)
+		return cmd->words.content[0];
 	path = ctx->env.content[index] + 5;
 	command = cmd->words.content[0];
 	cmd_path = find_path(path, command);
@@ -183,7 +185,8 @@ void ft_exec_child(t_ctx *ctx, t_list *cmds, char *cmd, int cmd_fd[], int fd_in)
 	signal(SIGQUIT, SIG_DFL);
 	ft_dup(cmds, cmd_fd, fd_in);
 	execve(cmd, (char **)get_cmd(cmds)->words.content, (char **)ctx->env.content);
-	perror("minishell: ");
+	ft_putstr(2, "minishell: ");
+	perror(cmd);
 	if (errno == EACCES)
 		exit(126);
 	exit(127);

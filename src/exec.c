@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 21:13:03 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/09 18:21:11 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/10 12:28:26 by fael-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include "parser.h"
 #include "minishell.h"
 #include "exec.h"
+#include "vector.h"
 
 
 t_list	*ignore(t_list *tokens)
@@ -44,7 +45,16 @@ t_list *detach(t_list *tokens)
 	return tokens;
 }
 
-void	and_or(t_list *tokens, t_ctx *ctx)
+void free_cmd(void *ptr)
+{
+	t_cmd *cmd;
+
+	cmd = ptr;
+	free_vec(&cmd->words);
+	ft_lstclear(&cmd->red, free_token);
+}
+
+int	and_or(t_list *tokens, t_ctx *ctx)
 {
 	t_list	*cmds;
 	t_list	*last;
@@ -54,7 +64,10 @@ void	and_or(t_list *tokens, t_ctx *ctx)
 	{
 		last = detach(tokens);
 		cmds = parser(tokens, ctx);
+		if (cmds == NULL)
+			return (switch_handler(ctx), ft_lstclear(&last, free_token), 0);
 		execute(cmds, ctx);
+		ft_lstclear(&cmds, free_cmd);
 		if (exit_status != 0 && tk(last)->type == TOKEN_AND)
 			last = ignore(last->next);
 		else if (exit_status == 0 && tk(last)->type == TOKEN_OR)
@@ -62,6 +75,7 @@ void	and_or(t_list *tokens, t_ctx *ctx)
 		tokens = last->next;
 	}
 	switch_handler(ctx);
+	return 1;
 }
 
 void	exec_line(char *line, t_ctx *ctx)
@@ -80,6 +94,5 @@ void	exec_line(char *line, t_ctx *ctx)
 		return ;
 	}
 	read_heredocs(ctx, tokens);
-	// handel logic .. && ||
 	and_or(tokens, ctx);
 }
