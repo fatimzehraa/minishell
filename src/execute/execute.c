@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:09:51 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 18:39:58 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/10 20:43:50 by bella            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include <signal.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/_types/_pid_t.h>
 #include <sys/signal.h>
 #include <sys/unistd.h>
 #include <sys/wait.h>
@@ -117,9 +116,9 @@ int	run_cmd(t_ctx *ctx, t_list *cmd, int cmd_fd[], int fd[])
 
 int	execute(t_list *cmds, t_ctx *ctx)
 {
-	int		fd[2];
-	int		cmd_fd[3];
-	pid_t	pid;
+	int	fd[2];
+	int	cmd_fd[3];
+	int	pid;
 
 	g_exit_status = 0;
 	pid = -1;

@@ -6,11 +6,12 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:32:32 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 17:19:12 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/10 20:44:35 by bella            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <sys/wait.h>
 #include <unistd.h>
 #include "str.h"
 #include "exec.h"
