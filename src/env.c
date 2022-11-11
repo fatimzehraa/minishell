@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:55:58 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/11 18:17:18 by fatimzehra       ###   ########.fr       */
+/*   Updated: 2022/11/11 18:34:45 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,17 @@ t_str	get_senv(t_str *str, t_vec *env)
 
 char	*get_env(char *var, t_vec *env)
 {
-	char	*value;
-	int		holder;
+	char		*value;
+	static char	itoa[20];
+	int			holder;
 
+	if (ft_strncmp(var, "?", 2) == 0)
+	{
+		value = ft_itoa(g_exit_status);
+		ft_strncpy(itoa, value, ft_strlen(value));
+		free(value);
+		return (itoa);
+	}
 	holder = search_vec(env, var, ft_strlen(var));
 	if (holder == -1)
 		value = "";
