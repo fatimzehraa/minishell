@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 21:13:03 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/11 15:31:26 by fatimzehra       ###   ########.fr       */
+/*   Updated: 2022/11/11 20:15:50 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,26 @@
 #include "exec.h"
 #include "vector.h"
 
-t_list	*ignore(t_list *tokens)
+t_list	*ignore(t_list *tokens, int one)
 {
-	while (!(tk(tokens)->type & TOKEN_LIST))
-		tokens = tokens->next;
+	t_list	*tmp;
+
+	if (tokens == NULL)
+		return NULL;
+	if (tk(tokens)->type & TOKEN_LIST)
+	{
+		tmp = tokens->next;
+		ft_lstdelone(tokens, free_token);
+		tokens = tmp;
+	}
+	if (one)
+		return tokens;
+	while (tokens && !(tk(tokens)->type & TOKEN_LIST))
+	{
+		tmp = tokens->next;
+		ft_lstdelone(tokens, free_token);
+		tokens = tmp;
+	}
 	return (tokens);
 }
 
@@ -70,15 +86,11 @@ int	and_or(t_list *tokens, t_ctx *ctx)
 				(&cmds, free_cmd), ft_lstclear(&last, free_token), 0);
 		ft_lstclear(&cmds, free_cmd);
 		if (g_exit_status != 0 && last && tk(last)->type == TOKEN_AND)
-			last = ignore(last->next);
+			last = ignore(last, 0);
 		else if (g_exit_status == 0 && last && tk(last)->type == TOKEN_OR)
-			last = ignore(last->next);
-		if (last)
-			tokens = last->next;
-		else
-			tokens = NULL;
+			last = ignore(last, 0);
+		tokens = ignore(last, 1);
 	}
-	ft_lstclear(&tokens, free_token);
 	return (1);
 }
 
