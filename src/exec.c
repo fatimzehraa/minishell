@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 21:13:03 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/11 14:09:51 by fatimzehra       ###   ########.fr       */
+/*   Updated: 2022/11/11 15:31:26 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,27 +59,26 @@ int	and_or(t_list *tokens, t_ctx *ctx)
 	t_list	*last;
 
 	switch_handler(ctx);
-	while (tokens && !(tk(tokens)->type & TOKEN_EOL))
+	while (tokens)
 	{
 		last = detach(tokens);
 		cmds = parser(tokens, ctx);
 		if (cmds == NULL)
-			return (switch_handler(ctx), ft_lstclear(&last, free_token), 0);
+			return (ft_lstclear(&last, free_token), 0);
 		if (execute(cmds, ctx) == 0)
-			return (switch_handler(ctx), ft_lstclear
+			return (ft_lstclear
 				(&cmds, free_cmd), ft_lstclear(&last, free_token), 0);
 		ft_lstclear(&cmds, free_cmd);
 		if (g_exit_status != 0 && last && tk(last)->type == TOKEN_AND)
 			last = ignore(last->next);
 		else if (g_exit_status == 0 && last && tk(last)->type == TOKEN_OR)
 			last = ignore(last->next);
-		if(last)
+		if (last)
 			tokens = last->next;
 		else
 			tokens = NULL;
 	}
 	ft_lstclear(&tokens, free_token);
-	switch_handler(ctx);
 	return (1);
 }
 
@@ -90,14 +89,20 @@ void	exec_line(char *line, t_ctx *ctx)
 	while (is_space(*line))
 		line++;
 	tokens = tokenizer(line);
-	if (tokens == NULL || tk(tokens)->type == TOKEN_EOL)
+	if (tokens == NULL)
 		return ;
 	if (!check_syntax(tokens))
 	{
 		ft_putstr(2, "minishell: syntax error\n");
 		g_exit_status = 258;
+		ft_lstclear(&tokens, free_token);
 		return ;
 	}
-	read_heredocs(ctx, tokens);
+	if (read_heredocs(ctx, tokens) == 0)
+	{
+		g_exit_status = 1;
+		return ;
+	}
 	and_or(tokens, ctx);
+	switch_handler(ctx);
 }

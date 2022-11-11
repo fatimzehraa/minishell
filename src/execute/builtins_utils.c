@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:58:11 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 18:58:12 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/11 18:06:17 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "exec.h"
 #include <stdio.h>
 #include "parser.h"
+#include "str.h"
 #include "token.h"
 
 void	print_var(char *var, int size)
@@ -47,28 +48,32 @@ char	*get_val(char *s)
 	return (s + u);
 }
 
-void	search_and_replace(t_vec *env, char *var)
+int	search_and_replace(t_vec *env, char *var)
 {
-	int	pos;
-	int	i;
+	int		pos;
+	int		i;
+	char	*s;
 
 	if (!is_var(var) || (var[var_len(var)] != '\0' && var[var_len(var)] != '='
 			&&!(var[var_len(var)] == '+' && var[var_len(var) + 1] == '=')))
-	{
-		printf("syntax error\n");
-		return ;
-	}
+		return (ft_putstr(2,"syntax error\n"), 0);
 	i = until(var, "+=");
 	pos = search_vec(env, var, i);
-	if (pos != -1)
+	if (pos == -1)
+		return (vec_add(env, var), 1);
+	if (((char *)env->content[pos])[i] == '\0')
+		return (1);
+	s = ft_strndup(env->content[pos], -1);
+	if (var[i] == '+')
 	{
-		if (var[i] == '+' && *get_val(env->content[pos]) == '\0')
-			env->content[pos] = ft_strjoin(env->content[pos], "===", 1);
-		var = ft_strjoin(env->content[pos],
-				get_val(var), ft_strlen(get_val(var)));
-		vec_rem(env, pos);
+		s = ft_strjoin(s, get_val(var), -1);
+		env_replace(env, s, pos);
+		free(s);
+		return (1);
 	}
-	vec_add(env, var);
+	env_replace(env, get_val(var), pos);
+	return (free(s), 1);
+	
 }
 
 int	env_replace(t_vec *env, void *new_value, int pos)
@@ -77,15 +82,20 @@ int	env_replace(t_vec *env, void *new_value, int pos)
 	char	*new;
 
 	size = until(env->content[pos], "=");
-	new = ft_strjoin(NULL, env->content[pos], size);
+	if (new_value == NULL)
+	{
+		new = malloc((size + 1) * sizeof(char));
+		if (new == NULL)
+			return (0);
+		ft_strncpy(new, env->content[pos], 1);
+		return 1;
+	}
+	new = malloc((size + ft_strlen(new_value) + 2));
 	if (new == NULL)
 		return (0);
-	new = ft_strjoin(new, "=", 1);
-	if (new == NULL)
-		return (0);
-	new = ft_strjoin(new, new_value, -1);
-	if (new == NULL)
-		return (0);
+	ft_strncpy(new, env->content[pos], size);
+	ft_strncpy(new + size, "=", size);
+	ft_strncpy(new + size + 1, new_value, ft_strlen(new_value));
 	free(env->content[pos]);
 	env->content[pos] = new;
 	return (1);

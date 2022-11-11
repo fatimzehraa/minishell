@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:32:32 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/11 13:09:13 by fatimzehra       ###   ########.fr       */
+/*   Updated: 2022/11/11 16:56:53 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*get_command(t_ctx *ctx, t_list *cmds)
 		return (NULL);
 	index = search_vec_(&ctx->env, "PATH");
 	if (index == -1)
-		return (cmd->words.content[0]);
+		return (ft_strndup(cmd->words.content[0], -1));
 	path = ctx->env.content[index] + 5;
 	command = cmd->words.content[0];
 	cmd_path = find_path(path, command);
@@ -101,7 +101,7 @@ int	ft_wait(t_ctx *ctx, pid_t pid)
 	if (WIFSIGNALED(status))
 	{
 		if (WTERMSIG(status) == SIGQUIT)
-			printf("^\\Quit: 3\n");
+			printf("Quit: 3\n");
 		g_exit_status = WTERMSIG(status) + 128;
 	}
 	while (waitpid(-1, &status, 0) != -1)

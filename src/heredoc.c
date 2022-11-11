@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:55:29 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/11 14:32:07 by fatimzehra       ###   ########.fr       */
+/*   Updated: 2022/11/11 15:09:56 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,17 @@ void	expand_here_var(t_ctx *ctx, int fd, char *str)
 	}
 }
 
-void	heredoc(t_ctx *ctx, t_list *tks, int is_expandable)
+void	fill(char *line, int fd, t_list *tks, char *file_name)
+{
+	free(line);
+	close(fd);
+	str_free(&tk(tks->next)->str);
+	tk(tks->next)->str.val = file_name;
+	tk(tks->next)->str.size = ft_strlen(file_name);
+	tk(tks->next)->str.cap = tk(tks->next)->str.size;
+}
+
+int	heredoc(t_ctx *ctx, t_list *tks, int is_expandable)
 {
 	t_str	*delimiter;
 	int		fd;
@@ -57,7 +67,7 @@ void	heredoc(t_ctx *ctx, t_list *tks, int is_expandable)
 	file_name = get_tmp();
 	fd = open(file_name, O_CREAT | O_WRONLY, 0666);
 	if (fd == -1)
-		return ;
+		return (free(file_name), 0);
 	while (1)
 	{
 		line = readline("> ");
@@ -70,22 +80,20 @@ void	heredoc(t_ctx *ctx, t_list *tks, int is_expandable)
 		write(fd, "\n", 1);
 		free(line);
 	}
-	free(line);
-	close(fd);
-	str_free(&tk(tks->next)->str);
-	tk(tks->next)->str.val = file_name;
-	tk(tks->next)->str.size = ft_strlen(file_name);
-	tk(tks->next)->str.cap = tk(tks->next)->str.size;
+	fill(line, fd, tks, file_name);
+	return (1);
 }
 
-void	read_heredocs(t_ctx *ctx, t_list *tokens)
+int	read_heredocs(t_ctx *ctx, t_list *tokens)
 {
-	rl_catch_signals = 1;
-	while (tokens)
+	int	result;
+
+	result = 1;
+	while (result && tokens)
 	{
 		if (tk(tokens)->type == TOKEN_HEREDOC)
-			heredoc(ctx, tokens, join_here(tokens));
+			result = heredoc(ctx, tokens, join_here(tokens));
 		tokens = tokens->next;
 	}
-	rl_catch_signals = 0;
+	return (result);
 }

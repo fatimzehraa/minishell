@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:57:33 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 18:57:38 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/11 18:09:49 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,19 @@ int	expand_var(t_ctx *ctx, t_list *token)
 	return (ft_lstadd_back(&token, next), node != NULL);
 }
 
+t_list	*del_astrisk(t_list *curr, t_list *next)
+{
+	t_list	*tmp;
+
+	while (curr && curr != next)
+	{
+		tmp = curr->next;
+		ft_lstdelone(curr, free_token);
+		curr = tmp;
+	}
+	return (next);
+}
+
 t_list	*_expand_asterisk(t_list *curr, t_list *begin)
 {
 	t_list	*res;
@@ -79,7 +92,7 @@ t_list	*_expand_asterisk(t_list *curr, t_list *begin)
 			curr = curr->next;
 		}
 	}
-	return (curr);
+	return (del_astrisk(curr, next));
 }
 
 /*
@@ -99,6 +112,8 @@ int	expand_asterisk(t_list *tks)
 	{
 		if (tk(curr)->type == TOKEN_ASTERISK)
 			curr = _expand_asterisk(curr, head);
+		if (curr == NULL)
+			break ;
 		if (tk(curr)->has_space)
 			head = curr;
 		curr = curr->next;

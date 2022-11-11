@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:57:44 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 18:57:45 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/11 15:51:06 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_list	*match(t_list *tks)
 			break ;
 		if (entry->d_name[0] != '.' && is_match(entry->d_name, tks))
 		{
-			cur = new_token(ft_strndup(entry->d_name, -1));
+			cur = new_token(entry->d_name);
 			if (cur == NULL)
 				break ;
 			add(cur, &head);

@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 20:22:18 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 20:22:20 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/11 17:30:01 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	execute_echo(t_vec *cmd);
 void	execute_exit(t_ctx *ctx, t_vec cmd);
 void	print_var(char *var, int size);
 char	*get_val(char *s);
-void	search_and_replace(t_vec *env, char *var);
+int		search_and_replace(t_vec *env, char *var);
 int		env_replace(t_vec *env, void *new_value, int pos);
 void	redirect(t_list *reds, int cmd_fd[]);
 void	get_next_comb(char *s);

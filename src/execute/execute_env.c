@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 20:25:34 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 20:28:29 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/11 15:44:55 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	execute_export(t_ctx *ctx, t_vec cmd)
 		j = 1;
 		while (cmd.content[j])
 		{
-			search_and_replace(&ctx->env, cmd.content[j]);
+			search_and_replace(&ctx->env, ft_strndup(cmd.content[j], -1));
 			j++;
 		}
 	}

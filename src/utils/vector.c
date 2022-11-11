@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:56:08 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 18:56:09 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/11 16:49:25 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	vec_rem(t_vec *vec, int pos)
 		printf("abort\n");
 		exit(2);
 	}
+	free(vec->content[pos]);
 	i = pos;
 	while (i < vec->size)
 	{
