@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:12:32 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 20:19:57 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/11 08:52:13 by iait-bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ enum e_token {
 	TOKEN_OR= 1<<12,
 	TOKEN_EOL = 1<<13,
 	TOKEN_INVALID = 1<<14,
+	TOKEN_SUB_CMD = 1 << 15,
 };
 
 # define TOKEN_JOIN (0b11111)
@@ -71,4 +72,4 @@ int		var_len(char *cmd);
 int		word_len(char *cmd);
 int		tk_fill(t_list *node, enum e_token type, char *dup_value, int len);
 
-#endif // !TOKEN_H
+#endif

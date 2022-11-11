@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 21:13:03 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 18:55:45 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/11 12:24:52 by iait-bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,9 @@ int	and_or(t_list *tokens, t_ctx *ctx)
 		cmds = parser(tokens, ctx);
 		if (cmds == NULL)
 			return (switch_handler(ctx), ft_lstclear(&last, free_token), 0);
-		execute(cmds, ctx);
+		if (execute(cmds, ctx) == 0)
+			return (switch_handler(ctx), ft_lstclear
+				(&cmds, free_cmd), ft_lstclear(&last, free_token), 0);
 		ft_lstclear(&cmds, free_cmd);
 		if (g_exit_status != 0 && tk(last)->type == TOKEN_AND)
 			last = ignore(last->next);
@@ -73,7 +75,7 @@ int	and_or(t_list *tokens, t_ctx *ctx)
 		tokens = last->next;
 	}
 	switch_handler(ctx);
-	return (1);
+	return (ft_lstclear(&cmds, free_cmd), 1);
 }
 
 void	exec_line(char *line, t_ctx *ctx)

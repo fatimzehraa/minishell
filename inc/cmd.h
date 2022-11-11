@@ -19,6 +19,7 @@
 typedef struct s_cmd
 {
 	t_vec	words;
+	int		is_sub_cmd;
 	t_list	*red;
 }	t_cmd;
 

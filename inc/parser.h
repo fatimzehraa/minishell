@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 20:22:47 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 20:22:48 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/11 11:15:13 by iait-bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ void	read_heredocs(t_ctx *ctx, t_list *tokens);
 t_list	*match(t_list *tks);
 int		is_match(char *str, t_list *tks);
 t_list	*join69(t_list *tks);
+void	free_cmd(void *ptr);
 
 #endif

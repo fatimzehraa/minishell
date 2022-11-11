@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:54:44 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 18:54:45 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/11 12:36:15 by iait-bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	setup_signals(t_ctx *ctx)
 	struct sigaction	ign_act;
 
 	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTERM, SIG_IGN);
 	act.sa_flags = SA_RESTART;
 	act.sa_sigaction = handler;
 	sigemptyset(&act.sa_mask);
@@ -48,7 +49,16 @@ void	setup_signals(t_ctx *ctx)
 struct sigaction	switch_handler(t_ctx *ctx)
 {
 	struct sigaction	oact;
+	struct termios	term;
 
+	tcgetattr(0, &term);
+	if (term.c_cflag & ECHOCTL)
+		tcsetattr(0, TCSANOW, &ctx->restore);
+	else
+	{
+		term.c_lflag |= ECHOCTL;
+		tcsetattr(0, TCSANOW, &term);
+	}
 	sigaction(SIGINT, &ctx->old_act, &oact);
 	ctx->old_act = oact;
 	return (oact);

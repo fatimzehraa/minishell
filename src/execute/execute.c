@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:09:51 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 20:43:50 by bella            ###   ########.fr       */
+/*   Updated: 2022/11/11 12:14:03 by iait-bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include "parser.h"
 #include "str.h"
 #include "exec.h"
+#include "token.h"
 #include <stdio.h>
 
 int	check_builins(char *s)
@@ -71,11 +72,16 @@ void	ft_exec_child(t_ctx *ctx, t_list *cmds, char *cmd, int cmd_fd[])
 	int	fd_in;
 
 	fd_in = cmd_fd[2];
-	if (cmd == NULL)
+	if (!get_cmd(cmds)->is_sub_cmd && cmd == NULL)
 		exit(127);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	ft_dup(cmds, cmd_fd, fd_in);
+	if (get_cmd(cmds)->is_sub_cmd)
+	{
+		exec_line(get_cmd(cmds)->words.content[0], ctx);
+		exit(g_exit_status);
+	}
 	execve(cmd, (char **)get_cmd(cmds)->words.content,
 		(char **)ctx->env.content);
 	ft_putstr(2, "minishell: ");
@@ -131,9 +137,8 @@ int	execute(t_list *cmds, t_ctx *ctx)
 	{
 		pid = run_cmd(ctx, cmds, cmd_fd, fd);
 		if (pid == -1)
-			return (0);
+				break;
 		cmds = cmds->next;
 	}
-	ft_wait(ctx, pid);
-	return (1);
+	return (ft_wait(ctx, pid));
 }

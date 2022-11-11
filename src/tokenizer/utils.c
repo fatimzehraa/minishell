@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:56:49 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 20:47:29 by bella            ###   ########.fr       */
+/*   Updated: 2022/11/11 09:13:37 by iait-bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	tk_fill(t_list *node, enum e_token type, char *dup_value, int len)
 		tk(node)->type = TOKEN_INVALID;
 		type = TOKEN_INVALID;
 	}
-	if (type & (TOKEN_LITERAL | TOKEN_TEMPLATE))
+	if (type & (TOKEN_LITERAL | TOKEN_TEMPLATE | TOKEN_SUB_CMD))
 		tk(node)->len += 2;
 	if (dup_value != NULL)
 		if (!str_pnclone(&tk(node)->str, dup_value, len))

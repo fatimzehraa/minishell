@@ -6,11 +6,12 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:32:32 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 20:44:35 by bella            ###   ########.fr       */
+/*   Updated: 2022/11/11 12:40:01 by iait-bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <signal.h>
 #include <sys/wait.h>
 #include <unistd.h>
 #include "str.h"
@@ -57,6 +58,8 @@ char	*get_command(t_ctx *ctx, t_list *cmds)
 	char	*command;
 	char	*cmd_path;
 
+	if (get_cmd(cmds)->is_sub_cmd)
+		return (NULL);
 	cmd = get_cmd(cmds);
 	if (cmd->words.size == 0)
 		return (NULL);
@@ -80,6 +83,16 @@ int	ft_wait(t_ctx *ctx, pid_t pid)
 	int	status;
 
 	(void)ctx;
+	if (pid == -1)
+	{
+		g_exit_status = 1;
+		ft_putstr(2, "minishell: ");
+		perror("fork");
+		kill(0, SIGTERM);
+		while (waitpid(-1, 0, 0) != -1)
+			;
+		return (0);
+	}
 	waitpid(pid, &status, 0);
 	if (pid == -1)
 		status = 0;
@@ -90,12 +103,11 @@ int	ft_wait(t_ctx *ctx, pid_t pid)
 			printf("^\\Quit: 3\n");
 		g_exit_status = WTERMSIG(status) + 128;
 	}
-	while (4)
-	{
-		if (waitpid(-1, &status, 0) == -1)
-			break ;
-	}
-	return (status);
+	while (waitpid(-1, &status, 0) != -1)
+		;
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		ft_putstr(2, "\n");
+	return (1);
 }
 
 void	ft_dup(t_list *cmds, int cmd_fd[], int fd_in)

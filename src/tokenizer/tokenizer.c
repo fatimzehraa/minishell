@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:56:44 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 20:48:21 by bella            ###   ########.fr       */
+/*   Updated: 2022/11/11 10:58:54 by iait-bel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,31 @@ int	get_simple_nodes(t_list *node, char *line)
 	return (1);
 }
 
+int	sub_len(char *s)
+{
+	int	count;
+	int	len;
+
+	count = 1;
+	len = 0;
+	s++;
+	while (is_space(s[len]))
+		len++;
+	if (s[len] == ')')
+		return (-1);
+	while (count > 0 && s[len])
+	{
+		if (s[len] == '(')
+			count++;
+		if (s[len] != CHAR_DQ && s[len] != CHAR_SQ && s[len + 1] == ')')
+			count--;
+		len++;
+	}
+	if (s[len] == '\0')
+		return (-1);
+	return (len);
+}
+
 char	*ft_get_node(t_list	*node, char *line)
 {
 	if (node == NULL)
@@ -59,6 +84,8 @@ char	*ft_get_node(t_list	*node, char *line)
 		tk_fill(node, TOKEN_LITERAL, line + 1, string_len(line + 1, CHAR_SQ));
 	else if (*line == CHAR_DQ)
 		tk_fill(node, TOKEN_TEMPLATE, line + 1, string_len(line + 1, CHAR_DQ));
+	else if (*line == '(')
+		tk_fill(node, TOKEN_SUB_CMD, line + 1, sub_len(line));
 	else if (*line == '$' && is_var(line + 1))
 	{
 		line++;
