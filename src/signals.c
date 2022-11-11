@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:54:44 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/11 18:37:43 by fatimzehra       ###   ########.fr       */
+/*   Updated: 2022/11/11 20:31:13 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,17 @@ void	setup_signals(t_ctx *ctx)
 	ctx->old_act = ign_act;
 }
 
-struct sigaction	switch_handler(t_ctx *ctx)
+struct sigaction	switch_handler(t_ctx *ctx, int echo)
 {
 	struct sigaction	oact;
 	struct termios		term;
 
 	tcgetattr(0, &term);
-	if (term.c_cflag & ECHOCTL)
-		tcsetattr(0, TCSANOW, &ctx->restore);
+	if (!echo)
+	{
+		term.c_lflag &= ~ECHOCTL;
+		tcsetattr(0, TCSANOW, &term);
+	}
 	else
 	{
 		term.c_lflag |= ECHOCTL;

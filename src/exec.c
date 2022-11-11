@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 21:13:03 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/11 20:15:50 by fatimzehra       ###   ########.fr       */
+/*   Updated: 2022/11/11 20:32:59 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	and_or(t_list *tokens, t_ctx *ctx)
 	t_list	*cmds;
 	t_list	*last;
 
-	switch_handler(ctx);
+	switch_handler(ctx, 1);
 	while (tokens)
 	{
 		last = detach(tokens);
@@ -116,5 +116,5 @@ void	exec_line(char *line, t_ctx *ctx)
 		return ;
 	}
 	and_or(tokens, ctx);
-	switch_handler(ctx);
+	switch_handler(ctx, 0);
 }

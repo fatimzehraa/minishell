@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 20:20:26 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 20:21:28 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/11 20:31:44 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ typedef struct s_ctx
 int					clone_env(char **envp, t_vec *env);
 char				*get_env(char *var, t_vec *env);
 void				setup_signals(t_ctx *ctx);
-struct sigaction	switch_handler(t_ctx *ctx);
+struct sigaction	switch_handler(t_ctx *ctx, int echo);
 extern int			g_exit_status;
 #endif // !MINISHELL_H
