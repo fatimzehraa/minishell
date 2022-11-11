@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:56:44 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/11 10:58:54 by iait-bel         ###   ########.fr       */
+/*   Updated: 2022/11/11 13:25:20 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,5 @@ t_list	*tokenizer(char	*line)
 			return (ft_lstclear(&list, free_token), NULL);
 		ft_lstadd_back(&list, node);
 	}
-	node = new_token(NULL);
-	if (node == NULL)
-		return (ft_lstclear(&list, free_token), NULL);
-	ft_lstadd_back(&list, node);
 	return (list);
 }

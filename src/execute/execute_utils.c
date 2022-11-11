@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:32:32 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/11 12:40:01 by iait-bel         ###   ########.fr       */
+/*   Updated: 2022/11/11 13:09:13 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <sys/errno.h>
 #include <string.h>
 #include <sys/stat.h>
+#include "str.h"
 
 char	*find_path(char *path, char *cmd)
 {
@@ -30,7 +31,7 @@ char	*find_path(char *path, char *cmd)
 
 	cmd_len = ft_strlen(cmd);
 	if (cmd[0] == '/' || cmd[0] == '.')
-		return (cmd);
+		return (ft_strndup(cmd, -1));
 	if (cmd[0] == '\0')
 		return (NULL);
 	while (*path)

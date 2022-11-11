@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:09:51 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/11 12:14:03 by iait-bel         ###   ########.fr       */
+/*   Updated: 2022/11/11 13:05:15 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ int	run_cmd(t_ctx *ctx, t_list *cmd, int cmd_fd[], int fd[])
 		ft_exec_child(ctx, cmd, name, cmd_fd);
 	close(cmd_fd[0]);
 	close(cmd_fd[1]);
+	free(name);
 	if (!cmd->next)
 		last_fd = -1;
 	return (pid);

@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:55:29 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 18:55:36 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/11 14:32:07 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,22 @@ void	heredoc(t_ctx *ctx, t_list *tks, int is_expandable)
 		write(fd, "\n", 1);
 		free(line);
 	}
+	free(line);
 	close(fd);
 	str_free(&tk(tks->next)->str);
-	str_mk(&tk(tks->next)->str, file_name);
+	tk(tks->next)->str.val = file_name;
+	tk(tks->next)->str.size = ft_strlen(file_name);
+	tk(tks->next)->str.cap = tk(tks->next)->str.size;
 }
 
 void	read_heredocs(t_ctx *ctx, t_list *tokens)
 {
+	rl_catch_signals = 1;
 	while (tokens)
 	{
 		if (tk(tokens)->type == TOKEN_HEREDOC)
 			heredoc(ctx, tokens, join_here(tokens));
 		tokens = tokens->next;
 	}
+	rl_catch_signals = 0;
 }

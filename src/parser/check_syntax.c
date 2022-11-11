@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:15:16 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/11 10:56:55 by iait-bel         ###   ########.fr       */
+/*   Updated: 2022/11/11 13:29:20 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_if_followed(t_list *tokens)
 {
 	return (is_special_token(tk(tokens))
 		&& (is_special_token(tk(tokens->next))
-			|| tk(tokens->next)->type == TOKEN_EOL));
+			|| tokens->next == NULL));
 }
 
 int	check_redirections(t_list *tokens)
@@ -78,9 +78,9 @@ int	check_syntax(t_list *tokens)
 	head = tokens;
 	if (is_special_token(tk(tokens)))
 		return (0);
-	if (tk(tokens)->type == TOKEN_EOL)
+	if (tokens == NULL)
 		return (1);
-	while (tk(tokens)->type != TOKEN_EOL)
+	while (tokens)
 	{
 		if (check_if_followed(tokens)
 			|| !check_redirections(tokens)

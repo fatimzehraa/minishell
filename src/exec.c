@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 21:13:03 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/11 12:24:52 by iait-bel         ###   ########.fr       */
+/*   Updated: 2022/11/11 14:09:51 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_list	*detach(t_list *tokens)
 	t_list	*last;
 
 	last = NULL;
-	while (!(tk(tokens)->type & TOKEN_LIST))
+	while (tokens && !(tk(tokens)->type & TOKEN_LIST))
 	{
 		last = tokens;
 		tokens = tokens->next;
@@ -50,6 +50,7 @@ void	free_cmd(void *ptr)
 	cmd = ptr;
 	free_vec(&cmd->words);
 	ft_lstclear(&cmd->red, free_token);
+	free(ptr);
 }
 
 int	and_or(t_list *tokens, t_ctx *ctx)
@@ -58,7 +59,7 @@ int	and_or(t_list *tokens, t_ctx *ctx)
 	t_list	*last;
 
 	switch_handler(ctx);
-	while (tokens)
+	while (tokens && !(tk(tokens)->type & TOKEN_EOL))
 	{
 		last = detach(tokens);
 		cmds = parser(tokens, ctx);
@@ -68,14 +69,18 @@ int	and_or(t_list *tokens, t_ctx *ctx)
 			return (switch_handler(ctx), ft_lstclear
 				(&cmds, free_cmd), ft_lstclear(&last, free_token), 0);
 		ft_lstclear(&cmds, free_cmd);
-		if (g_exit_status != 0 && tk(last)->type == TOKEN_AND)
+		if (g_exit_status != 0 && last && tk(last)->type == TOKEN_AND)
 			last = ignore(last->next);
-		else if (g_exit_status == 0 && tk(last)->type == TOKEN_OR)
+		else if (g_exit_status == 0 && last && tk(last)->type == TOKEN_OR)
 			last = ignore(last->next);
-		tokens = last->next;
+		if(last)
+			tokens = last->next;
+		else
+			tokens = NULL;
 	}
+	ft_lstclear(&tokens, free_token);
 	switch_handler(ctx);
-	return (ft_lstclear(&cmds, free_cmd), 1);
+	return (1);
 }
 
 void	exec_line(char *line, t_ctx *ctx)
