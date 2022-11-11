@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:55:58 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 18:56:00 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/11 18:17:18 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ char	*get_env(char *var, t_vec *env)
 
 	holder = search_vec(env, var, ft_strlen(var));
 	if (holder == -1)
-		value = ft_strndup("", 0);
+		value = "";
 	else
-		value = ft_strndup(env->content[holder] + ft_strlen(var) + 1, -1);
+		value = env->content[holder] + ft_strlen(var) + 1;
 	return (value);
 }
 
