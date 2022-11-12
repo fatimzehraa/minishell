@@ -6,13 +6,14 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:57:29 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 18:57:31 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/12 12:25:39 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "list.h"
 #include "str.h"
 #include "token.h"
+#include <stdio.h>
 
 int	join_seq(t_str *str, t_list *tks, t_list **plast)
 {
@@ -33,11 +34,39 @@ int	join_seq(t_str *str, t_list *tks, t_list **plast)
 	return (1);
 }
 
-int	join(t_list *tks)
+void	del_empty_var(t_list **tks)
+{
+	t_list	*tmp;
+	t_list	*prev;
+	t_list	*cur;
+
+	prev = NULL;
+	cur = *tks;
+	while (cur)
+	{
+		if (tk(cur)->type == TOKEN_VAR
+			&& tk(cur)->str.val == NULL)
+		{
+			tmp = cur;
+			cur = cur->next;
+			if (prev == NULL)
+				*tks = cur;
+			else
+				prev->next = cur;
+			ft_lstdelone(tmp, free_token);
+			continue ;
+		}
+		prev = cur;
+		cur = cur->next;
+	}
+}
+
+int	join(t_list **tks)
 {
 	t_list	*cur;
 
-	cur = tks;
+	del_empty_var(tks);
+	cur = *tks;
 	while (cur)
 	{
 		if (tk(cur)->type == TOKEN_WORD

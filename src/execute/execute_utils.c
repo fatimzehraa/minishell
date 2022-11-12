@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:32:32 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/11 16:56:53 by fatimzehra       ###   ########.fr       */
+/*   Updated: 2022/11/12 10:32:29 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*get_command(t_ctx *ctx, t_list *cmds)
 	if (cmd->words.size == 0)
 		return (NULL);
 	index = search_vec_(&ctx->env, "PATH");
-	if (index == -1)
+	if (index == -1 || check_builins(cmd->words.content[0]))
 		return (ft_strndup(cmd->words.content[0], -1));
 	path = ctx->env.content[index] + 5;
 	command = cmd->words.content[0];
@@ -79,23 +79,20 @@ char	*get_command(t_ctx *ctx, t_list *cmds)
 	return (cmd_path);
 }
 
-int	ft_wait(t_ctx *ctx, pid_t pid)
+int	ft_wait(pid_t pid)
 {
 	int	status;
 
-	(void)ctx;
 	if (pid == -1)
 	{
 		g_exit_status = 1;
-		ft_putstr(2, "minishell: ");
-		perror("fork");
+		perror("minishell: fork");
 		kill(0, SIGTERM);
 		while (waitpid(-1, 0, 0) != -1)
 			;
 		return (0);
 	}
-	waitpid(pid, &status, 0);
-	if (pid == -1)
+	if (waitpid(pid, &status, 0) == -1)
 		status = 0;
 	g_exit_status = WEXITSTATUS(status);
 	if (WIFSIGNALED(status))
@@ -111,14 +108,16 @@ int	ft_wait(t_ctx *ctx, pid_t pid)
 	return (1);
 }
 
-void	ft_dup(t_list *cmds, int cmd_fd[], int fd_in)
+int	ft_dup(t_list *cmds, int cmd_fd[], int fd_in)
 {
-	redirect(get_cmd(cmds)->red, cmd_fd);
+	if (redirect(get_cmd(cmds)->red, cmd_fd) == 0)
+		return (0);
 	dup2(cmd_fd[0], 0);
 	close(cmd_fd[0]);
 	dup2(cmd_fd[1], 1);
 	close(cmd_fd[1]);
 	close(fd_in);
+	return (1);
 }
 
 int	is_dir(char *filename)

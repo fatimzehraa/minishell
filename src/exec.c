@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 21:13:03 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/11 20:32:59 by fatimzehra       ###   ########.fr       */
+/*   Updated: 2022/11/12 12:28:19 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_list	*ignore(t_list *tokens, int one)
 	t_list	*tmp;
 
 	if (tokens == NULL)
-		return NULL;
+		return (NULL);
 	if (tk(tokens)->type & TOKEN_LIST)
 	{
 		tmp = tokens->next;
@@ -35,7 +35,7 @@ t_list	*ignore(t_list *tokens, int one)
 		tokens = tmp;
 	}
 	if (one)
-		return tokens;
+		return (tokens);
 	while (tokens && !(tk(tokens)->type & TOKEN_LIST))
 	{
 		tmp = tokens->next;

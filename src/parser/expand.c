@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:57:33 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/11 18:19:09 by fatimzehra       ###   ########.fr       */
+/*   Updated: 2022/11/12 11:58:42 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	expand_var(t_ctx *ctx, t_list *token)
 	int		has_space;
 
 	value = get_env(tk(token)->str.val, &ctx->env);
-	if (value == NULL)
-		return (0);
+	if (*value == '\0')
+		return (str_free(&tk(token)->str), 1);
 	has_space = tk(token)->has_space;
 	next = token->next;
 	token->next = NULL;

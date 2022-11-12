@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:09:51 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/11 13:05:15 by fatimzehra       ###   ########.fr       */
+/*   Updated: 2022/11/12 12:22:17 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	execute_bultin(t_ctx *ctx, t_list *cmds, int cmd_fd[2])
 	fd[0] = dup(0);
 	fd[1] = dup(1);
 	cmd = get_cmd(cmds)->words;
-	ft_dup(cmds, cmd_fd, -1);
+	if (ft_dup(cmds, cmd_fd, -1) == 0)
+		return (1);
 	if (ft_strncmp(cmd.content[0], "cd", 3) == 0)
 		execute_cd(ctx, &cmd);
 	else if (ft_strncmp(cmd.content[0], "pwd", 4) == 0)
@@ -63,8 +64,7 @@ int	execute_bultin(t_ctx *ctx, t_list *cmds, int cmd_fd[2])
 		execute_echo(&cmd);
 	else if (ft_strncmp(cmd.content[0], "exit", 5) == 0)
 		execute_exit(ctx, cmd);
-	dup2(fd[0], 0);
-	return (close(fd[0]), dup2(fd[1], 1), close(fd[1]));
+	return (dup2(fd[0], 0), close(fd[0]), dup2(fd[1], 1), close(fd[1]));
 }
 
 void	ft_exec_child(t_ctx *ctx, t_list *cmds, char *cmd, int cmd_fd[])
@@ -72,23 +72,27 @@ void	ft_exec_child(t_ctx *ctx, t_list *cmds, char *cmd, int cmd_fd[])
 	int	fd_in;
 
 	fd_in = cmd_fd[2];
-	if (!get_cmd(cmds)->is_sub_cmd && cmd == NULL)
-		exit(127);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	ft_dup(cmds, cmd_fd, fd_in);
+	if (ft_dup(cmds, cmd_fd, fd_in) == 0)
+		exit(1);
+	if (!get_cmd(cmds)->is_sub_cmd && cmd == NULL
+		&& get_cmd(cmds)->red == NULL)
+		exit(127);
+	if (!get_cmd(cmds)->is_sub_cmd && cmd == NULL)
+		exit(0);
 	if (get_cmd(cmds)->is_sub_cmd)
 	{
 		exec_line(get_cmd(cmds)->words.content[0], ctx);
 		exit(g_exit_status);
 	}
+	if (check_builins(get_cmd(cmds)->words.content[0]))
+		return (execute_bultin(ctx, cmds, cmd_fd), exit(g_exit_status));
 	execve(cmd, (char **)get_cmd(cmds)->words.content,
 		(char **)ctx->env.content);
 	ft_putstr(2, "minishell: ");
 	perror(cmd);
-	if (errno == EACCES)
-		exit(126);
-	exit(127);
+	exit(127 - (errno == EACCES));
 }
 
 int	run_cmd(t_ctx *ctx, t_list *cmd, int cmd_fd[], int fd[])
@@ -115,10 +119,9 @@ int	run_cmd(t_ctx *ctx, t_list *cmd, int cmd_fd[], int fd[])
 		ft_exec_child(ctx, cmd, name, cmd_fd);
 	close(cmd_fd[0]);
 	close(cmd_fd[1]);
-	free(name);
 	if (!cmd->next)
 		last_fd = -1;
-	return (pid);
+	return (free(name), pid);
 }
 
 int	execute(t_list *cmds, t_ctx *ctx)
@@ -138,8 +141,8 @@ int	execute(t_list *cmds, t_ctx *ctx)
 	{
 		pid = run_cmd(ctx, cmds, cmd_fd, fd);
 		if (pid == -1)
-				break;
+			break ;
 		cmds = cmds->next;
 	}
-	return (ft_wait(ctx, pid));
+	return (ft_wait(pid));
 }

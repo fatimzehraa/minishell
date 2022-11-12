@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:58:11 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/11 18:06:17 by fatimzehra       ###   ########.fr       */
+/*   Updated: 2022/11/12 12:27:06 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	search_and_replace(t_vec *env, char *var)
 
 	if (!is_var(var) || (var[var_len(var)] != '\0' && var[var_len(var)] != '='
 			&&!(var[var_len(var)] == '+' && var[var_len(var) + 1] == '=')))
-		return (ft_putstr(2,"syntax error\n"), 0);
+		return (ft_putstr(2, "syntax error\n"), 0);
 	i = until(var, "+=");
 	pos = search_vec(env, var, i);
 	if (pos == -1)
@@ -73,7 +73,6 @@ int	search_and_replace(t_vec *env, char *var)
 	}
 	env_replace(env, get_val(var), pos);
 	return (free(s), 1);
-	
 }
 
 int	env_replace(t_vec *env, void *new_value, int pos)
@@ -88,7 +87,7 @@ int	env_replace(t_vec *env, void *new_value, int pos)
 		if (new == NULL)
 			return (0);
 		ft_strncpy(new, env->content[pos], 1);
-		return 1;
+		return (1);
 	}
 	new = malloc((size + ft_strlen(new_value) + 2));
 	if (new == NULL)

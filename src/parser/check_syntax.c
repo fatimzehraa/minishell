@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:15:16 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/11 13:29:20 by fatimzehra       ###   ########.fr       */
+/*   Updated: 2022/11/11 21:01:32 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	is_special_token(t_token *token)
 
 int	check_if_followed(t_list *tokens)
 {
+	if (is_special_token(tk(tokens)) && tokens->next == NULL)
+		return (1);
 	return (is_special_token(tk(tokens))
 		&& (is_special_token(tk(tokens->next))
 			|| tokens->next == NULL));
@@ -35,7 +37,7 @@ int	check_redirections(t_list *tokens)
 {
 	if (tk(tokens)->type & TOKEN_RED)
 	{
-		return (tk(tokens->next)->type & TOKEN_JOIN);
+		return (tokens->next && tk(tokens->next)->type & TOKEN_JOIN);
 	}
 	return (1);
 }
@@ -48,7 +50,7 @@ int	check_sub_cmd(t_list *tokens)
 	int	has_words;
 	int	sub_cmd_count;
 
-	while (tokens && !(tk(tokens)->type & TOKEN_EOL))
+	while (tokens)
 	{
 		sub_cmd_count = 0;
 		has_words = 0;

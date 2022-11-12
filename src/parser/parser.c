@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:57:17 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/11 11:39:10 by iait-bel         ###   ########.fr       */
+/*   Updated: 2022/11/12 11:51:13 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_list	*parser(t_list *tokens, t_ctx *ctx)
 {
 	if (!expand(tokens, ctx))
 		return (NULL);
-	if (!join(tokens))
+	if (!join(&tokens))
 		return (NULL);
 	return (filter_cmd(tokens));
 }
