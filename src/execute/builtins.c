@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:58:17 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 20:30:16 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/12 15:34:59 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,7 @@ int	_cd(t_ctx *ctx, char *path)
 
 	oldpwd = getcwd(NULL, 0);
 	if (oldpwd == NULL)
-	{
-		perror("minishell: ");
-		return (1);
-	}
+		return (perror("minishell: "), 1);
 	if (chdir(path) == -1)
 	{
 		ft_putstr(2, "minishell: cd: ");
@@ -70,13 +67,17 @@ int	_cd(t_ctx *ctx, char *path)
 		return (perror(": "), free(oldpwd), 1);
 	}
 	pos = search_vec(&ctx->env, "PWD", 3);
+	if (pos == -1)
+		vec_add(&ctx->env, ft_strndup("PWD=", -1));
+	pos = search_vec(&ctx->env, "PWD", 3);
 	pwd = getcwd(NULL, 0);
 	env_replace(&ctx->env, pwd, pos);
 	pos = search_vec(&ctx->env, "OLDPWD", 6);
+	if (pos == -1)
+		vec_add(&ctx->env, ft_strndup("OLDPWD=", -1));
+	pos = search_vec(&ctx->env, "OLDPWD", 6);
 	env_replace(&ctx->env, oldpwd, pos);
-	free(pwd);
-	free(oldpwd);
-	return (0);
+	return (free(pwd), free(oldpwd), 0);
 }
 
 void	execute_cd(t_ctx *ctx, t_vec *cmd)

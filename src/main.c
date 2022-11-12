@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:54:35 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/11 12:29:56 by iait-bel         ###   ########.fr       */
+/*   Updated: 2022/11/12 15:56:43 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ int	main(int argc, char *argv[], char **envp)
 	code = launch(&ctx);
 	free_vec(&ctx.env);
 	rl_clear_history();
+	tcsetattr(0, TCSANOW, &ctx.restore);
 	return (code);
 }

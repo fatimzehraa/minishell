@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:58:11 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/12 15:14:09 by fatimzehra       ###   ########.fr       */
+/*   Updated: 2022/11/12 15:42:16 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,11 @@ int	search_and_replace(t_vec *env, char *var)
 	int		i;
 	char	*s;
 
+	g_exit_status = 1;
 	if (!is_var(var) || (var[var_len(var)] != '\0' && var[var_len(var)] != '='
 			&&!(var[var_len(var)] == '+' && var[var_len(var) + 1] == '=')))
 		return (ft_putstr(2, "syntax error\n"), 0);
+	g_exit_status = 0;
 	i = until(var, "+=");
 	pos = search_vec(env, var, i);
 	if (pos == -1)
