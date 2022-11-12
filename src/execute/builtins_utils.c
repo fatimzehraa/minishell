@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:58:11 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/12 12:27:06 by fatimzehra       ###   ########.fr       */
+/*   Updated: 2022/11/12 15:14:09 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	search_and_replace(t_vec *env, char *var)
 	pos = search_vec(env, var, i);
 	if (pos == -1)
 		return (vec_add(env, var), 1);
-	if (((char *)env->content[pos])[i] == '\0')
+	if (var[i] == '\0')
 		return (1);
 	s = ft_strndup(env->content[pos], -1);
 	if (var[i] == '+')
