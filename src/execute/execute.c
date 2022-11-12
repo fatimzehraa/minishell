@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:09:51 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/12 12:22:17 by fatimzehra       ###   ########.fr       */
+/*   Updated: 2022/11/12 13:17:22 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,16 +103,16 @@ int	run_cmd(t_ctx *ctx, t_list *cmd, int cmd_fd[], int fd[])
 
 	name = get_command(ctx, cmd);
 	if (is_dir(name))
-		return (-1);
+		return (free(name), -2);
 	cmd_fd[0] = last_fd;
+	cmd_fd[1] = -1;
 	if (cmd->next != NULL)
 	{
-		pipe(fd);
+		if (pipe(fd))
+			return (free(name), -2);
 		last_fd = fd[0];
 		cmd_fd[1] = fd[1];
 	}
-	else
-		cmd_fd[1] = -1;
 	cmd_fd[2] = fd[0];
 	pid = fork();
 	if (pid == 0)
@@ -131,10 +131,10 @@ int	execute(t_list *cmds, t_ctx *ctx)
 	int	pid;
 
 	g_exit_status = 0;
-	pid = -1;
+	pid = -2;
 	if (cmds && !cmds->next && get_cmd(cmds)->words.size != 0
 		&& check_builins(get_cmd(cmds)->words.content[0]))
-		return (execute_bultin(ctx, cmds, cmd_fd), 0);
+		return (execute_bultin(ctx, cmds, cmd_fd), 1);
 	fd[0] = -1;
 	fd[1] = -1;
 	while (cmds)
