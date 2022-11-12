@@ -1,9 +1,9 @@
 [
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -18,10 +18,10 @@
   "file": "src/main.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -36,10 +36,10 @@
   "file": "src/signals.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -54,10 +54,10 @@
   "file": "src/exec.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -72,28 +72,10 @@
   "file": "src/env.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-g",
-   "-fsanitize=address",
-   "-I./inc",
-   "-c",
-   "src/term.c",
-   "-o",
-   "build/term.o"
-  ],
-  "file": "src/term.c"
- },
- {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
-  "arguments": [
-   "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -108,10 +90,28 @@
   "file": "src/heredoc.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-fsanitize=address",
+   "-I./inc",
+   "-c",
+   "src/heredoc_utils.c",
+   "-o",
+   "build/heredoc_utils.o"
+  ],
+  "file": "src/heredoc_utils.c"
+ },
+ {
+  "directory": "/Users/iait-bel/projects/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -126,10 +126,10 @@
   "file": "src/tokenizer/tokenizer.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -144,10 +144,10 @@
   "file": "src/tokenizer/utils.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -162,10 +162,10 @@
   "file": "src/tokenizer/scanner.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -180,10 +180,10 @@
   "file": "src/str/core_utils.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -198,10 +198,10 @@
   "file": "src/str/core.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -216,10 +216,10 @@
   "file": "src/utils/ft_lib.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -234,10 +234,10 @@
   "file": "src/utils/str.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -252,10 +252,46 @@
   "file": "src/utils/str_extra.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-fsanitize=address",
+   "-I./inc",
+   "-c",
+   "src/utils/str_extra_extra.c",
+   "-o",
+   "build/utils/str_extra_extra.o"
+  ],
+  "file": "src/utils/str_extra_extra.c"
+ },
+ {
+  "directory": "/Users/iait-bel/projects/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-fsanitize=address",
+   "-I./inc",
+   "-c",
+   "src/utils/ft_itoa.c",
+   "-o",
+   "build/utils/ft_itoa.o"
+  ],
+  "file": "src/utils/ft_itoa.c"
+ },
+ {
+  "directory": "/Users/iait-bel/projects/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -270,10 +306,10 @@
   "file": "src/utils/vector.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -288,10 +324,10 @@
   "file": "src/utils/vector_extra.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -306,10 +342,10 @@
   "file": "src/utils/expand.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -324,10 +360,10 @@
   "file": "src/parser/expand.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -342,10 +378,10 @@
   "file": "src/parser/parser.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -360,10 +396,10 @@
   "file": "src/parser/join.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -378,10 +414,10 @@
   "file": "src/parser/asterisk.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -396,10 +432,28 @@
   "file": "src/parser/check_syntax.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-fsanitize=address",
+   "-I./inc",
+   "-c",
+   "src/parser/template.c",
+   "-o",
+   "build/parser/template.o"
+  ],
+  "file": "src/parser/template.c"
+ },
+ {
+  "directory": "/Users/iait-bel/projects/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -414,10 +468,28 @@
   "file": "src/execute/execute.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-fsanitize=address",
+   "-I./inc",
+   "-c",
+   "src/execute/execute_utils.c",
+   "-o",
+   "build/execute/execute_utils.o"
+  ],
+  "file": "src/execute/execute_utils.c"
+ },
+ {
+  "directory": "/Users/iait-bel/projects/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -432,10 +504,10 @@
   "file": "src/execute/builtins.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -450,10 +522,10 @@
   "file": "src/execute/builtins_utils.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -468,10 +540,28 @@
   "file": "src/execute/redirections.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-fsanitize=address",
+   "-I./inc",
+   "-c",
+   "src/execute/execute_env.c",
+   "-o",
+   "build/execute/execute_env.o"
+  ],
+  "file": "src/execute/execute_env.c"
+ },
+ {
+  "directory": "/Users/iait-bel/projects/minishell",
+  "arguments": [
+   "cc",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -486,10 +576,10 @@
   "file": "src/execute/execute_echo.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -504,10 +594,10 @@
   "file": "src/execute/execute_exit.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -522,10 +612,10 @@
   "file": "src/lists/ft_lstadd_back.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -540,10 +630,10 @@
   "file": "src/lists/ft_lstclear.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -558,10 +648,10 @@
   "file": "src/lists/ft_lstiter.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -576,10 +666,10 @@
   "file": "src/lists/ft_lstmap.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -594,10 +684,10 @@
   "file": "src/lists/ft_lstsize.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -612,10 +702,10 @@
   "file": "src/lists/ft_lstadd_front.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -630,10 +720,10 @@
   "file": "src/lists/ft_lstdelone.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -648,10 +738,10 @@
   "file": "src/lists/ft_lstlast.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -666,10 +756,10 @@
   "file": "src/lists/ft_lstnew.c"
  },
  {
-  "directory": "/Users/fael-bou/Desktop/projects/minishell",
+  "directory": "/Users/iait-bel/projects/minishell",
   "arguments": [
    "cc",
-   "-I/Users/fael-bou/.brew/opt/readline/include",
+   "-I/Users/iait-bel/.local/.brew/opt/readline/include",
    "-Wall",
    "-Wextra",
    "-Werror",

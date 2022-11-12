@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS += -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS += -Wall -Wextra -Werror
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S), Darwin)
@@ -7,10 +7,11 @@ ifeq ($(UNAME_S), Darwin)
 else
 	LDFLAGS = -lreadline -ltinfo
 endif
-LDFLAGS += -fsanitize=address
 
 INCLUDES = -I./inc
 BUILD_DIR = build
+
+HEADER_FILES = $(addprefix inc/, cmd.h exec.h list.h minishell.h parser.h str.h token.h utils.h vector.h)
 
 MANDATORY_OBJ = main.o signals.o exec.o env.o heredoc.o heredoc_utils.o tokenizer/tokenizer.o tokenizer/utils.o \
 	tokenizer/scanner.o str/core_utils.o str/core.o utils/ft_lib.o utils/str.o utils/str_extra.o utils/str_extra_extra.o utils/ft_itoa.o \
@@ -31,7 +32,7 @@ all : $(NAME)
 $(NAME) : $(M_OBJ)
 	$(CC) $(LDFLAGS) $^ -o $@
 
-$(BUILD_DIR)/%.o: src/%.c
+$(BUILD_DIR)/%.o: src/%.c $(HEADER_FILES)
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
