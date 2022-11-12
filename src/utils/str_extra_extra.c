@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:56:11 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/10 20:31:18 by fael-bou         ###   ########.fr       */
+/*   Updated: 2022/11/12 15:06:29 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,12 @@ int	str_ppsame(t_str *s1, char *s2, int s2_size)
 {
 	int	i;
 
+	(void) s2_size;
 	i = 0;
-	while (i < s2_size)
+	while (i < s1->size)
 	{
 		if (s1->val[i] != s2[i])
-			return (i);
+			return (-1);
 		i++;
 	}
 	return (i);

@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:57:44 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/12 13:44:25 by fatimzehra       ###   ########.fr       */
+/*   Updated: 2022/11/12 15:02:31 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "str.h"
 #include "token.h"
 #include <dirent.h>
+#include <stdio.h>
 #include "parser.h"
 
 int	get_next_char(char *str, char c)
@@ -62,7 +63,7 @@ int	is_match(char *str, t_list *tks)
 		else if (tk(tks)->type == TOKEN_WORD)
 		{
 			n = str_ppsame(&tk(tks)->str, str, ft_strlen(str));
-			if (n == 0)
+			if (n == -1)
 				return (0);
 			str += n;
 			tks = tks->next;
