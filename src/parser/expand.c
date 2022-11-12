@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:57:33 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/12 11:58:42 by fatimzehra       ###   ########.fr       */
+/*   Updated: 2022/11/12 13:43:07 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	expand_var(t_ctx *ctx, t_list *token)
 		str_init(&tk(node)->str);
 		if (get_next_word(&tk(node)->str, &value) == 0)
 			return (ft_lstadd_back(&token, next), 0);
-		add(node, &token);
+		add(node, &token, 0);
 		if (*value)
 			node = new_token(NULL);
 	}

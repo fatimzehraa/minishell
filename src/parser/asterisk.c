@@ -6,7 +6,7 @@
 /*   By: fael-bou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:57:44 by fael-bou          #+#    #+#             */
-/*   Updated: 2022/11/11 15:51:06 by fatimzehra       ###   ########.fr       */
+/*   Updated: 2022/11/12 13:44:25 by fatimzehra       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ int	is_match(char *str, t_list *tks)
 	return (*str == 0);
 }
 
-void	add(t_list *cur, t_list **head)
+void	add(t_list *cur, t_list **head, int has_space)
 {
 	tk(cur)->type = TOKEN_WORD;
-	tk(cur)->has_space = 1;
+	tk(cur)->has_space = has_space;
 	ft_lstadd_back(head, cur);
 }
 
@@ -101,7 +101,7 @@ t_list	*match(t_list *tks)
 			cur = new_token(entry->d_name);
 			if (cur == NULL)
 				break ;
-			add(cur, &head);
+			add(cur, &head, 1);
 		}
 	}
 	if (cur == NULL)
